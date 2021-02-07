@@ -1,7 +1,7 @@
 {
-  "name": "simple-chat",
+  "name": "simple-chat-frontend",
   "version": "0.1.0",
-  "description": "simple-chat application, built with React.",
+  "description": "Simple Chat frontend, built with React + TypeScript.",
   "main": "index.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production ts-node scripts/build",
@@ -18,9 +18,12 @@
     "test:verbose": "npm test -- --verbose",
     "test:watch": "npm test -- --watchAll"
   },
-  "repository": {},
-  "author": "",
-  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/dzervoudakes/simple-chat.git"
+  },
+  "author": "dzervoudakes",
+  "license": "MIT",
   "dependencies": {
     "core-js": "3.8.3",
     "react": "17.0.1",

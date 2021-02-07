@@ -1,7 +1,5 @@
-# TypeScript React Template
-> Welcome to your new React app.
-
-[![prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://prettier.io/)
+# Simple Chat
+> Simple Chat frontend, built with React + TypeScript.
 
 ## Build Scripts
 
@@ -74,17 +72,3 @@ npm run docs
 ```
 npm run clean
 ```
-
-## Technical Requirements
-> The runtime environment for this application requires `node >= 14.6.0` and `npm >= 6.14.7`.
-
-## Configuration
-> This application makes use of `ESLint`, `Stylelint` and `EditorConfig`. Each of these features requires
-> an extension be installed in order to work properly with IDEs and text editors such as VSCode.
-
-## Content Structure
-- Shared components live under `./src/components`
-- Top-level page view components live under `./src/pages`
-- Application routes live under `./src/routes`
-- Global styles live under `./src/scss`
-- The inherited Webpack config aliases `@src/*` as an absolute import path to `./src/*`
