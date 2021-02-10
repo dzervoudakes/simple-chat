@@ -1,5 +1,5 @@
-# Simple Chat
-> Simple Chat frontend, built with React, TypeScript and Socket.io-client.
+# Simple Chat Frontend
+> Built with React, TypeScript and Socket.io-client.
 
 ## Build Scripts
 

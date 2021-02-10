@@ -1,5 +1,5 @@
-# User Management Backend
-> Simple Chat backend, built with Node, Express and Socket.io.
+# Simple Chat Backend
+> Built with Node, Express and Socket.io.
 
 ## Build Scripts
 
