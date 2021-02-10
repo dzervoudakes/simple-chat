@@ -8,13 +8,13 @@
 
 ## Premise
 
-A simple chat UI with a preconfigured list of chatrooms which users can contribute to. All chats are ephemeral with no data persistence.
+A simple, real-time chat UI with a preconfigured list of chatrooms which users can contribute to. All chats are ephemeral with no data persistence.
 
 <!-- <img src="demo.gif" height="350"/> -->
 
 ## Technologies Used
 
-- **Frontend:** React, TypeScript, CSS-in-JS theming
+- **Frontend:** React, TypeScript, Socket.io-client, CSS-in-JS theming
 - **Backend:** Node + Express, Socket.io
 - **CI/CD:** GitHub Actions
 

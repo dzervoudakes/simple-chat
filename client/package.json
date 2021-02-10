@@ -1,7 +1,7 @@
 {
   "name": "simple-chat-frontend",
   "version": "0.1.0",
-  "description": "Simple Chat frontend, built with React + TypeScript.",
+  "description": "Simple Chat frontend, built with React, TypeScript and Socket.io-client.",
   "main": "index.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production ts-node scripts/build",

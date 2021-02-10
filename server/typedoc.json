@@ -1,0 +1,7 @@
+{
+  "entryPoints": ["./src"],
+  "exclude": ["**/*.test.*", "**/*.spec.*"],
+  "readme": "./README.md",
+  "name": "Simple Chat Backend",
+  "out": "docs"
+}

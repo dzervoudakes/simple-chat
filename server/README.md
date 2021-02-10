@@ -1,5 +1,5 @@
-# Simple Chat
-> Simple Chat frontend, built with React, TypeScript and Socket.io-client.
+# User Management Backend
+> Simple Chat backend, built with Node, Express and Socket.io.
 
 ## Build Scripts
 
@@ -8,7 +8,7 @@
 npm install
 ```
 
-### Start Local Server on Port 8080
+### Start Server on Port 3000
 ```
 npm start
 ```
@@ -21,16 +21,6 @@ npm run lint
 ### Run Linting with Fix
 ```
 npm run lint:fix
-```
-
-### Run Style Linting
-```
-npm run stylelint
-```
-
-### Run Style Linting with Fix
-```
-npm run stylelint:fix
 ```
 
 ### Run Unit Tests
@@ -56,11 +46,6 @@ npm run test:watch
 ### Build for Production
 ```
 npm run build
-```
-
-### Build for Production with Bundle Analyzer Report
-```
-npm run build:report
 ```
 
 ### Generate Documentation
