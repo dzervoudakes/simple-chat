@@ -12,7 +12,11 @@ module.exports = {
       {
         devDependencies: ['**/*.test.*', '**/*.spec.*']
       }
-    ]
+    ],
+
+    // socket.io apparently doesn't work with import statements
+    '@typescript-eslint/no-var-requires': OFF,
+    'global-require': OFF
   },
   settings: {
     'import/resolver': {
