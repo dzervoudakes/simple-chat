@@ -3,12 +3,13 @@ import express from 'express';
 import chalk from 'chalk';
 import { Socket } from 'socket.io';
 
-interface Message {
+export interface Message {
+  name: string;
   room: 'general' | 'work' | 'random';
   text: string;
 }
 
-class AppServer {
+export class AppServer {
   private app = express();
 
   private http = http.createServer(this.app);
@@ -56,6 +57,10 @@ class AppServer {
     this.http.listen(PORT, () => {
       console.log(chalk.cyan(`Server running on port ${PORT}.`));
     });
+  }
+
+  public stop(): void {
+    this.http.close();
   }
 }
 

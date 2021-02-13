@@ -1,12 +1,13 @@
-export type Rooms = 'general' | 'work' | 'random';
+export type Room = 'general' | 'work' | 'random';
 
 export interface Connection {
   welcome: string;
-  rooms: Rooms[];
+  rooms: Room[];
 }
 
 export interface Message {
-  room: Rooms;
+  name: string;
+  room: Room;
   text: string;
 }
 
