@@ -42,6 +42,11 @@ class AppServer {
       socket.on('send-chat-message', (message: Message) => {
         socket.broadcast.to(message.room).emit('receive-chat-message', message);
       });
+
+      // cleanup
+      socket.on('disconnect', () => {
+        socket.removeAllListeners();
+      });
     });
   }
 
