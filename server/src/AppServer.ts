@@ -32,13 +32,11 @@ class AppServer {
     // new client connects
     this.io.on('connection', (socket: Socket) => {
       const { username } = socket.handshake.query;
-      const response = `Welcome to simple chat${username ? `, ${username}` : ''}!`;
+      const welcome = `Welcome to simple chat${username ? `, ${username}` : ''}!`;
 
       // client joins all public rooms and a welcome message is sent
       socket.join(this.rooms);
-      this.io
-        .to(socket.id)
-        .emit('connection-successful', { response, rooms: this.rooms });
+      this.io.to(socket.id).emit('connection-success', { welcome, rooms: this.rooms });
 
       // sending and receiving messages
       socket.on('send-chat-message', (message: Message) => {
