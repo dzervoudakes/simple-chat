@@ -2,5 +2,11 @@
 
 module.exports = {
   preset: '@dztools/jest-config-react-typescript',
+  coveragePathIgnorePatterns: [
+    'src/index.tsx',
+    'src/polyfills.ts',
+    'src/theme',
+    'src/constants'
+  ],
   setupFilesAfterEnv: ['<rootDir>/setupTests.js']
 };
