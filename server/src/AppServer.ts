@@ -4,7 +4,7 @@ import chalk from 'chalk';
 import { Socket } from 'socket.io';
 
 interface Message {
-  room: string;
+  room: 'general' | 'work' | 'random';
   text: string;
 }
 
@@ -13,7 +13,10 @@ class AppServer {
 
   private http = http.createServer(this.app);
 
+  // apparently 'io()' doesn't work with import syntax
   private io = require('socket.io')(this.http);
+
+  private rooms = ['general', 'work', 'random'];
 
   constructor() {
     this.setupApp();
@@ -26,9 +29,20 @@ class AppServer {
   }
 
   private setupWebSockets(): void {
+    // new client connects
     this.io.on('connection', (socket: Socket) => {
-      socket.on('chat-message', ({ room, text }: Message) => {
-        socket.broadcast.to(room).emit('chat-message', text); // @todo this ain't gonna work
+      const { username } = socket.handshake.query;
+      const response = `Welcome to simple chat${username ? `, ${username}` : ''}!`;
+
+      // client joins all public rooms and a welcome message is sent
+      socket.join(this.rooms);
+      this.io
+        .to(socket.id)
+        .emit('connection-successful', { response, rooms: this.rooms });
+
+      // sending and receiving messages
+      socket.on('send-chat-message', (message: Message) => {
+        socket.broadcast.to(message.room).emit('receive-chat-message', message);
       });
     });
   }

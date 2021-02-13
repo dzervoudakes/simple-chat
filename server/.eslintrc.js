@@ -6,7 +6,6 @@ module.exports = {
   extends: ['@dztools/eslint-config-typescript', 'plugin:jest/recommended'],
   rules: {
     'no-console': OFF,
-    'no-underscore-dangle': OFF,
     'import/no-extraneous-dependencies': [
       ERROR,
       {
