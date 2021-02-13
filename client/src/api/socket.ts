@@ -1,13 +1,12 @@
-import { Message, Rooms } from '@src/types';
+/**
+ * Class that enables socket connection and controls sending and receiving messages.
+ * @packageDocumentation
+ */
+import { Connection, Message } from '@src/types';
 
 // @todo unit testing
 // @todo .env handling/documentation (for server endpoint, etc.)
 // @todo store 'socket' in ChatContext to then be accessed throughout the app where needed
-
-interface Response {
-  welcome: string;
-  rooms: Rooms[];
-}
 
 export class Socket {
   private io = require('socket.io-client');
@@ -19,7 +18,7 @@ export class Socket {
   }
 
   private handleConnection(): void {
-    this.socket.on('connection-success', (resp: Response): void => {
+    this.socket.on('connection-success', (resp: Connection): void => {
       // @todo
       console.log('handle something here', resp);
     });
