@@ -2,6 +2,7 @@
  * Default theme for 'react-with-styles'.
  * @packageDocumentation
  */
+import { Theme } from '@src/types';
 
 const color = {
   primary: '#119da4',
@@ -33,7 +34,7 @@ const spacing = {
   xlarge: '2.5rem'
 };
 
-export const defaultTheme = {
+export const defaultTheme: Theme = {
   color,
   fonts,
   spacing,

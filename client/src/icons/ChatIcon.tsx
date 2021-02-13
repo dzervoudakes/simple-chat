@@ -1,13 +1,13 @@
 import React from 'react';
 import useStyles from 'react-with-styles/lib/hooks/useStyles';
-
-// @todo handle 'any' type for stylesFn / theme stuff
+import { Styles } from 'react-with-styles';
+import { Theme } from '@src/types';
 
 interface ChatIconProps {
   testid?: string;
 }
 
-const stylesFn = ({ spacing }: any): any => ({
+const stylesFn = ({ spacing }: Theme): Styles => ({
   chatIcon: {
     height: spacing.medium
   }
