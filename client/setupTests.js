@@ -4,7 +4,6 @@
  */
 import { StyleSheetTestUtils } from 'aphrodite';
 import '@testing-library/jest-dom/extend-expect';
-import '@src/registerTheme';
 
 beforeEach(() => {
   StyleSheetTestUtils.suppressStyleInjection();
