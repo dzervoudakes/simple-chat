@@ -1,14 +1,14 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import Providers from '@src/components/Providers';
+import { WithStylesProvider } from '@src/context';
 import GeneralError from '..';
 
 describe('GeneralError', () => {
   it('renders the error text', () => {
     const { getByTestId } = render(
-      <Providers>
+      <WithStylesProvider>
         <GeneralError testid="generalError" />
-      </Providers>
+      </WithStylesProvider>
     );
 
     // using data-testid as this text is broken up by multiple elements
@@ -17,9 +17,9 @@ describe('GeneralError', () => {
 
   it('reloads the page on click', () => {
     const { getByText } = render(
-      <Providers>
+      <WithStylesProvider>
         <GeneralError />
-      </Providers>
+      </WithStylesProvider>
     );
 
     fireEvent.click(getByText('refresh the page'));

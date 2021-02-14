@@ -1,14 +1,14 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Providers from '@src/components/Providers';
+import { WithStylesProvider } from '@src/context';
 import Layout from '..';
 
 describe('Layout', () => {
   it('renders the children', () => {
     const { getByText } = render(
-      <Providers>
+      <WithStylesProvider>
         <Layout>hello world</Layout>
-      </Providers>
+      </WithStylesProvider>
     );
 
     expect(getByText('hello world')).toBeInTheDocument();

@@ -1,14 +1,14 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Providers from '@src/components/Providers';
+import { WithStylesProvider } from '@src/context';
 import { ChatIcon } from '..';
 
 describe('ChatIcon', () => {
   it('renders', () => {
     const { getByTestId } = render(
-      <Providers>
+      <WithStylesProvider>
         <ChatIcon testid="chatIcon" />
-      </Providers>
+      </WithStylesProvider>
     );
 
     expect(getByTestId('chatIcon')).toBeInTheDocument();

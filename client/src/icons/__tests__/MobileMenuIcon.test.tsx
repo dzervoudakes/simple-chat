@@ -1,14 +1,14 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Providers from '@src/components/Providers';
+import { WithStylesProvider } from '@src/context';
 import { MobileMenuIcon } from '..';
 
 describe('MobileMenuIcon', () => {
   it('renders', () => {
     const { getByTestId } = render(
-      <Providers>
+      <WithStylesProvider>
         <MobileMenuIcon testid="mobileMenuIcon" />
-      </Providers>
+      </WithStylesProvider>
     );
 
     expect(getByTestId('mobileMenuIcon')).toBeInTheDocument();

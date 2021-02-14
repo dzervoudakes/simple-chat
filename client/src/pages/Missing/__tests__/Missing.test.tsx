@@ -1,7 +1,7 @@
 import React from 'react';
 import { MemoryRouter as Router } from 'react-router-dom';
 import { render, fireEvent } from '@testing-library/react';
-import Providers from '@src/components/Providers';
+import { WithStylesProvider } from '@src/context';
 import Missing from '..';
 
 const mockHistoryPush = jest.fn();
@@ -17,9 +17,9 @@ describe('Missing', () => {
   it('renders the title and description', () => {
     const { getByText } = render(
       <Router initialEntries={['/missing']}>
-        <Providers>
+        <WithStylesProvider>
           <Missing />
-        </Providers>
+        </WithStylesProvider>
       </Router>
     );
 
@@ -29,11 +29,11 @@ describe('Missing', () => {
 
   it('redirects to the user selection page on click', () => {
     const { getByText } = render(
-      <Providers>
+      <WithStylesProvider>
         <Router initialEntries={['/missing']}>
           <Missing />
         </Router>
-      </Providers>
+      </WithStylesProvider>
     );
 
     fireEvent.click(getByText('Return to User Selection'));

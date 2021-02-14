@@ -1,15 +1,15 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import Providers from '@src/components/Providers';
+import { WithStylesProvider } from '@src/context';
 import Button from '..';
 
 describe('Button', () => {
   describe('variants', () => {
     it('renders primary variant', () => {
       const { getByText } = render(
-        <Providers>
+        <WithStylesProvider>
           <Button>primary</Button>
-        </Providers>
+        </WithStylesProvider>
       );
 
       expect(getByText('primary')).toBeInTheDocument();
@@ -17,9 +17,9 @@ describe('Button', () => {
 
     it('renders secondary variant', () => {
       const { getByText } = render(
-        <Providers>
+        <WithStylesProvider>
           <Button variant="secondary">secondary</Button>
-        </Providers>
+        </WithStylesProvider>
       );
 
       expect(getByText('secondary')).toBeInTheDocument();
@@ -27,9 +27,9 @@ describe('Button', () => {
 
     it('renders link variant', () => {
       const { getByText } = render(
-        <Providers>
+        <WithStylesProvider>
           <Button variant="link">link</Button>
-        </Providers>
+        </WithStylesProvider>
       );
 
       expect(getByText('link')).toBeInTheDocument();
@@ -39,9 +39,9 @@ describe('Button', () => {
   describe('disabled', () => {
     it('renders primary disabled', () => {
       const { getByText } = render(
-        <Providers>
+        <WithStylesProvider>
           <Button disabled>primary</Button>
-        </Providers>
+        </WithStylesProvider>
       );
 
       expect(getByText('primary')).toBeInTheDocument();
@@ -49,11 +49,11 @@ describe('Button', () => {
 
     it('renders secondary disabled', () => {
       const { getByText } = render(
-        <Providers>
+        <WithStylesProvider>
           <Button variant="secondary" disabled>
             secondary
           </Button>
-        </Providers>
+        </WithStylesProvider>
       );
 
       expect(getByText('secondary')).toBeInTheDocument();
@@ -61,11 +61,11 @@ describe('Button', () => {
 
     it('renders link disabled', () => {
       const { getByText } = render(
-        <Providers>
+        <WithStylesProvider>
           <Button variant="link" disabled>
             link
           </Button>
-        </Providers>
+        </WithStylesProvider>
       );
 
       expect(getByText('link')).toBeInTheDocument();
@@ -76,7 +76,7 @@ describe('Button', () => {
     it('fires a click handler', () => {
       let i = 0;
       const { getByText } = render(
-        <Providers>
+        <WithStylesProvider>
           <Button
             onClick={() => {
               i += 1;
@@ -84,7 +84,7 @@ describe('Button', () => {
           >
             primary
           </Button>
-        </Providers>
+        </WithStylesProvider>
       );
 
       fireEvent.click(getByText('primary'));
@@ -95,7 +95,7 @@ describe('Button', () => {
     it('does not fire a click handler when disabled', () => {
       let i = 0;
       const { getByText } = render(
-        <Providers>
+        <WithStylesProvider>
           <Button
             disabled
             onClick={() => {
@@ -104,7 +104,7 @@ describe('Button', () => {
           >
             primary
           </Button>
-        </Providers>
+        </WithStylesProvider>
       );
 
       fireEvent.click(getByText('primary'));
