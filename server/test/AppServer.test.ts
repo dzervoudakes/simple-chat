@@ -12,7 +12,7 @@ describe('AppServer', () => {
   const server = new AppServer();
   const HOST = 'http://localhost:3000';
 
-  let socket: Socket;
+  let receiver: Socket;
   let sender: Socket;
 
   beforeAll(() => {
@@ -20,30 +20,28 @@ describe('AppServer', () => {
   });
 
   afterEach(() => {
-    socket.disconnect();
+    receiver.disconnect();
     sender?.disconnect();
   });
 
   afterAll(async () => {
-    server.stop();
-
-    await new Promise((res) => setTimeout(res, 500));
+    await new Promise(() => server.stop());
   });
 
   it('establishes a websocket connection', async () => {
     let mockWelcome;
     let mockRooms;
 
-    socket = require('socket.io-client')(HOST, {
+    receiver = require('socket.io-client')(HOST, {
       query: { username: 'test' }
     });
 
-    socket.on('connection-success', ({ welcome, rooms }: Connection) => {
+    receiver.on('connection-success', ({ welcome, rooms }: Connection) => {
       mockWelcome = welcome;
       mockRooms = rooms;
     });
 
-    await new Promise((res) => setTimeout(res, 500));
+    await new Promise((res) => setTimeout(res, 100));
 
     expect(mockWelcome).toEqual('Welcome to simple chat, test!');
     expect(mockRooms).toEqual(['general', 'work', 'random']);
@@ -54,8 +52,8 @@ describe('AppServer', () => {
     let mockRoom;
     let mockText;
 
-    socket = require('socket.io-client')(HOST);
-    socket.on('receive-chat-message', (message: Message) => {
+    receiver = require('socket.io-client')(HOST);
+    receiver.on('receive-chat-message', (message: Message) => {
       mockName = message.name;
       mockRoom = message.room;
       mockText = message.text;
@@ -68,7 +66,7 @@ describe('AppServer', () => {
       text: 'Chat works'
     });
 
-    await new Promise((res) => setTimeout(res, 500));
+    await new Promise((res) => setTimeout(res, 100));
 
     expect(mockName).toBe('Dave');
     expect(mockRoom).toBe('general');
