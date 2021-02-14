@@ -29,8 +29,8 @@
     "socket.io": "3.1.1"
   },
   "devDependencies": {
-    "@dztools/eslint-config-typescript": "1.1.1",
-    "@dztools/prettier-config": "1.0.3",
+    "@dztools/eslint-config-typescript": "1.1.2",
+    "@dztools/prettier-config": "1.0.4",
     "@types/cors": "2.8.9",
     "@types/express": "4.17.11",
     "@types/node": "14.14.27",
