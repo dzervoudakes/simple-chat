@@ -9,13 +9,15 @@ import { Connection, Message } from '@src/types';
 // @todo store 'socket' in ChatContext to then be accessed throughout the app where needed
 
 export class Socket {
-  private io = require('socket.io-client');
+  constructor(username: string) {
+    this.socket = require('socket.io-client')('http://localhost:3000', {
+      query: { username }
+    });
 
-  private socket = this.io('http://localhost:3000', { query: { username: '@todo' } });
-
-  constructor() {
     this.handleConnection();
   }
+
+  private socket;
 
   private handleConnection(): void {
     this.socket.on('connection-success', (resp: Connection): void => {

@@ -10,6 +10,11 @@ export interface Message {
 }
 
 export class AppServer {
+  constructor() {
+    this.setupApp();
+    this.setupWebSockets();
+  }
+
   private app = express();
 
   private http = http.createServer(this.app);
@@ -18,11 +23,6 @@ export class AppServer {
   private io = require('socket.io')(this.http);
 
   private rooms = ['general', 'work', 'random'];
-
-  constructor() {
-    this.setupApp();
-    this.setupWebSockets();
-  }
 
   private setupApp(): void {
     this.app.use(express.json());
