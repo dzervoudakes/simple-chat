@@ -2,3 +2,5 @@
 export const mobileQuery = Object.freeze({ query: '(max-width: 576px)' });
 
 export default { mobileQuery };
+
+const unused;
