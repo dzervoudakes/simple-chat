@@ -2,6 +2,8 @@ import { Socket } from 'socket.io';
 import AppServer from '@src/AppServer';
 import { MessageType, Room } from '@src/models';
 
+jest.mock('mongoose');
+
 interface Connection {
   welcome: string;
   rooms: Room[];
@@ -50,25 +52,37 @@ describe('AppServer', () => {
     let mockName;
     let mockRoom;
     let mockText;
+    // let mockPrivateMessage;
 
     receiver = require('socket.io-client')(HOST);
-    receiver.on('receive-chat-message', (message: MessageType) => {
+    receiver.on('receive-message-public', (message: MessageType) => {
       mockName = message.username;
       mockRoom = message.room;
       mockText = message.text;
     });
+    // receiver.on('receive-message-12345', (message: MessageType) => {
+    //   console.log('receive 12345:');
+    //   console.log(message);
+    //   mockPrivateMessage = message.text;
+    // });
 
-    sender = require('socket.io-client')(HOST);
-    sender.emit('send-chat-message', {
-      name: 'Dave',
+    sender = require('socket.io-client')(HOST, { query: { userId: '12345' } });
+    sender.emit('send-message-public', {
+      username: 'Dave',
       room: 'general',
       text: 'Chat works'
     });
+    // sender.emit('send-message-12345', {
+    //   username: 'Dave',
+    //   room: null,
+    //   text: 'Private messaging works'
+    // });
 
     await new Promise((res) => setTimeout(res, 100));
 
     expect(mockName).toBe('Dave');
     expect(mockRoom).toBe('general');
     expect(mockText).toBe('Chat works');
+    // expect(mockPrivateMessage).toBe('Private messaging works');
   });
 });

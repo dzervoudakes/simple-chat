@@ -65,6 +65,8 @@ export class AppServer extends Server {
 
       // send and receive private messages
       socket.on(`send-message-${userId}`, (message: MessageType) => {
+        // @todo have to grab the right socket ID per associated user ID
+        // message.recipient
         socket.broadcast.to(socket.id).emit(`receive-message-${userId}`, message);
       });
 
