@@ -1,11 +1,10 @@
 import { Socket } from 'socket.io';
-import AppServer, { Message } from '@src/AppServer';
-
-type Rooms = 'general' | 'work' | 'random';
+import AppServer from '@src/AppServer';
+import { MessageType, Room } from '@src/models';
 
 interface Connection {
   welcome: string;
-  rooms: Rooms[];
+  rooms: Room[];
 }
 
 describe('AppServer', () => {
@@ -53,8 +52,8 @@ describe('AppServer', () => {
     let mockText;
 
     receiver = require('socket.io-client')(HOST);
-    receiver.on('receive-chat-message', (message: Message) => {
-      mockName = message.name;
+    receiver.on('receive-chat-message', (message: MessageType) => {
+      mockName = message.username;
       mockRoom = message.room;
       mockText = message.text;
     });

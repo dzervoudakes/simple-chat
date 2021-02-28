@@ -10,7 +10,6 @@
     "isolatedModules": false,
     "module": "commonjs",
     "moduleResolution": "node",
-    "noUnusedLocals": true,
     "outDir": "dist",
     "paths": {
       "@src/*": ["src/*"]
