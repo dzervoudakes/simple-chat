@@ -32,6 +32,8 @@ export class AppServer extends Server {
 
   private rooms = ['general', 'work', 'random'];
 
+  private sockets: { userId: string; socketId: string }[] = [];
+
   private async setupDatabaseConnection(): Promise<void> {
     await mongoose.connect(process.env.DB_CONNECTION_STRING || '', {
       useNewUrlParser: true,
@@ -54,6 +56,8 @@ export class AppServer extends Server {
       const { username, userId } = socket.handshake.query;
       const welcome = `Welcome to simple chat${username ? `, ${username}` : ''}!`;
 
+      this.sockets.push({ userId: userId as string, socketId: socket.id });
+
       // client joins all public rooms and a welcome message is sent
       socket.join(this.rooms);
       this.io.to(socket.id).emit('connection-success', { welcome, rooms: this.rooms });
@@ -64,15 +68,24 @@ export class AppServer extends Server {
       });
 
       // send and receive private messages
-      socket.on(`send-message-${userId}`, (message: MessageType) => {
-        // @todo have to grab the right socket ID per associated user ID
-        // message.recipient
-        socket.broadcast.to(socket.id).emit(`receive-message-${userId}`, message);
+      socket.on('send-message-private', (message: MessageType) => {
+        const recipient = this.sockets.find((item) => item.userId === message.recipient)
+          ?.socketId;
+
+        if (recipient) {
+          socket.broadcast.to(recipient).emit('receive-message-private', message);
+        }
       });
 
       // cleanup
       socket.on('disconnect', () => {
         socket.removeAllListeners();
+
+        const closedSocket = this.sockets.find((item) => item.socketId === socket.id);
+        if (closedSocket) {
+          const index = this.sockets.indexOf(closedSocket);
+          this.sockets.splice(index, 1);
+        }
       });
     });
   }

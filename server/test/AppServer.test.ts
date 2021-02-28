@@ -48,41 +48,50 @@ describe('AppServer', () => {
     expect(mockRooms).toEqual(['general', 'work', 'random']);
   });
 
-  it('handles chat messages', async () => {
+  it('handles public chat messages', async () => {
     let mockName;
     let mockRoom;
     let mockText;
-    // let mockPrivateMessage;
 
-    receiver = require('socket.io-client')(HOST);
+    receiver = require('socket.io-client')(HOST, { query: { userId: '12345' } });
     receiver.on('receive-message-public', (message: MessageType) => {
       mockName = message.username;
       mockRoom = message.room;
       mockText = message.text;
     });
-    // receiver.on('receive-message-12345', (message: MessageType) => {
-    //   console.log('receive 12345:');
-    //   console.log(message);
-    //   mockPrivateMessage = message.text;
-    // });
 
-    sender = require('socket.io-client')(HOST, { query: { userId: '12345' } });
+    sender = require('socket.io-client')(HOST, { query: { userId: '67890' } });
     sender.emit('send-message-public', {
       username: 'Dave',
       room: 'general',
       text: 'Chat works'
     });
-    // sender.emit('send-message-12345', {
-    //   username: 'Dave',
-    //   room: null,
-    //   text: 'Private messaging works'
-    // });
 
     await new Promise((res) => setTimeout(res, 100));
 
     expect(mockName).toBe('Dave');
     expect(mockRoom).toBe('general');
     expect(mockText).toBe('Chat works');
-    // expect(mockPrivateMessage).toBe('Private messaging works');
+  });
+
+  it('handles private chat messages', async () => {
+    let mockPrivateMessage;
+
+    receiver = require('socket.io-client')(HOST, { query: { userId: '12345' } });
+    receiver.on('receive-message-private', (message: MessageType) => {
+      mockPrivateMessage = message.text;
+    });
+
+    sender = require('socket.io-client')(HOST, { query: { userId: '67890' } });
+    sender.emit('send-message-private', {
+      username: 'Dave',
+      room: null,
+      text: 'Private messaging works',
+      recipient: '12345'
+    });
+
+    await new Promise((res) => setTimeout(res, 100));
+
+    expect(mockPrivateMessage).toBe('Private messaging works');
   });
 });
