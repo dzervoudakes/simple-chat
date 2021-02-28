@@ -8,25 +8,30 @@
 
 ## Premise
 
-A simple, real-time chat UI with a preconfigured list of chatrooms which users can contribute to. All chats are ephemeral with no data persistence.
+A simple, real-time chat UI with a preconfigured list of chatrooms which users can contribute to. Users can also send private messages to each other.
 
+<!-- @todo -->
 <!-- <img src="demo.gif" height="350"/> -->
 
 ## Technologies Used
 
 - **Frontend:** React, TypeScript, Socket.io-client, CSS-in-JS theming
-- **Backend:** Node + Express, Socket.io
+- **Backend:** Node + Express, OvernightJS, Socket.io
+- **Database:** Docker, MongoDB
 - **CI/CD:** GitHub Actions
 
 ## Local Development
 
-### Server Setup
+### Database and Server Setup
 
+- Ensure `Docker` is installed and running
 - In your terminal, `cd` into the `server` directory and run `npm install`
-- Run `npm start`
+- From the project root, open your terminal and run `docker-compose up`
+  - Seed data for `users` will be populated in the database automatically
   - The server will be running on `http://localhost:3000`
+  - The default login is `Admin`/`passworddd`, but you may create your own through the UI as well
 
-The `server/README.md` provides additional information on build scripts for local development.
+The `server/README.md` provides additional information on build scripts and environment variables.
 
 ### Client Setup
 
@@ -34,7 +39,7 @@ The `server/README.md` provides additional information on build scripts for loca
 - Run `npm start`
   - The application may be accessed in a web browser at `http://localhost:8080`
 
-The `client/README.md` provides additional information on build scripts for local development.
+The `client/README.md` provides additional information on build scripts and environment variables.
 
 ## Technical Requirements
 

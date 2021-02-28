@@ -1,0 +1,29 @@
+[
+  {
+    "recipient": "all",
+    "room": "general",
+    "username": "ChatBot",
+    "userId": "603c100edf5c9500212cb568",
+    "text": "Welcome to the General channel, a place for announcements and common interests.",
+    "createdAt": "2021-02-28T22:31:02.589Z",
+    "updatedAt": "2021-02-28T22:31:02.589Z"
+  },
+  {
+    "recipient": "all",
+    "room": "work",
+    "username": "ChatBot",
+    "userId": "603c100edf5c9500212cb568",
+    "text": "Welcome to the Work channel, a place to talk shop.",
+    "createdAt": "2021-02-28T22:31:02.589Z",
+    "updatedAt": "2021-02-28T22:31:02.589Z"
+  },
+  {
+    "recipient": "all",
+    "room": "random",
+    "username": "ChatBot",
+    "userId": "603c100edf5c9500212cb568",
+    "text": "Welcome to the Random channel, because reasons.",
+    "createdAt": "2021-02-28T22:31:02.589Z",
+    "updatedAt": "2021-02-28T22:31:02.589Z"
+  }
+]

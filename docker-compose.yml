@@ -1,0 +1,42 @@
+version: "3.5"
+
+services:
+  mongo:
+    container_name: simple_chat_dev
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    command: mongod --port 27017
+
+  mongo_seed:
+    image: 'pkosiec/mongo-seeding:3.0.0'
+    environment:
+      - DROP_DATABASE=true
+      - REPLACE_ID=true
+      - DB_NAME=simple-chat
+      - DB_PORT=27017
+      - DB_HOST=mongo
+    volumes:
+      - $PWD/:$PWD
+    working_dir: $PWD/datastore
+    links:
+      - mongo
+    depends_on:
+      - mongo
+
+  server:
+    image: 'node:14.6.0'
+    volumes:
+      - $PWD/:$PWD
+    working_dir: $PWD/server
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - CLIENT_ORIGIN=http://localhost:8080
+      - DB_CONNECTION_STRING=mongodb://mongo:27017/simple-chat
+      - OVERNIGHT_JWT_SECRET="my super long random string for fake auth"
+      - OVERNIGHT_JWT_EXP=24h
+    command: npm start
+    depends_on:
+      - mongo
