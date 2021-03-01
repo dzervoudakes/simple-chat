@@ -6,7 +6,12 @@ module.exports = {
   extends: ['@dztools/eslint-config-react-typescript'],
   overrides: [
     {
-      files: ['webpack.config.js', 'build/**/*.js', 'scripts/*.ts', 'src/api/Socket.ts'],
+      files: [
+        'webpack.config.js',
+        'build/**/*.js',
+        'scripts/*.ts',
+        'src/socket/Socket.ts'
+      ],
       rules: {
         '@typescript-eslint/no-var-requires': OFF, // socket.io only seems to work with 'require' syntax
         'global-require': OFF,

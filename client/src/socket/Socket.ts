@@ -9,15 +9,17 @@ import { Connection, Message } from '@src/types';
 // @todo store 'socket' in ChatContext to then be accessed throughout the app where needed
 
 export class Socket {
-  constructor(username: string) {
+  constructor(username: string, userId: string) {
     this.socket = require('socket.io-client')('http://localhost:3000', {
-      query: { username }
+      query: { username, userId }
     });
 
     this.handleConnection();
   }
 
   private socket;
+
+  // @todo these all need to change per the API changes now
 
   private handleConnection(): void {
     this.socket.on('connection-success', (resp: Connection): void => {
