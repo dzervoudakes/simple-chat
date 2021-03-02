@@ -1,12 +1,12 @@
 import { Socket } from 'socket.io';
 import AppServer from '@src/AppServer';
-import { MessageType, Room } from '@src/models';
+import { MessageType, Channel } from '@src/models';
 
 jest.mock('mongoose');
 
 interface Connection {
   welcome: string;
-  rooms: Room[];
+  channels: Channel[];
 }
 
 describe('AppServer', () => {
@@ -31,46 +31,46 @@ describe('AppServer', () => {
 
   it('establishes a websocket connection', async () => {
     let mockWelcome;
-    let mockRooms;
+    let mockChannels;
 
     receiver = require('socket.io-client')(HOST, {
       query: { username: 'test' }
     });
 
-    receiver.on('connection-success', ({ welcome, rooms }: Connection) => {
+    receiver.on('connection-success', ({ welcome, channels }: Connection) => {
       mockWelcome = welcome;
-      mockRooms = rooms;
+      mockChannels = channels;
     });
 
     await new Promise((res) => setTimeout(res, 100));
 
     expect(mockWelcome).toEqual('Welcome to simple chat, test!');
-    expect(mockRooms).toEqual(['general', 'work', 'random']);
+    expect(mockChannels).toEqual(['general', 'work', 'random']);
   });
 
   it('handles public chat messages', async () => {
     let mockName;
-    let mockRoom;
+    let mockChannel;
     let mockText;
 
     receiver = require('socket.io-client')(HOST, { query: { userId: '12345' } });
     receiver.on('receive-message-public', (message: MessageType) => {
       mockName = message.username;
-      mockRoom = message.room;
+      mockChannel = message.channel;
       mockText = message.text;
     });
 
     sender = require('socket.io-client')(HOST, { query: { userId: '67890' } });
     sender.emit('send-message-public', {
       username: 'Dave',
-      room: 'general',
+      channel: 'general',
       text: 'Chat works'
     });
 
     await new Promise((res) => setTimeout(res, 100));
 
     expect(mockName).toBe('Dave');
-    expect(mockRoom).toBe('general');
+    expect(mockChannel).toBe('general');
     expect(mockText).toBe('Chat works');
   });
 
@@ -85,7 +85,7 @@ describe('AppServer', () => {
     sender = require('socket.io-client')(HOST, { query: { userId: '67890' } });
     sender.emit('send-message-private', {
       username: 'Dave',
-      room: null,
+      channel: null,
       text: 'Private messaging works',
       recipient: '12345'
     });

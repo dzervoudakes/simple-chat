@@ -180,7 +180,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"TestUser1\",\n    \"userId\": \"{{userId}}\",\n    \"recipient\": \"{{$guid}}\",\n    \"room\": null,\n    \"text\": \"I am a message\"\n}"
+							"raw": "{\n    \"username\": \"TestUser1\",\n    \"userId\": \"{{userId}}\",\n    \"recipient\": \"{{$guid}}\",\n    \"channel\": null,\n    \"text\": \"I am a message\"\n}"
 						},
 						"url": {
 							"raw": "{{domain}}/api/messages",

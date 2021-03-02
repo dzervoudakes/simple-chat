@@ -35,7 +35,7 @@ describe('MessageController', () => {
     username: 'Admin',
     userId: '12345',
     recipient: 'all',
-    room: 'general',
+    channel: 'general',
     text: 'i am a message'
   };
 

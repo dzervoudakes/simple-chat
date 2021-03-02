@@ -1,6 +1,6 @@
 import mongoose, { Mongoose } from 'mongoose';
 import { MessageDao } from '@src/daos';
-import { Message, Room } from '@src/models';
+import { Message, Channel } from '@src/models';
 
 describe('MessageDao', () => {
   let connection: Mongoose;
@@ -9,7 +9,7 @@ describe('MessageDao', () => {
     username: 'testuser',
     userId: '12345',
     recipient: 'all',
-    room: 'general' as Room,
+    channel: 'general' as Channel,
     text: 'i am a message'
   };
 

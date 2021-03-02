@@ -30,7 +30,7 @@ export class AppServer extends Server {
   // apparently 'io()' doesn't work with import syntax
   private io = require('socket.io')(this.http);
 
-  private rooms = ['general', 'work', 'random'];
+  private channels = ['general', 'work', 'random'];
 
   private sockets: { userId: string; socketId: string }[] = [];
 
@@ -58,13 +58,17 @@ export class AppServer extends Server {
 
       this.sockets.push({ userId: userId as string, socketId: socket.id });
 
-      // client joins all public rooms and a welcome message is sent
-      socket.join(this.rooms);
-      this.io.to(socket.id).emit('connection-success', { welcome, rooms: this.rooms });
+      // client joins all public channels and a welcome message is sent
+      socket.join(this.channels);
+      this.io
+        .to(socket.id)
+        .emit('connection-success', { welcome, channels: this.channels });
 
       // send and receive public messages
       socket.on('send-message-public', (message: MessageType) => {
-        socket.broadcast.to(message.room ?? '').emit('receive-message-public', message);
+        socket.broadcast
+          .to(message.channel ?? '')
+          .emit('receive-message-public', message);
       });
 
       // send and receive private messages
