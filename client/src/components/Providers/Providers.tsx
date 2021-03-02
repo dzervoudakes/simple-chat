@@ -1,11 +1,11 @@
 import React from 'react';
-import { UserProvider, SideMenuProvider, WithStylesProvider } from '@src/context';
+import { AuthProvider, SideMenuProvider, WithStylesProvider } from '@src/context';
 
 const Providers: React.FC = ({ children }) => (
   <WithStylesProvider>
-    <UserProvider>
+    <AuthProvider>
       <SideMenuProvider>{children}</SideMenuProvider>
-    </UserProvider>
+    </AuthProvider>
   </WithStylesProvider>
 );
 

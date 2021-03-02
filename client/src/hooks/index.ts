@@ -1,2 +1,2 @@
+export * from './useAuth';
 export * from './useSideMenu';
-export * from './useUser';

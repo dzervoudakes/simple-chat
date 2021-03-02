@@ -1,3 +1,3 @@
+export * from './AuthContext';
 export * from './SideMenuContext';
-export * from './UserContext';
 export * from './WithStylesContext';
