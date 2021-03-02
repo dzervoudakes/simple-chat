@@ -62,7 +62,7 @@ export class AppServer extends Server {
       socket.join(this.channels);
       this.io
         .to(socket.id)
-        .emit('connection-success', { welcome, channels: this.channels });
+        .emit('connection-success', { welcome, channels: this.channels }); // @todo can the API handle organizing of channels, now?
 
       // @todo 'new user' event type (consuming clients will need to refresh their list of users)
 
