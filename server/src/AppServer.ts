@@ -64,6 +64,8 @@ export class AppServer extends Server {
         .to(socket.id)
         .emit('connection-success', { welcome, channels: this.channels });
 
+      // @todo 'new user' event type (consuming clients will need to refresh their list of users)
+
       // send and receive public messages
       socket.on('send-message-public', (message: MessageType) => {
         socket.broadcast
