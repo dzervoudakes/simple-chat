@@ -1,17 +1,17 @@
 import { CancelTokenSource, AxiosResponse } from 'axios';
 
-export type Room = 'general' | 'work' | 'random';
+export type Channel = 'general' | 'work' | 'random';
 
 export interface Connection {
   welcome: string;
-  rooms: Room[];
+  channels: Channel[];
 }
 
 export interface Message {
   username: string;
   userId: string;
   recipient: string | 'all';
-  room: Room | null;
+  channel: Channel | null;
   text: string;
 }
 

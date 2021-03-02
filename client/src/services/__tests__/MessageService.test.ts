@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_BASE_URL } from '@src/constants';
-import { Room } from '@src/types';
+import { Channel } from '@src/types';
 import { MessageService } from '..';
 
 jest.mock('axios', () => ({
@@ -22,7 +22,7 @@ describe('MessageService', () => {
         username: 'test',
         userId: '12345',
         recipient: 'all',
-        room: 'general' as Room,
+        channel: 'general' as Channel,
         text: 'i am a message'
       };
       const jwt = 'jwt';
