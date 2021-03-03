@@ -16,7 +16,7 @@ describe('UserDao', () => {
     await connection.disconnect();
   });
 
-  it('gets a list of users', async () => {
+  it('gets a list of users and hides the password field', async () => {
     const userDao = new UserDao();
     const mockUser = { username: 'User1', password: 'passworddd' };
 
@@ -24,7 +24,7 @@ describe('UserDao', () => {
     const result = await userDao.getUsers();
 
     expect(result[0].username).toEqual(mockUser.username);
-    expect(result[0].password).toEqual(mockUser.password);
+    expect(result[0].password).toBe(undefined);
   });
 
   it('gets user by username and password', async () => {

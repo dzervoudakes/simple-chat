@@ -2,7 +2,8 @@ import { User, UserType } from '@src/models';
 
 export class UserDao {
   public async getUsers(): Promise<UserType[]> {
-    const result = await User.find({});
+    // exclude passwords from the response ... because security
+    const result = await User.find({}, { password: 0 });
     return result;
   }
 

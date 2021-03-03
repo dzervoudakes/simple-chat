@@ -30,6 +30,7 @@ export class AppServer extends Server {
   // apparently 'io()' doesn't work with import syntax
   private io = require('socket.io')(this.http);
 
+  // channels are preconfigured for this app and not dynamic
   private channels = ['general', 'work', 'random'];
 
   private sockets: { userId: string; socketId: string }[] = [];
@@ -62,7 +63,7 @@ export class AppServer extends Server {
       socket.join(this.channels);
       this.io
         .to(socket.id)
-        .emit('connection-success', { welcome, channels: this.channels }); // @todo can the API handle organizing of channels, now?
+        .emit('connection-success', { welcome, channels: this.channels });
 
       // @todo 'new user' event type (consuming clients will need to refresh their list of users)
 

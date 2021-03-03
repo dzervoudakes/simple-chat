@@ -58,4 +58,14 @@ npm run docs
 npm run clean
 ```
 
-<!-- @todo env variable notes -->
+## Environment
+
+The following environment variables are used throughout the server. Default values are provided via the `docker-compose.yml` file at the project root.
+
+| Variable             | Default                                     | Description                                                                    |
+| -------------------- | ------------------------------------------- | ------------------------------------------------------------------------------ |
+| PORT                 | `3000`                                      | The server port for web clients to interact with, i.e. `http://localhost:3000` |
+| CLIENT_ORIGIN        | `http://localhost:8080`                     | Allowed web client origin for CORS                                             |
+| DB_CONNECTION_STRING | `mongodb://mongo:27017/simple-chat`         | Connection string for the MongoDB instance                                     |
+| OVERNIGHT_JWT_SECRET | `my super long random string for fake auth` | Secret used by OvernightJS for JWT generation                                  |
+| OVERNIGHT_JWT_EXP    | `24h`                                       | JWT token expiration time after creation, used by OvernightJS                  |
