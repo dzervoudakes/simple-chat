@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_BASE_URL } from '@src/constants';
-import { Channel } from '@src/types';
+import { Message } from '@src/types';
 import { MessageService } from '..';
 
 jest.mock('axios', () => ({
@@ -18,11 +18,11 @@ describe('MessageService', () => {
     it('calls the API with the correct parameters', () => {
       const spy = jest.spyOn(axios, 'post');
       const source = axios.CancelToken.source();
-      const data = {
+      const data: Message = {
         username: 'test',
         userId: '12345',
         recipient: 'all',
-        channel: 'general' as Channel,
+        channel: 'general',
         text: 'i am a message'
       };
       const jwt = 'jwt';

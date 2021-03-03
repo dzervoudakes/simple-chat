@@ -1,25 +1,26 @@
 /**
- * Class that enables socket connection and controls sending and receiving messages.
+ * Class that enables socket connection and controls sending/receiving messages.
  * @packageDocumentation
  */
+import { API_BASE_URL } from '@src/constants';
 import { Connection, Message } from '@src/types';
 
 // @todo unit testing
-// @todo .env handling/documentation (for server endpoint, etc.)
 // @todo store 'socket' in ChatContext to then be accessed throughout the app where needed
 
+interface Query {
+  username: string;
+  userId: string;
+}
+
 export class Socket {
-  constructor(username: string, userId: string) {
-    this.socket = require('socket.io-client')('http://localhost:3000', {
-      query: { username, userId }
-    });
+  constructor(query: Query) {
+    this.socket = require('socket.io-client')(API_BASE_URL, { query });
 
     this.handleConnection();
   }
 
   private socket;
-
-  // @todo these all need to change per the API changes now
 
   private handleConnection(): void {
     this.socket.on('connection-success', (resp: Connection): void => {
@@ -29,13 +30,22 @@ export class Socket {
   }
 
   public subscribeToChat(cb: (message: Message) => void): void {
-    this.socket.on('receive-chat-message', (message: Message): void => {
+    const messageHandler = (message: Message): void => {
       cb(message);
-    });
+    };
+
+    this.socket.on('receive-message-public', messageHandler);
+    this.socket.on('receive-message-private', messageHandler);
+
+    // @todo 'new-user' event type here after implementing in the API
   }
 
-  public sendChatMessage = (message: Message): void => {
-    this.socket.emit('send-chat-message', message);
+  public sendChatMessage = (variant: 'public' | 'private', message: Message): void => {
+    this.socket.emit(`send-message-${variant}`, message);
+  };
+
+  public disconnect = (): void => {
+    this.socket.off();
   };
 }
 
