@@ -34,7 +34,7 @@ describe('MessageController', () => {
   const mockMessage = {
     username: 'Admin',
     userId: '12345',
-    recipient: 'all',
+    recipientId: null,
     channel: 'general',
     text: 'i am a message'
   };

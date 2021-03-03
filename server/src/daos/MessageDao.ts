@@ -5,7 +5,7 @@ export class MessageDao {
     // return all messages where the user is either the sender or the recipient of a private message,
     // as well as all public messages
     const result = await Message.find({
-      $or: [{ userId: id }, { recipient: id }, { recipient: 'all' }]
+      $or: [{ userId: id }, { recipientId: id }, { channel: { $ne: null } }]
     });
     return result;
   }

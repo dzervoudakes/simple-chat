@@ -87,7 +87,7 @@ describe('AppServer', () => {
       username: 'Dave',
       channel: null,
       text: 'Private messaging works',
-      recipient: '12345'
+      recipientId: '12345'
     });
 
     await new Promise((res) => setTimeout(res, 100));

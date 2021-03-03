@@ -76,7 +76,7 @@ export class AppServer extends Server {
 
       // send and receive private messages
       socket.on('send-message-private', (message: MessageType) => {
-        const recipient = this.sockets.find((item) => item.userId === message.recipient)
+        const recipient = this.sockets.find((item) => item.userId === message.recipientId)
           ?.socketId;
 
         if (recipient) {

@@ -5,7 +5,7 @@ export type Channel = 'general' | 'work' | 'random';
 export interface MessageType {
   username: string;
   userId: string;
-  recipient: string | 'all';
+  recipientId: string | null;
   channel: Channel | null;
   text: string;
 }
@@ -16,7 +16,7 @@ export const MessageSchema = new Schema<MessageDocument>(
   {
     username: { type: String, required: true },
     userId: { type: String, required: true },
-    recipient: { type: String, required: false, default: 'all' },
+    recipientId: { type: String, required: false, default: null },
     channel: {
       type: String,
       required: false,

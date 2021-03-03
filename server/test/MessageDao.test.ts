@@ -1,15 +1,15 @@
 import mongoose, { Mongoose } from 'mongoose';
 import { MessageDao } from '@src/daos';
-import { Message, Channel } from '@src/models';
+import { Message, MessageType } from '@src/models';
 
 describe('MessageDao', () => {
   let connection: Mongoose;
 
-  const mockMessage = {
+  const mockMessage: MessageType = {
     username: 'testuser',
     userId: '12345',
-    recipient: 'all',
-    channel: 'general' as Channel,
+    recipientId: null,
+    channel: 'general',
     text: 'i am a message'
   };
 
