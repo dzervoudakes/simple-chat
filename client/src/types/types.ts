@@ -26,8 +26,7 @@ export interface ApiRequest<T> {
   jwt: string;
 }
 
-// @todo remove explicit 'any' here somehow
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ApiResponse = Promise<AxiosResponse<Record<string, any>>>;
 
 export interface AuthPayload {
