@@ -2,9 +2,6 @@ import { useContext } from 'react';
 import { ChatContext, ChatContextProps } from '@src/context';
 import { Message } from '@src/types';
 
-// @todo update with the new pieces from the Context
-// @todo fix inevitably failing unit tests
-
 interface UseChat extends Partial<ChatContextProps> {
   messages: Message[];
 }
@@ -19,6 +16,7 @@ export const useChat = (key: string): UseChat => {
 
   return {
     channels: context.channels,
+    loadingError: context.loadingError,
     messages: context.chat[key] ?? [],
     updateChat: context.updateChat,
     users: context.users

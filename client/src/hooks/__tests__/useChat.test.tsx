@@ -23,6 +23,7 @@ describe('useChat', () => {
       value={{
         channels: ['general'],
         chat: { general: [message] },
+        loadingError: false,
         updateChat: noop,
         users: [user]
       }}
@@ -33,9 +34,10 @@ describe('useChat', () => {
 
   it('returns the current username', () => {
     const { result } = renderHook(() => useChat('general'), { wrapper: TestComponent });
-    const { channels, messages, users } = result.current;
+    const { channels, loadingError, messages, users } = result.current;
 
     expect(channels?.[0]).toBe('general');
+    expect(loadingError).toBe(false);
     expect(messages[0].text).toBe('i am a message');
     expect(users?.[0].username).toBe('test');
   });

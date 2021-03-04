@@ -5,20 +5,19 @@ import { ChannelService, MessageService, UserService } from '@src/services';
 import { useAuth } from '@src/hooks';
 import { Message } from '@src/types';
 
-// @todo code coverage
-
 export interface Chat {
   [key: string]: Message[];
 }
 
 export interface ChatUser {
   username: string;
-  _id: string;
+  _id: string; // the leading underscore here is a MongoDB thing
 }
 
 export interface ChatContextProps {
   channels: string[];
   chat: Chat;
+  loadingError: boolean;
   updateChat: (message: Message) => void;
   users: ChatUser[];
 }
@@ -26,6 +25,7 @@ export interface ChatContextProps {
 export const ChatContext = createContext<ChatContextProps>({
   channels: [],
   chat: {},
+  loadingError: false,
   updateChat: noop,
   users: []
 });
@@ -35,6 +35,7 @@ export const ChatProvider: React.FC = ({ children }) => {
   const [channels, setChannels] = useState([]);
   const [chat, setChat] = useState({});
   const [users, setUsers] = useState([]);
+  const [loadingError, setLoadingError] = useState(false);
 
   const source = axios.CancelToken.source();
 
@@ -49,7 +50,7 @@ export const ChatProvider: React.FC = ({ children }) => {
             UserService.getUsers(params),
             MessageService.getMessages({ ...params, userId: user.id })
           ]);
-          const [channelsResult, messagesResult, usersResult] = results;
+          const [channelsResult, usersResult, messagesResult] = results;
           const { channels: channelList } = channelsResult.data;
           const { users: userList } = usersResult.data;
 
@@ -60,39 +61,36 @@ export const ChatProvider: React.FC = ({ children }) => {
           const { messages } = messagesResult.data;
           const initialChat = {};
 
+          channelList.forEach((channel: string) => {
+            initialChat[channel] = [];
+          });
+
           messages.forEach((message: Message) => {
             const { channel, recipientId, senderId } = message;
 
             // public channels
-            if (channel) {
-              if (!initialChat[channel]) {
-                initialChat[channel] = [];
-              }
-
+            if (channel && initialChat[channel]) {
               initialChat[channel].push(message);
             }
 
             // private conversations
-            if (!channel && recipientId !== null) {
-              if (!initialChat[recipientId] && recipientId !== user.id) {
-                initialChat[recipientId] = [];
+            if (recipientId !== null) {
+              const key = user.id === recipientId ? senderId : recipientId;
+
+              if (!initialChat[key]) {
+                initialChat[key] = [];
               }
 
-              if (!initialChat[senderId] && senderId !== user.id) {
-                initialChat[senderId] = [];
-              }
-
-              const conversation = initialChat[recipientId] ?? initialChat[senderId]; // @todo is this right?
-
-              if (conversation) {
-                conversation.push(message);
-              }
+              initialChat[key].push(message);
             }
           });
 
           setChat(initialChat);
         } catch (err) {
-          // @todo error handling
+          /* istanbul ignore else */
+          if (!axios.isCancel(err)) {
+            setLoadingError(true);
+          }
         }
       }
     };
@@ -105,23 +103,20 @@ export const ChatProvider: React.FC = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.jwt]);
 
+  // add new chat message to the appropriate list
   const updateChat = (message: Message): void => {
     const updatedChat = { ...chat };
     const key = message.channel ?? message.recipientId;
 
     if (key) {
-      if (updatedChat[key]) {
-        updatedChat[key] = updatedChat[key].concat([message]);
-      } else {
-        updatedChat[key] = [message];
-      }
+      updatedChat[key] = updatedChat[key]?.concat([message]) ?? [message];
     }
 
     setChat(updatedChat);
   };
 
   return (
-    <ChatContext.Provider value={{ channels, chat, updateChat, users }}>
+    <ChatContext.Provider value={{ channels, chat, loadingError, updateChat, users }}>
       {children}
     </ChatContext.Provider>
   );
