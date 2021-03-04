@@ -38,7 +38,7 @@ describe('UserDao', () => {
     expect(result?.password).toEqual(mockUser.password);
   });
 
-  it('gets creates a new user', async () => {
+  it('creates a new user', async () => {
     const userDao = new UserDao();
     const mockUser = { username: 'User3', password: 'passworddd' };
 

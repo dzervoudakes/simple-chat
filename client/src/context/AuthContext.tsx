@@ -1,15 +1,15 @@
 import React, { createContext, SetStateAction, useState, Dispatch } from 'react';
 import noop from 'lodash/noop';
 
-export interface User {
+export interface AuthUser {
   username: string | null;
   id: string | null;
   jwt: string | null;
 }
 
 export interface AuthContextProps {
-  user: User;
-  setUser: Dispatch<SetStateAction<User>>;
+  user: AuthUser;
+  setUser: Dispatch<SetStateAction<AuthUser>>;
 }
 
 const emptyUser = {
@@ -24,7 +24,7 @@ export const AuthContext = createContext<AuthContextProps>({
 });
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [user, setUser] = useState<User>(emptyUser);
+  const [user, setUser] = useState<AuthUser>(emptyUser);
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>{children}</AuthContext.Provider>

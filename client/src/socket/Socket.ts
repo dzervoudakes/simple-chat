@@ -3,14 +3,17 @@
  * @packageDocumentation
  */
 import { API_BASE_URL } from '@src/constants';
-import { Connection, Message } from '@src/types';
+import { Message } from '@src/types';
 
 // @todo unit testing
-// @todo store 'socket' in ChatContext to then be accessed throughout the app where needed
 
 interface Query {
   username: string;
   userId: string;
+}
+
+interface Connection {
+  welcome: string;
 }
 
 export class Socket {
@@ -24,8 +27,8 @@ export class Socket {
 
   private handleConnection(): void {
     this.socket.on('connection-success', (resp: Connection): void => {
-      // @todo
-      console.log('handle something here', resp);
+      // @todo something with the welcome message
+      console.log('handle something here', resp.welcome);
     });
   }
 

@@ -5,7 +5,12 @@ import { Server } from '@overnightjs/core';
 import mongoose from 'mongoose';
 import chalk from 'chalk';
 import { Socket } from 'socket.io';
-import { AuthController, MessageController, UserController } from './controllers';
+import {
+  AuthController,
+  ChannelController,
+  MessageController,
+  UserController
+} from './controllers';
 import { MessageType } from './models';
 
 export class AppServer extends Server {
@@ -30,9 +35,6 @@ export class AppServer extends Server {
   // apparently 'io()' doesn't work with import syntax
   private io = require('socket.io')(this.http);
 
-  // channels are preconfigured for this app and not dynamic
-  private channels = ['general', 'work', 'random'];
-
   private sockets: { userId: string; socketId: string }[] = [];
 
   private async setupDatabaseConnection(): Promise<void> {
@@ -45,10 +47,16 @@ export class AppServer extends Server {
 
   private setupControllers(): void {
     const authController = new AuthController();
+    const channelController = new ChannelController();
     const messageController = new MessageController();
     const userController = new UserController();
 
-    super.addControllers([authController, messageController, userController]);
+    super.addControllers([
+      authController,
+      channelController,
+      messageController,
+      userController
+    ]);
   }
 
   private setupWebSockets(): void {
@@ -59,19 +67,14 @@ export class AppServer extends Server {
 
       this.sockets.push({ userId: userId as string, socketId: socket.id });
 
-      // client joins all public channels and a welcome message is sent
-      socket.join(this.channels);
-      this.io
-        .to(socket.id)
-        .emit('connection-success', { welcome, channels: this.channels });
+      // client socket is initialized and a welcome message is sent
+      this.io.to(socket.id).emit('connection-success', { welcome });
 
       // @todo 'new user' event type (consuming clients will need to refresh their list of users)
 
       // send and receive public messages
       socket.on('send-message-public', (message: MessageType) => {
-        socket.broadcast
-          .to(message.channel ?? '')
-          .emit('receive-message-public', message);
+        socket.broadcast.emit('receive-message-public', message);
       });
 
       // send and receive private messages

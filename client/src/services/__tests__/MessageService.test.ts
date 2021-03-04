@@ -20,8 +20,8 @@ describe('MessageService', () => {
       const source = axios.CancelToken.source();
       const data: Message = {
         username: 'test',
-        userId: '12345',
-        recipient: 'all',
+        senderId: '12345',
+        recipientId: null,
         channel: 'general',
         text: 'i am a message'
       };

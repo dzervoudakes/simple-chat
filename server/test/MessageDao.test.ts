@@ -7,7 +7,7 @@ describe('MessageDao', () => {
 
   const mockMessage: MessageType = {
     username: 'testuser',
-    userId: '12345',
+    senderId: '12345',
     recipientId: null,
     channel: 'general',
     text: 'i am a message'
@@ -34,7 +34,7 @@ describe('MessageDao', () => {
     expect(result[0].text).toEqual(mockMessage.text);
   });
 
-  it('gets creates a new message', async () => {
+  it('creates a new message', async () => {
     const messageDao = new MessageDao();
 
     const result = await messageDao.createMessage(mockMessage);

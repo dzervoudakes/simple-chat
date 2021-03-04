@@ -73,4 +73,11 @@ npm run docs
 npm run clean
 ```
 
-<!-- @todo env variable notes -->
+## Environment
+
+The following environment variables are used throughout the SPA. Default values are provided via the `webpack.base.js` file in the `./build` directory.
+
+| Variable      | Default                 | Description                                            |
+| ------------- | ----------------------- | ------------------------------------------------------ |
+| NODE_ENV      | `development`           | Dictates which `webpack` bundle to use at build time   |
+| API_BASE_URL  | `http://localhost:3000` | Base origin for sending network requests               |

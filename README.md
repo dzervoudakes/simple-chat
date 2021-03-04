@@ -10,7 +10,6 @@
 
 A simple, real-time chat UI with a preconfigured list of chatrooms which users can contribute to. Users can also send private messages to each other.
 
-<!-- @todo -->
 <!-- <img src="demo.gif" height="350"/> -->
 
 ## Technologies Used

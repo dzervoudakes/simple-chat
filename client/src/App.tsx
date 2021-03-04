@@ -1,6 +1,7 @@
 import React from 'react';
-import Providers from './components/Providers';
 
-const App: React.FC = () => <Providers>placeholder</Providers>;
+// @todo ChatProvider here?
+
+const App: React.FC = () => <>placeholder</>;
 
 export default App;

@@ -180,7 +180,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"TestUser1\",\n    \"userId\": \"{{userId}}\",\n    \"recipientId\": \"{{$guid}}\",\n    \"channel\": null,\n    \"text\": \"I am a message\"\n}"
+							"raw": "{\n    \"username\": \"TestUser1\",\n    \"senderId\": \"{{userId}}\",\n    \"recipientId\": \"{{$guid}}\",\n    \"channel\": null,\n    \"text\": \"I am a message\"\n}"
 						},
 						"url": {
 							"raw": "{{domain}}/api/messages",
@@ -232,6 +232,47 @@
 									"key": "searchId",
 									"value": "{{userId}}"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "channels",
+			"item": [
+				{
+					"name": "Get Channels",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{domain}}/api/channels",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"channels"
 							]
 						}
 					},

@@ -1,12 +1,12 @@
 import { Socket } from 'socket.io';
 import AppServer from '@src/AppServer';
-import { MessageType, Channel } from '@src/models';
+import { MessageType } from '@src/models';
 
 jest.mock('mongoose');
 
 interface Connection {
   welcome: string;
-  channels: Channel[];
+  channels: string[];
 }
 
 describe('AppServer', () => {
@@ -31,21 +31,18 @@ describe('AppServer', () => {
 
   it('establishes a websocket connection', async () => {
     let mockWelcome;
-    let mockChannels;
 
     receiver = require('socket.io-client')(HOST, {
       query: { username: 'test' }
     });
 
-    receiver.on('connection-success', ({ welcome, channels }: Connection) => {
+    receiver.on('connection-success', ({ welcome }: Connection) => {
       mockWelcome = welcome;
-      mockChannels = channels;
     });
 
     await new Promise((res) => setTimeout(res, 100));
 
     expect(mockWelcome).toEqual('Welcome to simple chat, test!');
-    expect(mockChannels).toEqual(['general', 'work', 'random']);
   });
 
   it('handles public chat messages', async () => {

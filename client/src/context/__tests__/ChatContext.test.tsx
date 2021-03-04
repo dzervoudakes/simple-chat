@@ -6,16 +6,16 @@ import { ChatContext, ChatProvider } from '..';
 describe('ChatContext', () => {
   const publicMessage: Message = {
     username: 'test',
-    userId: '12345',
-    recipient: 'all',
+    senderId: '12345',
+    recipientId: null,
     channel: 'general',
     text: 'i am a message'
   };
 
   const privateMessage: Message = {
     username: 'test',
-    userId: '12345',
-    recipient: '67890',
+    senderId: '12345',
+    recipientId: '67890',
     channel: null,
     text: 'i am a private message'
   };

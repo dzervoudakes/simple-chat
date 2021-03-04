@@ -1,0 +1,14 @@
+[
+  {
+    "name": "general",
+    "description": "Public interest topics and announcements"
+  },
+  {
+    "name": "work",
+    "description": "Core business discussion"
+  },
+  {
+    "name": "random",
+    "description": "Don't be afraid to get weird with it"
+  }
+]

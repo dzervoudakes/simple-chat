@@ -1,17 +1,12 @@
 import { CancelTokenSource, AxiosResponse } from 'axios';
 
-export type Channel = 'general' | 'work' | 'random';
-
-export interface Connection {
-  welcome: string;
-  channels: Channel[];
-}
-
+// if a message is sent to a public channel, the channel property will be populated and recipientId will be null
+// if a message is private between two users, the recipientId will be populated and the channel will be null
 export interface Message {
   username: string;
-  userId: string;
-  recipient: string | 'all';
-  channel: Channel | null;
+  senderId: string;
+  recipientId: string | null;
+  channel: string | null;
   text: string;
 }
 
@@ -31,7 +26,9 @@ export interface ApiRequest<T> {
   jwt: string;
 }
 
-export type ApiResponse = Promise<AxiosResponse<Record<string, unknown>>>;
+// @todo remove explicit 'any' here somehow
+
+export type ApiResponse = Promise<AxiosResponse<Record<string, any>>>;
 
 export interface AuthPayload {
   username: string;
