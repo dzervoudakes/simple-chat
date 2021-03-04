@@ -2,9 +2,11 @@ import axios from 'axios';
 import { API_BASE_URL } from '@src/constants';
 import { ApiRequest, ApiResponse, Message } from '@src/types';
 
+const BASE_URL = `${API_BASE_URL}/messages`;
+
 export class MessageService {
   static createMessage({ data, source, jwt }: ApiRequest<Message>): ApiResponse {
-    return axios.post(`${API_BASE_URL}/messages`, {
+    return axios.post(BASE_URL, {
       cancelToken: source.token,
       headers: {
         Authorization: `Bearer ${jwt}`
@@ -18,7 +20,7 @@ export class MessageService {
     source,
     jwt
   }: ApiRequest<void> & { userId: string }): ApiResponse {
-    return axios.get(`${API_BASE_URL}/messages?searchId=${userId}`, {
+    return axios.get(`${BASE_URL}?searchId=${userId}`, {
       cancelToken: source.token,
       headers: {
         Authorization: `Bearer ${jwt}`
