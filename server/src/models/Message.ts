@@ -15,12 +15,7 @@ export const MessageSchema = new Schema<MessageDocument>(
     username: { type: String, required: true },
     senderId: { type: String, required: true },
     recipientId: { type: String, required: false, default: null },
-    channel: {
-      type: String,
-      required: false,
-      default: null,
-      enum: ['general', 'work', 'random', null]
-    },
+    channel: { type: String, required: false, default: null },
     text: { type: String, required: true }
   },
   { timestamps: {} }

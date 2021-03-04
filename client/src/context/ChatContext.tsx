@@ -103,7 +103,7 @@ export const ChatProvider: React.FC = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.jwt]);
 
-  // add new chat message to the appropriate list
+  // add a new chat message to the appropriate list
   const updateChat = (message: Message): void => {
     const updatedChat = { ...chat };
     const key = message.channel ?? message.recipientId;
