@@ -10,6 +10,13 @@
 
 A simple, real-time chat UI with a preconfigured list of chatrooms which users can contribute to. Users can also send private messages to each other.
 
+Some notes:
+
+- This is a full rewrite of an older project that had some nasty patterns I wanted to clean up
+- I didn't bother testing in IE11, so good luck there
+- The UI is loosely inspired by Slack
+- Web sockets are awesome
+
 <!-- <img src="demo.gif" height="350"/> -->
 
 ## Technologies Used
@@ -26,7 +33,7 @@ A simple, real-time chat UI with a preconfigured list of chatrooms which users c
 - Ensure `Docker` is installed and running
 - In your terminal, `cd` into the `server` directory and run `npm install`
 - From the project root, open your terminal and run `docker-compose up`
-  - Seed data for `users` will be populated in the database automatically
+  - Seed data will be populated in the database automatically
   - The server will be running on `http://localhost:3000`
   - The default login is `Admin`/`passworddd`, but you may create your own through the UI as well
 
