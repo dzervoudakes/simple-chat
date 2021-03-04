@@ -42,27 +42,24 @@ export const ChatProvider: React.FC = ({ children }) => {
     const getData = async (): Promise<void> => {
       if (user.id && user.jwt) {
         try {
-          // retrieve available channels
-          const channelsResult = await ChannelService.getChannels({
-            jwt: user.jwt,
-            source
-          });
+          // retrieve all available channels, messages and users
+          const params = { jwt: user.jwt, source };
+          const results = await Promise.all([
+            ChannelService.getChannels(params),
+            UserService.getUsers(params),
+            MessageService.getMessages({ ...params, userId: user.id })
+          ]);
+          const [channelsResult, messagesResult, usersResult] = results;
           const { channels: channelList } = channelsResult.data;
-          setChannels(channelList);
-
-          // retrieve available users
-          const usersResult = await UserService.getUsers({ jwt: user.jwt, source });
           const { users: userList } = usersResult.data;
+
+          setChannels(channelList);
           setUsers(userList);
 
-          // retrieve messages and construct initial chat object
-          const messagesResult = await MessageService.getMessages({
-            userId: user.id,
-            jwt: user.jwt,
-            source
-          });
+          // construct initial chat object
           const { messages } = messagesResult.data;
           const initialChat = {};
+
           messages.forEach((message: Message) => {
             const { channel, recipientId, senderId } = message;
 
@@ -85,7 +82,7 @@ export const ChatProvider: React.FC = ({ children }) => {
                 initialChat[senderId] = [];
               }
 
-              const conversation = initialChat[recipientId] ?? initialChat[senderId];
+              const conversation = initialChat[recipientId] ?? initialChat[senderId]; // @todo is this right?
 
               if (conversation) {
                 conversation.push(message);
@@ -106,7 +103,7 @@ export const ChatProvider: React.FC = ({ children }) => {
       source.cancel();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user.id, user.jwt]);
+  }, [user.jwt]);
 
   const updateChat = (message: Message): void => {
     const updatedChat = { ...chat };
