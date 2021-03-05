@@ -23,7 +23,8 @@ describe('MessageService', () => {
         senderId: '12345',
         recipientId: null,
         channel: 'general',
-        text: 'i am a message'
+        text: 'i am a message',
+        _id: '67890'
       };
       const jwt = 'jwt';
       const url = `${API_BASE_URL}/messages`;

@@ -43,7 +43,10 @@ export class Socket {
     // @todo 'new-user' event type here after implementing in the API
   }
 
-  public sendChatMessage = (variant: 'public' | 'private', message: Message): void => {
+  public sendChatMessage = (
+    variant: 'public' | 'private',
+    message: Omit<Message, '_id'>
+  ): void => {
     this.socket.emit(`send-message-${variant}`, message);
   };
 

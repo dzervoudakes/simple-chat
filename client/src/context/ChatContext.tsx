@@ -11,7 +11,7 @@ export interface Chat {
 
 export interface Channel {
   name: string;
-  _id: string; // the leading underscore here is a MongoDB thing
+  _id: string;
 }
 
 export interface ChatUser {
@@ -24,7 +24,7 @@ export interface ChatContextProps {
   chat: Chat;
   dataLoading: boolean;
   loadingError: boolean;
-  updateChat: (message: Message) => void;
+  updateChat: (message: Omit<Message, '_id'>) => void;
   users: ChatUser[];
 }
 
@@ -116,7 +116,7 @@ export const ChatProvider: React.FC = ({ children }) => {
   }, [user.jwt]);
 
   // add a new chat message to the appropriate list
-  const updateChat = (message: Message): void => {
+  const updateChat = (message: Omit<Message, '_id'>): void => {
     const updatedChat = { ...chat };
     const key = message.channel ?? message.recipientId;
 

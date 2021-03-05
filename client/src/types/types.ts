@@ -8,6 +8,7 @@ export interface Message {
   recipientId: string | null;
   channel: string | null;
   text: string;
+  _id: string;
 }
 
 export type Spacing = 'tiny' | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
