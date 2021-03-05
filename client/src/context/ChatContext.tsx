@@ -9,14 +9,20 @@ export interface Chat {
   [key: string]: Message[];
 }
 
-export interface ChatUser {
-  username: string;
+export interface Channel {
+  name: string;
   _id: string; // the leading underscore here is a MongoDB thing
 }
 
+export interface ChatUser {
+  username: string;
+  _id: string;
+}
+
 export interface ChatContextProps {
-  channels: string[];
+  channels: Channel[];
   chat: Chat;
+  dataLoading: boolean;
   loadingError: boolean;
   updateChat: (message: Message) => void;
   users: ChatUser[];
@@ -25,6 +31,7 @@ export interface ChatContextProps {
 export const ChatContext = createContext<ChatContextProps>({
   channels: [],
   chat: {},
+  dataLoading: false,
   loadingError: false,
   updateChat: noop,
   users: []
@@ -35,6 +42,7 @@ export const ChatProvider: React.FC = ({ children }) => {
   const [channels, setChannels] = useState([]);
   const [chat, setChat] = useState({});
   const [users, setUsers] = useState([]);
+  const [dataLoading, setDataLoading] = useState(false);
   const [loadingError, setLoadingError] = useState(false);
 
   const source = axios.CancelToken.source();
@@ -43,6 +51,8 @@ export const ChatProvider: React.FC = ({ children }) => {
     const getData = async (): Promise<void> => {
       if (user.id && user.jwt) {
         try {
+          setDataLoading(true);
+
           // retrieve all available channels, messages and users
           const params = { jwt: user.jwt, source };
           const results = await Promise.all([
@@ -61,8 +71,8 @@ export const ChatProvider: React.FC = ({ children }) => {
           const { messages } = messagesResult.data;
           const initialChat = {};
 
-          channelList.forEach((channel: string) => {
-            initialChat[channel] = [];
+          channelList.forEach((channel: Channel) => {
+            initialChat[channel.name] = [];
           });
 
           messages.forEach((message: Message) => {
@@ -86,10 +96,12 @@ export const ChatProvider: React.FC = ({ children }) => {
           });
 
           setChat(initialChat);
+          setDataLoading(false);
         } catch (err) {
           /* istanbul ignore else */
           if (!axios.isCancel(err)) {
             setLoadingError(true);
+            setDataLoading(false);
           }
         }
       }
@@ -116,7 +128,9 @@ export const ChatProvider: React.FC = ({ children }) => {
   };
 
   return (
-    <ChatContext.Provider value={{ channels, chat, loadingError, updateChat, users }}>
+    <ChatContext.Provider
+      value={{ channels, chat, dataLoading, loadingError, updateChat, users }}
+    >
       {children}
     </ChatContext.Provider>
   );

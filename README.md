@@ -1,5 +1,5 @@
 # Simple Chat
-> No frills chat app built with React and Socket.io
+> No frills chat app built with React and Socket.io.
 
 <!-- [![build](https://github.com/dzervoudakes/simple-chat/workflows/Build%20and%20Test/badge.svg)](https://github.com/dzervoudakes/simple-chat/actions)
 [![codecov](https://codecov.io/gh/dzervoudakes/simple-chat/branch/main/graph/badge.svg)](https://codecov.io/gh/dzervoudakes/simple-chat)
@@ -10,7 +10,7 @@
 
 A simple, real-time chat UI with a preconfigured list of chatrooms which users can contribute to. Users can also send private messages to each other.
 
-Some notes:
+**Some notes:**
 
 - This is a full rewrite of an older project that had some nasty patterns I wanted to clean up
 - I didn't bother testing in IE11, so good luck there

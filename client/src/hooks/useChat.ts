@@ -6,7 +6,7 @@ interface UseChat extends Partial<ChatContextProps> {
   messages: Message[];
 }
 
-export const useChat = (key: string): UseChat => {
+export const useChat = (key?: string): UseChat => {
   const context = useContext(ChatContext);
 
   /* istanbul ignore if */
@@ -16,8 +16,9 @@ export const useChat = (key: string): UseChat => {
 
   return {
     channels: context.channels,
+    dataLoading: context.dataLoading,
     loadingError: context.loadingError,
-    messages: context.chat[key] ?? [],
+    messages: key ? context.chat[key] : [],
     updateChat: context.updateChat,
     users: context.users
   };

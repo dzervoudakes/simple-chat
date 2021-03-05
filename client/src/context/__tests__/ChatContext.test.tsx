@@ -27,11 +27,12 @@ describe('ChatContext', () => {
 
   const TestComponent: React.FC = () => (
     <ChatContext.Consumer>
-      {({ chat, loadingError, updateChat }) => (
+      {({ chat, dataLoading, loadingError, updateChat }) => (
         <>
           <div>Message: {chat.general?.[0]?.text}</div>
           <div>Message: {chat.general?.[1]?.text}</div>
           <div>Message: {chat['67890']?.[0]?.text}</div>
+          <div>Data loading: {dataLoading.toString()}</div>
           <div>Loading error: {loadingError.toString()}</div>
           <button type="button" onClick={() => updateChat(publicMessage)}>
             update public chat
@@ -95,7 +96,7 @@ describe('ChatContext', () => {
   it('populates the default chat object', async () => {
     ChannelService.getChannels = jest
       .fn()
-      .mockResolvedValueOnce({ data: { channels: ['general'] } });
+      .mockResolvedValueOnce({ data: { channels: [{ name: 'general', _id: '12345' }] } });
     MessageService.getMessages = jest
       .fn()
       .mockResolvedValueOnce({ data: { messages: [publicMessage, privateMessage] } });
@@ -108,12 +109,14 @@ describe('ChatContext', () => {
   });
 
   it('handles the error state', async () => {
-    ChannelService.getChannels = jest.fn().mockRejectedValueOnce(new Error(''));
+    ChannelService.getChannels = jest.fn().mockRejectedValueOnce('error');
     const { getByText } = render(<Wrapper />);
 
+    expect(getByText('Data loading: true')).toBeInTheDocument();
     expect(getByText('Loading error: false')).toBeInTheDocument();
 
     await waitFor(() => {
+      expect(getByText('Data loading: false')).toBeInTheDocument();
       expect(getByText('Loading error: true')).toBeInTheDocument();
     });
   });

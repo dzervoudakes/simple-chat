@@ -1,5 +1,5 @@
 import React from 'react';
-import { MemoryRouter as Router } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import { render, fireEvent } from '@testing-library/react';
 import { WithStylesProvider } from '@src/context';
 import Missing from '..';
@@ -16,11 +16,11 @@ jest.mock('react-router-dom', () => ({
 describe('Missing', () => {
   it('renders the title and description', () => {
     const { getByText } = render(
-      <Router initialEntries={['/missing']}>
+      <MemoryRouter initialEntries={['/missing']}>
         <WithStylesProvider>
           <Missing />
         </WithStylesProvider>
-      </Router>
+      </MemoryRouter>
     );
 
     expect(getByText('You must be lost...')).toBeInTheDocument();
@@ -30,9 +30,9 @@ describe('Missing', () => {
   it('redirects to the user selection page on click', () => {
     const { getByText } = render(
       <WithStylesProvider>
-        <Router initialEntries={['/missing']}>
+        <MemoryRouter initialEntries={['/missing']}>
           <Missing />
-        </Router>
+        </MemoryRouter>
       </WithStylesProvider>
     );
 

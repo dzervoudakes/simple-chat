@@ -21,8 +21,9 @@ describe('useChat', () => {
   const TestComponent: React.FC = ({ children }) => (
     <ChatContext.Provider
       value={{
-        channels: ['general'],
+        channels: [{ name: 'general', _id: '12345' }],
         chat: { general: [message] },
+        dataLoading: false,
         loadingError: false,
         updateChat: noop,
         users: [user]
@@ -34,9 +35,10 @@ describe('useChat', () => {
 
   it('returns the current username', () => {
     const { result } = renderHook(() => useChat('general'), { wrapper: TestComponent });
-    const { channels, loadingError, messages, users } = result.current;
+    const { channels, dataLoading, loadingError, messages, users } = result.current;
 
-    expect(channels?.[0]).toBe('general');
+    expect(channels?.[0].name).toBe('general');
+    expect(dataLoading).toBe(false);
     expect(loadingError).toBe(false);
     expect(messages[0].text).toBe('i am a message');
     expect(users?.[0].username).toBe('test');
