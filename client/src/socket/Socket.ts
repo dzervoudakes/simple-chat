@@ -32,8 +32,8 @@ export class Socket {
     });
   }
 
-  public subscribeToChat(cb: (message: Message) => void): void {
-    const messageHandler = (message: Message): void => {
+  public subscribeToChat(cb: (message: Omit<Message, '_id'>) => void): void {
+    const messageHandler = (message: Omit<Message, '_id'>): void => {
       cb(message);
     };
 

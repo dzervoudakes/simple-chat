@@ -37,16 +37,22 @@ describe('ConversationPanel', () => {
     text: 'i am a private message'
   };
 
-  const TestComponent: React.FC = () => (
-    <AuthContext.Provider
-      value={{ user: { username: 'test', id: '12345', jwt: 'jwt' }, setUser: noop }}
-    >
-      <WithStylesProvider>
-        <ChatProvider>
-          <ConversationPanel />
-        </ChatProvider>
-      </WithStylesProvider>
-    </AuthContext.Provider>
+  const TestComponent: React.FC<{ initialEntry?: string }> = ({
+    initialEntry = '/general'
+  }) => (
+    <MemoryRouter initialEntries={[initialEntry]}>
+      <Route path="/:chatId">
+        <AuthContext.Provider
+          value={{ user: { username: 'test', id: '12345', jwt: 'jwt' }, setUser: noop }}
+        >
+          <WithStylesProvider>
+            <ChatProvider>
+              <ConversationPanel />
+            </ChatProvider>
+          </WithStylesProvider>
+        </AuthContext.Provider>
+      </Route>
+    </MemoryRouter>
   );
 
   beforeEach(() => {
@@ -62,13 +68,7 @@ describe('ConversationPanel', () => {
   });
 
   it('renders public channels', async () => {
-    const { getByText } = render(
-      <MemoryRouter initialEntries={['/general']}>
-        <Route path="/:chatId">
-          <TestComponent />
-        </Route>
-      </MemoryRouter>
-    );
+    const { getByText } = render(<TestComponent />);
 
     await waitFor(() => {
       expect(getByText('i am a message')).toBeInTheDocument();
@@ -76,13 +76,7 @@ describe('ConversationPanel', () => {
   });
 
   it('renders direct messages', async () => {
-    const { getByText } = render(
-      <MemoryRouter initialEntries={['/67890']}>
-        <Route path="/:chatId">
-          <TestComponent />
-        </Route>
-      </MemoryRouter>
-    );
+    const { getByText } = render(<TestComponent initialEntry="/67890" />);
 
     await waitFor(() => {
       expect(getByText('i am a private message')).toBeInTheDocument();

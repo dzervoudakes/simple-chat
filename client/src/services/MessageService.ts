@@ -6,7 +6,11 @@ import { ApiRequest, ApiResponse } from './types';
 const BASE_URL = `${API_BASE_URL}/messages`;
 
 export class MessageService {
-  static createMessage({ data, source, jwt }: ApiRequest<Message>): ApiResponse {
+  static createMessage({
+    data,
+    source,
+    jwt
+  }: ApiRequest<Omit<Message, '_id'>>): ApiResponse {
     return axios.post(BASE_URL, {
       cancelToken: source.token,
       headers: {
