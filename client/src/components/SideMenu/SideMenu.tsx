@@ -8,7 +8,7 @@ import Spacer from '@src/components/Spacer';
 import Typography from '@src/components/Typography';
 import { useAuth, useChat, useSideMenu } from '@src/hooks';
 import { MOBILE_QUERY } from '@src/constants';
-import { Theme } from '@src/types';
+import { Theme } from '@src/theme';
 
 const stylesFn = ({ color }: Theme): Styles => ({
   sideMenu: {

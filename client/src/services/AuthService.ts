@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_BASE_URL } from '@src/constants';
-import { ApiRequest, ApiResponse, AuthPayload } from '@src/types';
+import { ApiRequest, ApiResponse, AuthPayload } from './types';
 
 export class AuthService {
   static generateToken({ data, source, jwt }: ApiRequest<AuthPayload>): ApiResponse {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_BASE_URL } from '@src/constants';
-import { Message } from '@src/types';
+import { Message } from '@src/context';
 import { MessageService } from '..';
 
 jest.mock('axios', () => ({

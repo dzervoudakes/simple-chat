@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_BASE_URL } from '@src/constants';
-import { ApiRequest, ApiResponse } from '@src/types';
+import { ApiRequest, ApiResponse } from './types';
 
 const BASE_URL = `${API_BASE_URL}/channels`;
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { useField } from 'formik';
 import useStyles from 'react-with-styles/lib/hooks/useStyles';
 import { Styles } from 'react-with-styles';
-import { Theme } from '@src/types';
+import { Theme } from '@src/theme';
 
 interface TextInputProps {
   name: string;

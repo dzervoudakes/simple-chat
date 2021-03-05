@@ -2,7 +2,16 @@
  * Default theme for 'react-with-styles'.
  * @packageDocumentation
  */
-import { Theme } from '@src/types';
+
+export type Spacing = 'tiny' | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
+
+export interface Theme {
+  color: Record<string, string>;
+  fonts: Record<string, string>;
+  spacing: Record<Spacing, string>;
+  border: Record<string, string>;
+  typography: Record<string, Record<string, string | number>>;
+}
 
 const color = {
   primary: '#119da4',

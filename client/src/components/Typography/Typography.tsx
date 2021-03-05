@@ -1,7 +1,7 @@
 import React from 'react';
 import useStyles from 'react-with-styles/lib/hooks/useStyles';
 import { Styles } from 'react-with-styles';
-import { Theme } from '@src/types';
+import { Theme } from '@src/theme';
 
 interface TypographyProps {
   variant?: 'h2' | 'h3' | 'body' | 'disclaimer';
