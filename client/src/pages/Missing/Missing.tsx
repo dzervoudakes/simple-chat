@@ -5,13 +5,12 @@ import Typography from '@src/components/Typography';
 import Spacer from '@src/components/Spacer';
 import Button from '@src/components/Button';
 import Card from '@src/components/Card';
-
-// @todo redirect to first channel if the user is logged in
-// @todo redirect to Home if the user is not logged in
-// @todo update copy
+import { useAuth } from '@src/hooks';
 
 const Missing: React.FC = () => {
   const history = useHistory();
+  const { user } = useAuth();
+  const path = user.jwt ? '/channels/general' : '/';
 
   return (
     <Layout>
@@ -21,8 +20,8 @@ const Missing: React.FC = () => {
           <Typography>Let&apos;s get you back home.</Typography>
         </Spacer>
         <Spacer pb="xsmall">
-          <Button variant="primary" onClick={() => history.push('/')}>
-            Return to User Selection
+          <Button variant="primary" onClick={() => history.push(path)}>
+            Return to {user.jwt ? 'chat' : 'login'}
           </Button>
         </Spacer>
       </Card>
