@@ -8,8 +8,8 @@ export interface UserType {
 export interface UserDocument extends UserType, Document {}
 
 export const UserSchema = new Schema<UserDocument>({
-  username: { type: String, required: true, unique: true },
-  password: { type: String, required: true, maxlength: 128, minlength: 8 }
+  username: { type: String, required: true, unique: true, maxlength: 30, minlength: 8 },
+  password: { type: String, required: true, maxlength: 30, minlength: 8 }
 });
 
 export const User = model('User', UserSchema);

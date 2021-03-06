@@ -41,7 +41,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"Admin\",\n\t\"password\": \"passworddd\"\n}"
+							"raw": "{\n\t\"username\": \"Admin123\",\n\t\"password\": \"passworddd\"\n}"
 						},
 						"url": {
 							"raw": "{{domain}}/api/auth",

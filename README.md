@@ -35,7 +35,7 @@ A simple, real-time chat UI with a preconfigured list of chatrooms which users c
 - From the project root, open your terminal and run `docker-compose up`
   - Seed data will be populated in the database automatically
   - The server will be running on `http://localhost:3000`
-  - The default login is `Admin`/`passworddd`, but you may create your own through the UI as well
+  - The default login is `Admin123`/`passworddd`, but you may create your own through the UI as well
 
 The `server/README.md` provides additional information on build scripts and environment variables.
 
