@@ -87,6 +87,7 @@ const MessageForm: React.FC = () => {
         socket.sendChatMessage(variant, message);
         resetForm();
       } catch (err) {
+        /* istanbul ignore else */
         if (!axios.isCancel(err)) {
           setIsFormSubmitError(true);
         }
