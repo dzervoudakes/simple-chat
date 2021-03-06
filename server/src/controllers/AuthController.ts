@@ -11,12 +11,12 @@ export class AuthController {
   @Post('')
   private async generateToken(req: Request, res: Response): Promise<void> {
     try {
-      const result = await this.userDao.getUser(req.body);
-      if (result === null) {
+      const user = await this.userDao.getUser(req.body);
+      if (user === null) {
         res.status(StatusCodes.UNAUTHORIZED).json({ error: 'Invalid credentials.' });
       } else {
         const token = JwtManager.jwt(req.body);
-        res.status(StatusCodes.OK).json({ token });
+        res.status(StatusCodes.OK).json({ user, token });
       }
     } catch (err) {
       res.status(StatusCodes.BAD_REQUEST).json({ error: err.message });

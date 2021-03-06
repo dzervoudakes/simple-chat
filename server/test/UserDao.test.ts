@@ -18,7 +18,7 @@ describe('UserDao', () => {
 
   it('gets a list of users and hides the password field', async () => {
     const userDao = new UserDao();
-    const mockUser = { username: 'User1', password: 'passworddd' };
+    const mockUser = { username: 'TestUser1', password: 'passworddd' };
 
     await User.create(mockUser);
     const result = await userDao.getUsers();
@@ -29,7 +29,7 @@ describe('UserDao', () => {
 
   it('gets user by username and password', async () => {
     const userDao = new UserDao();
-    const mockUser = { username: 'User2', password: 'passworddd' };
+    const mockUser = { username: 'TestUser2', password: 'passworddd' };
 
     await User.create(mockUser);
     const result = await userDao.getUser(mockUser);
@@ -40,7 +40,7 @@ describe('UserDao', () => {
 
   it('creates a new user', async () => {
     const userDao = new UserDao();
-    const mockUser = { username: 'User3', password: 'passworddd' };
+    const mockUser = { username: 'TestUser3', password: 'passworddd' };
 
     const result = await userDao.createUser(mockUser);
 

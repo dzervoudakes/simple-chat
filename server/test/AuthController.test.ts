@@ -36,13 +36,14 @@ describe('AuthController', () => {
   describe('getAdmin', () => {
     it('returns an auth token', async () => {
       mockGetUser.mockImplementationOnce(() => ({
-        username: 'test',
+        username: 'TestUser1',
         password: 'passworddd'
       }));
       const result = await agent.post('/api/auth');
 
       expect(result.status).toBe(StatusCodes.OK);
       expect(result.body.token).toEqual('i am a token');
+      expect(result.body.user.username).toEqual('TestUser1');
     });
 
     it('handles bad requests', async () => {
