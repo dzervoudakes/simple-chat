@@ -6,7 +6,8 @@ import Spacer from '@src/components/Spacer';
 import Button from '@src/components/Button';
 import Card from '@src/components/Card';
 
-// @todo is the secondary button necessary here?
+// @todo redirect to first channel if the user is logged in
+// @todo redirect to Home if the user is not logged in
 // @todo update copy
 
 const Missing: React.FC = () => {
@@ -24,14 +25,6 @@ const Missing: React.FC = () => {
             Return to User Selection
           </Button>
         </Spacer>
-        {/* <Button
-          variant="secondary"
-          onClick={() => {
-            window.location.assign('https://www.todo.com');
-          }}
-        >
-          TODO
-        </Button> */}
       </Card>
     </Layout>
   );

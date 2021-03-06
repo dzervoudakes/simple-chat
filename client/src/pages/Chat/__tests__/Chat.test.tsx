@@ -2,7 +2,12 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import noop from 'lodash/noop';
 import { MemoryRouter, Route } from 'react-router-dom';
-import { AuthContext, SideMenuProvider, WithStylesProvider } from '@src/context';
+import {
+  AuthContext,
+  ChatProvider,
+  SideMenuProvider,
+  WithStylesProvider
+} from '@src/context';
 import Chat from '..';
 
 describe('Chat', () => {
@@ -17,9 +22,11 @@ describe('Chat', () => {
                 setUser: noop
               }}
             >
-              <SideMenuProvider>
-                <Chat />
-              </SideMenuProvider>
+              <ChatProvider>
+                <SideMenuProvider>
+                  <Chat />
+                </SideMenuProvider>
+              </ChatProvider>
             </AuthContext.Provider>
           </WithStylesProvider>
         </Route>

@@ -7,6 +7,7 @@ import { Theme } from '@src/theme';
 interface TextInputProps {
   name: string;
   placeholder: string;
+  type?: 'text' | 'password';
 }
 
 const stylesFn = ({ color, fonts, spacing }: Theme): Styles => ({
@@ -30,13 +31,13 @@ const stylesFn = ({ color, fonts, spacing }: Theme): Styles => ({
   }
 });
 
-const TextInput: React.FC<TextInputProps> = ({ name, placeholder }) => {
+const TextInput: React.FC<TextInputProps> = ({ name, placeholder, type = 'text' }) => {
   const [field] = useField(name);
   const { css, styles } = useStyles({ stylesFn });
 
   return (
     <input
-      type="text"
+      type={type}
       name={name}
       onChange={field.onChange}
       onBlur={field.onBlur}
