@@ -21,14 +21,13 @@ describe('AuthService', () => {
         password: 'passworddd'
       };
       const url = `${API_BASE_URL}/auth`;
-      const payload = {
-        cancelToken: source.token,
-        data
+      const options = {
+        cancelToken: source.token
       };
 
       AuthService.generateToken({ source, data });
 
-      expect(spy).toHaveBeenCalledWith(url, payload);
+      expect(spy).toHaveBeenCalledWith(url, data, options);
     });
   });
 });

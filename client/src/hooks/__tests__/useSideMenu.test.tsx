@@ -1,12 +1,13 @@
 import React from 'react';
-import noop from 'lodash/noop';
 import { renderHook } from '@testing-library/react-hooks';
 import { SideMenuContext } from '@src/context';
 import { useSideMenu } from '..';
 
 describe('useSideMenu', () => {
   const TestComponent: React.FC = ({ children }) => (
-    <SideMenuContext.Provider value={{ isSideMenuOpen: false, setIsSideMenuOpen: noop }}>
+    <SideMenuContext.Provider
+      value={{ isSideMenuOpen: false, setIsSideMenuOpen: jest.fn() }}
+    >
       {children}
     </SideMenuContext.Provider>
   );

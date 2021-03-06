@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
-import noop from 'lodash/noop';
 import {
   AuthContext,
   ChatProvider,
@@ -37,7 +36,7 @@ describe('SideMenu', () => {
       <AuthContext.Provider
         value={{
           user: { username: 'AuthUser', id: '12345', jwt: 'jwt' },
-          setUser: noop
+          setUser: jest.fn()
         }}
       >
         <ChatProvider>

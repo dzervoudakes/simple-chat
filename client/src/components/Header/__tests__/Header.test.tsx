@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import noop from 'lodash/noop';
 import { useMediaQuery } from 'react-responsive';
 import { AuthContext, SideMenuProvider, WithStylesProvider } from '@src/context';
 import Header from '..';
@@ -25,7 +24,10 @@ describe('Header', () => {
   const TestComponent: React.FC = () => (
     <WithStylesProvider>
       <AuthContext.Provider
-        value={{ user: { username: 'test', id: '12345', jwt: 'jwt' }, setUser: noop }}
+        value={{
+          user: { username: 'test', id: '12345', jwt: 'jwt' },
+          setUser: jest.fn()
+        }}
       >
         <SideMenuProvider>
           <Header />

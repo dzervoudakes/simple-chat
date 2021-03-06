@@ -7,9 +7,8 @@ export class AuthService {
     data,
     source
   }: Omit<ApiRequest<AuthPayload>, 'jwt'>): ApiResponse {
-    return axios.post(`${API_BASE_URL}/auth`, {
-      cancelToken: source.token,
-      data
+    return axios.post(`${API_BASE_URL}/auth`, data, {
+      cancelToken: source.token
     });
   }
 }

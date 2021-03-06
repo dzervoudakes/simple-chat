@@ -98,7 +98,7 @@ const MessageForm: React.FC = () => {
   };
 
   return (
-    <Formik onSubmit={onSubmit} initialValues={{ message: '' }}>
+    <Formik initialValues={{ message: '' }} onSubmit={onSubmit}>
       {() => (
         <Form>
           <div

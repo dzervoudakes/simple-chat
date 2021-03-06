@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route } from 'react-router-dom';
-import noop from 'lodash/noop';
 import { AuthContext, ChatProvider, WithStylesProvider } from '@src/context';
 import { ChannelService, MessageService, UserService } from '@src/services';
 import ConversationPanel from '..';
@@ -45,7 +44,10 @@ describe('ConversationPanel', () => {
     <MemoryRouter initialEntries={[initialEntry]}>
       <Route path="/:chatId">
         <AuthContext.Provider
-          value={{ user: { username: 'test', id: '12345', jwt: 'jwt' }, setUser: noop }}
+          value={{
+            user: { username: 'test', id: '12345', jwt: 'jwt' },
+            setUser: jest.fn()
+          }}
         >
           <WithStylesProvider>
             <ChatProvider>

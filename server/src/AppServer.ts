@@ -32,8 +32,17 @@ export class AppServer extends Server {
 
   private http = http.createServer(this.app);
 
+  // @todo cors setup doesn't seem to work with client
+  // @todo unit tests for AppServer now failing
+
   // apparently 'io()' doesn't work with import syntax
-  private io = require('socket.io')(this.http);
+  private io = require('socket.io')(this.http, {
+    cors: {
+      origin: process.env.CLIENT_ORIGIN || '',
+      methods: ['GET', 'POST']
+      // allowedHeaders: ['Authorization']
+    }
+  });
 
   private sockets: { userId: string; socketId: string }[] = [];
 

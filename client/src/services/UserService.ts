@@ -6,9 +6,8 @@ const BASE_URL = `${API_BASE_URL}/users`;
 
 export class UserService {
   static createUser({ data, source }: Omit<ApiRequest<AuthPayload>, 'jwt'>): ApiResponse {
-    return axios.post(BASE_URL, {
-      cancelToken: source.token,
-      data
+    return axios.post(BASE_URL, data, {
+      cancelToken: source.token
     });
   }
 

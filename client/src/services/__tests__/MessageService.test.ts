@@ -28,17 +28,16 @@ describe('MessageService', () => {
       };
       const jwt = 'jwt';
       const url = `${API_BASE_URL}/messages`;
-      const payload = {
+      const options = {
         cancelToken: source.token,
         headers: {
           Authorization: `Bearer ${jwt}`
-        },
-        data
+        }
       };
 
       MessageService.createMessage({ source, data, jwt });
 
-      expect(spy).toHaveBeenCalledWith(url, payload);
+      expect(spy).toHaveBeenCalledWith(url, data, options);
     });
   });
 
@@ -49,7 +48,7 @@ describe('MessageService', () => {
       const jwt = 'jwt';
       const userId = '12345';
       const url = `${API_BASE_URL}/messages?searchId=${userId}`;
-      const payload = {
+      const options = {
         cancelToken: source.token,
         headers: {
           Authorization: `Bearer ${jwt}`
@@ -58,7 +57,7 @@ describe('MessageService', () => {
 
       MessageService.getMessages({ source, userId, jwt });
 
-      expect(spy).toHaveBeenCalledWith(url, payload);
+      expect(spy).toHaveBeenCalledWith(url, options);
     });
   });
 });

@@ -13,6 +13,7 @@ import { useAuth } from '@src/hooks';
 
 // @todo styles (including error message)
 // @todo handle non-unique username error from API
+// @todo pressing 'Enter' doesn't submit the form
 
 interface LoginFormProps {
   isSignUp: boolean;
@@ -70,6 +71,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
       /* istanbul ignore else */
       if (!axios.isCancel(err)) {
         // @todo error handling here (some kind of toast? and unit test)
+        // @todo handle invalid credentials
 
         // unique error handling for anti-duplicate constraint
         const { error: description } = err.response.data;
@@ -82,9 +84,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
 
   return (
     <Formik
+      initialValues={{ username: '', password: '' }}
       onSubmit={(values, { setFieldError }) => onSubmit(values, setFieldError)}
       validationSchema={validationSchema}
-      initialValues={{ username: '', password: '' }}
+      validateOnBlur={false}
+      validateOnChange={false}
     >
       {({ handleSubmit }) => (
         <Form>

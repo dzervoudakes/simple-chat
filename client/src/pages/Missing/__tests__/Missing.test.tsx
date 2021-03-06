@@ -1,6 +1,5 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
-import noop from 'lodash/noop';
 import { render, fireEvent } from '@testing-library/react';
 import { AuthContext, WithStylesProvider } from '@src/context';
 import Missing from '..';
@@ -41,7 +40,10 @@ describe('Missing', () => {
   it('redirects to the chat panel', () => {
     const { getByText } = render(
       <AuthContext.Provider
-        value={{ user: { username: 'test', id: '12345', jwt: 'jwt' }, setUser: noop }}
+        value={{
+          user: { username: 'test', id: '12345', jwt: 'jwt' },
+          setUser: jest.fn()
+        }}
       >
         <TestComponent />
       </AuthContext.Provider>

@@ -1,5 +1,4 @@
 import React from 'react';
-import noop from 'lodash/noop';
 import { renderHook } from '@testing-library/react-hooks';
 import { AuthContext } from '@src/context';
 import { useAuth } from '..';
@@ -7,7 +6,7 @@ import { useAuth } from '..';
 describe('useAuth', () => {
   const TestComponent: React.FC = ({ children }) => (
     <AuthContext.Provider
-      value={{ user: { username: 'test', id: '12345', jwt: 'jwt' }, setUser: noop }}
+      value={{ user: { username: 'test', id: '12345', jwt: 'jwt' }, setUser: jest.fn() }}
     >
       {children}
     </AuthContext.Provider>

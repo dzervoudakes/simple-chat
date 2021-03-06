@@ -11,12 +11,11 @@ export class MessageService {
     source,
     jwt
   }: ApiRequest<Omit<Message, '_id'>>): ApiResponse {
-    return axios.post(BASE_URL, {
+    return axios.post(BASE_URL, data, {
       cancelToken: source.token,
       headers: {
         Authorization: `Bearer ${jwt}`
-      },
-      data
+      }
     });
   }
 

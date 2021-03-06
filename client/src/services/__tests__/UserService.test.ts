@@ -22,14 +22,13 @@ describe('UserService', () => {
         password: 'passworddd'
       };
       const url = `${API_BASE_URL}/users`;
-      const payload = {
-        cancelToken: source.token,
-        data
+      const options = {
+        cancelToken: source.token
       };
 
       UserService.createUser({ source, data });
 
-      expect(spy).toHaveBeenCalledWith(url, payload);
+      expect(spy).toHaveBeenCalledWith(url, data, options);
     });
   });
 
@@ -39,7 +38,7 @@ describe('UserService', () => {
       const source = axios.CancelToken.source();
       const jwt = 'jwt';
       const url = `${API_BASE_URL}/users`;
-      const payload = {
+      const options = {
         cancelToken: source.token,
         headers: {
           Authorization: `Bearer ${jwt}`
@@ -48,7 +47,7 @@ describe('UserService', () => {
 
       UserService.getUsers({ source, jwt });
 
-      expect(spy).toHaveBeenCalledWith(url, payload);
+      expect(spy).toHaveBeenCalledWith(url, options);
     });
   });
 });

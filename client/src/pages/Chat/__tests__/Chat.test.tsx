@@ -1,6 +1,5 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import noop from 'lodash/noop';
 import { MemoryRouter, Route } from 'react-router-dom';
 import {
   AuthContext,
@@ -19,7 +18,7 @@ describe('Chat', () => {
             <AuthContext.Provider
               value={{
                 user: { username: 'test', id: '12345', jwt: 'jwt' },
-                setUser: noop
+                setUser: jest.fn()
               }}
             >
               <ChatProvider>

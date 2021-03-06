@@ -1,5 +1,4 @@
 import React from 'react';
-import noop from 'lodash/noop';
 import { renderHook } from '@testing-library/react-hooks';
 import { ChatContext } from '@src/context';
 import { useChat } from '..';
@@ -26,7 +25,7 @@ describe('useChat', () => {
         chat: { general: [message] },
         dataLoading: false,
         loadingError: false,
-        updateChat: noop,
+        updateChat: jest.fn(),
         users: [user]
       }}
     >

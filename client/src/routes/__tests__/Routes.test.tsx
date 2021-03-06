@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { WithStylesProvider } from '@src/context';
+import { AuthContext, WithStylesProvider } from '@src/context';
 import Routes from '..';
 
 describe('Routes', () => {
@@ -20,7 +20,16 @@ describe('Routes', () => {
   });
 
   it('renders the chat page', async () => {
-    const { getByText } = render(<TestComponent initialEntry="/channels/general" />);
+    const { getByText } = render(
+      <AuthContext.Provider
+        value={{
+          user: { username: 'test', id: '12345', jwt: 'jwt' },
+          setUser: jest.fn()
+        }}
+      >
+        <TestComponent initialEntry="/channels/general" />
+      </AuthContext.Provider>
+    );
 
     await waitFor(() => {
       expect(getByText('Current user')).toBeInTheDocument();

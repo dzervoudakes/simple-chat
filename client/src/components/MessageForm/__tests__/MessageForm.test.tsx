@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route } from 'react-router-dom';
-import noop from 'lodash/noop';
 import { AuthContext, ChatProvider, WithStylesProvider } from '@src/context';
 import { MessageService } from '@src/services';
 import MessageForm from '..';
@@ -55,7 +54,10 @@ describe('MessageForm', () => {
     <MemoryRouter initialEntries={[initialEntry]}>
       <Route path="/:chatType/:chatId">
         <AuthContext.Provider
-          value={{ user: { username: 'test', id: '12345', jwt: 'jwt' }, setUser: noop }}
+          value={{
+            user: { username: 'test', id: '12345', jwt: 'jwt' },
+            setUser: jest.fn()
+          }}
         >
           <WithStylesProvider>
             <ChatProvider>

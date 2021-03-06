@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
-import noop from 'lodash/noop';
 import { AuthContext, ChatContext, ChatProvider } from '@src/context';
 import { ChannelService, MessageService, UserService } from '@src/services';
 
@@ -53,7 +52,7 @@ describe('ChatContext', () => {
 
   const Wrapper: React.FC = () => (
     <AuthContext.Provider
-      value={{ user: { username: 'test', id: '12345', jwt: 'jwt' }, setUser: noop }}
+      value={{ user: { username: 'test', id: '12345', jwt: 'jwt' }, setUser: jest.fn() }}
     >
       <ChatProvider>
         <TestComponent />
