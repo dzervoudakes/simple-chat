@@ -17,6 +17,8 @@ const stylesFn = ({ spacing }: Theme): Styles => ({
   spacing
 });
 
+// @todo Spacer doesn't seem to be applying styles ... <Sigh />
+
 const Spacer: React.FC<SpacerProps> = ({ children, padding, px, py, pt, pb, pl, pr }) => {
   const {
     css,

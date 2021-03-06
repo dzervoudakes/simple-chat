@@ -10,6 +10,8 @@ import { useAuth, useChat, useSideMenu } from '@src/hooks';
 import { MOBILE_QUERY } from '@src/constants';
 import { Theme } from '@src/theme';
 
+// @todo close side menu when selecting a list item
+
 const stylesFn = ({ color }: Theme): Styles => ({
   sideMenu: {
     background: color.secondary,
