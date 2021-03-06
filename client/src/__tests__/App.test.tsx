@@ -11,6 +11,6 @@ describe('App', () => {
       </Router>
     );
 
-    expect(getByText('placeholder')).toBeInTheDocument();
+    expect(getByText('Simple Chat', { selector: 'h1' })).toBeInTheDocument();
   });
 });

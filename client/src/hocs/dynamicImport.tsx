@@ -13,7 +13,7 @@ export const dynamicImport = (
   const C: React.ComponentType = lazy(ImportComponent);
 
   const DynamicImport = (props: Record<string, unknown>): React.ReactElement => (
-    <Suspense fallback={<LoadingIndicator />}>
+    <Suspense fallback={<LoadingIndicator testid="loadingIndicator" />}>
       <C {...props} />
     </Suspense>
   );
