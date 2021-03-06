@@ -4,6 +4,16 @@ import { WithStylesProvider } from '@src/context';
 import Typography from '..';
 
 describe('Typography', () => {
+  it('renders the h1 variant', () => {
+    const { getByText } = render(
+      <WithStylesProvider>
+        <Typography variant="h1">hello world</Typography>
+      </WithStylesProvider>
+    );
+
+    expect(getByText('hello world')).toBeInTheDocument();
+  });
+
   it('renders the h2 variant', () => {
     const { getByText } = render(
       <WithStylesProvider>

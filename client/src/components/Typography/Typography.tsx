@@ -4,10 +4,11 @@ import { Styles } from 'react-with-styles';
 import { Theme } from '@src/theme';
 
 interface TypographyProps {
-  variant?: 'h2' | 'h3' | 'body' | 'disclaimer';
+  variant?: 'h1' | 'h2' | 'h3' | 'body' | 'disclaimer';
 }
 
-const stylesFn = ({ typography: { h2, h3, body, disclaimer } }: Theme): Styles => ({
+const stylesFn = ({ typography: { h1, h2, h3, body, disclaimer } }: Theme): Styles => ({
+  h1,
   h2,
   h3,
   body,
@@ -18,6 +19,7 @@ const Typography: React.FC<TypographyProps> = ({ children, variant = 'body' }) =
   const { css, styles } = useStyles({ stylesFn });
 
   const componentMapping = {
+    h1: 'h1',
     h2: 'h2',
     h3: 'h3',
     body: 'p',
@@ -29,6 +31,7 @@ const Typography: React.FC<TypographyProps> = ({ children, variant = 'body' }) =
   return (
     <TextComponent
       {...css(
+        variant === 'h1' && styles.h1,
         variant === 'h2' && styles.h2,
         variant === 'h3' && styles.h3,
         variant === 'body' && styles.body,
