@@ -39,6 +39,8 @@ const stylesFn = ({ color }: Theme): Styles => ({
   }
 });
 
+// @todo something better than general error below / non-blocking?
+
 const MessageForm: React.FC = () => {
   const { chatId, chatType } = useParams<Params>();
   const { user } = useAuth();

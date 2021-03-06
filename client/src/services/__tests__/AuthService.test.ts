@@ -20,17 +20,13 @@ describe('AuthService', () => {
         username: 'test',
         password: 'passworddd'
       };
-      const jwt = 'jwt';
       const url = `${API_BASE_URL}/auth`;
       const payload = {
         cancelToken: source.token,
-        headers: {
-          Authorization: `Bearer ${jwt}`
-        },
         data
       };
 
-      AuthService.generateToken({ source, data, jwt });
+      AuthService.generateToken({ source, data });
 
       expect(spy).toHaveBeenCalledWith(url, payload);
     });

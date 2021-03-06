@@ -10,7 +10,6 @@ import Spacer from '@src/components/Spacer';
 import TextInput from '@src/components/TextInput';
 import { AuthPayload, AuthService, UserService } from '@src/services';
 import { useAuth } from '@src/hooks';
-// import { Theme } from '@src/theme';
 
 // @todo styles (including error message)
 // @todo handle non-unique username error from API
@@ -25,20 +24,20 @@ const stylesFn = (): Styles => ({
 
 const validationSchema = Yup.object().shape({
   username: Yup.string()
-    .required('Please enter your username')
-    .trim('Please enter your username')
-    .min(8, 'Username must be between 8 and 30 characters')
-    .max(30, 'Username must be between 8 and 30 characters'),
+    .required('Please enter your username.')
+    .trim('Please enter your username.')
+    .min(8, 'Username must be between 8 and 30 characters.')
+    .max(30, 'Username must be between 8 and 30 characters.'),
   password: Yup.string()
-    .required('Please enter your password')
-    .trim('Please enter your password')
-    .min(8, 'Password must be between 8 and 30 characters')
-    .max(30, 'Password must be between 8 and 30 characters')
+    .required('Please enter your password.')
+    .trim('Please enter your password.')
+    .min(8, 'Password must be between 8 and 30 characters.')
+    .max(30, 'Password must be between 8 and 30 characters.')
 });
 
 const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
   const history = useHistory();
-  const { user, setUser } = useAuth();
+  const { setUser } = useAuth();
   const { css, styles } = useStyles({ stylesFn });
 
   const source = axios.CancelToken.source();
@@ -50,18 +49,18 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const onSubmit = async (values: AuthPayload): Promise<void> => {
+  const onSubmit = async (
+    values: AuthPayload,
+    setFieldError: (field: string, message: string) => void
+  ): Promise<void> => {
     try {
+      const payload = { data: values, source };
       if (isSignUp) {
-        const result = await UserService.createUser({ data: values, source });
+        const result = await UserService.createUser(payload);
         const { user: newUser, token } = result.data;
         setUser({ username: newUser.username, id: newUser._id, jwt: token });
       } else {
-        const result = await AuthService.generateToken({
-          data: values,
-          jwt: user.jwt ?? '',
-          source
-        });
+        const result = await AuthService.generateToken(payload);
         const { user: existingUser, token } = result.data;
         setUser({ username: existingUser.username, id: existingUser._id, jwt: token });
       }
@@ -70,14 +69,20 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
     } catch (err) {
       /* istanbul ignore else */
       if (!axios.isCancel(err)) {
-        // @todo error handling here
+        // @todo error handling here (some kind of toast? and unit test)
+
+        // unique error handling for anti-duplicate constraint
+        const { error: description } = err.response.data;
+        if (description.includes('E11000') && description.includes('username')) {
+          setFieldError('username', 'Username already exists.');
+        }
       }
     }
   };
 
   return (
     <Formik
-      onSubmit={onSubmit}
+      onSubmit={(values, { setFieldError }) => onSubmit(values, setFieldError)}
       validationSchema={validationSchema}
       initialValues={{ username: '', password: '' }}
     >
@@ -89,7 +94,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
               <ErrorMessage name="username" />
             </Spacer>
             <Spacer pb="medium">
-              <TextInput name="password" placeholder="NewUser123" />
+              <TextInput name="password" placeholder="ilovesecurity123" />
               <ErrorMessage name="password" />
             </Spacer>
             <Button onClick={() => handleSubmit()}>

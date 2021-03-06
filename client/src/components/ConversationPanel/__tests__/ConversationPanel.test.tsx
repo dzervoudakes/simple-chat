@@ -26,7 +26,8 @@ describe('ConversationPanel', () => {
     senderId: '12345',
     recipientId: null,
     channel: 'general',
-    text: 'i am a message'
+    text: 'i am a message',
+    _id: '19283'
   };
 
   const privateMessage = {
@@ -34,7 +35,8 @@ describe('ConversationPanel', () => {
     senderId: '12345',
     recipientId: '67890',
     channel: null,
-    text: 'i am a private message'
+    text: 'i am a private message',
+    _id: '31892'
   };
 
   const TestComponent: React.FC<{ initialEntry?: string }> = ({
