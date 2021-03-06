@@ -1,3 +1,7 @@
+/**
+ * Service class that controls interactions with the '/channels' API.
+ * @packageDocumentation
+ */
 import axios from 'axios';
 import { API_BASE_URL } from '@src/constants';
 import { ApiRequest, ApiResponse } from './types';

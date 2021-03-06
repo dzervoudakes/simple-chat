@@ -1,3 +1,7 @@
+/**
+ * Hook into the current state of the side menu.
+ * @packageDocumentation
+ */
 import { useContext } from 'react';
 import { SideMenuContext, SideMenuContextProps } from '@src/context';
 

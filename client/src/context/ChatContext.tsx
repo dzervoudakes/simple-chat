@@ -1,3 +1,8 @@
+/**
+ * Context that drives the core functionality of Simple Chat.
+ * This context groups lists of messages for direct and public chats, updates conversations, and keeps a record of available users and channels.
+ * @packageDocumentation
+ */
 import React, { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import noop from 'lodash/noop';

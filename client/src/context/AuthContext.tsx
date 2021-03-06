@@ -1,3 +1,7 @@
+/**
+ * Context that maintains storage of the current auth user.
+ * @packageDocumentation
+ */
 import React, { createContext, SetStateAction, useState, Dispatch } from 'react';
 import noop from 'lodash/noop';
 

@@ -1,3 +1,7 @@
+/**
+ * Hook into the current state of the auth user.
+ * @packageDocumentation
+ */
 import { useContext } from 'react';
 import { AuthContext, AuthContextProps } from '@src/context';
 

@@ -1,3 +1,7 @@
+/**
+ * Context that maintains the current visibility of the mobile side menu.
+ * @packageDocumentation
+ */
 import React, { createContext, SetStateAction, useState, Dispatch } from 'react';
 import noop from 'lodash/noop';
 

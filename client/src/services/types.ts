@@ -1,5 +1,5 @@
 /**
- * Common type definitions for services.
+ * Common type definitions for API services.
  * @packageDocumentation
  */
 import { CancelTokenSource, AxiosResponse } from 'axios';
