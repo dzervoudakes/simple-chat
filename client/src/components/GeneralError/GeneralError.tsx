@@ -2,8 +2,6 @@ import React from 'react';
 import Typography from '@src/components/Typography';
 import Button from '@src/components/Button';
 
-// @todo is this gonna end up being used anywhere
-
 interface GeneralErrorProps {
   testid?: string;
 }

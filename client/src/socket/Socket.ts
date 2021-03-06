@@ -5,8 +5,6 @@
 import { API_BASE_URL } from '@src/constants';
 import { Message } from '@src/context';
 
-// @todo unit testing
-
 interface Query {
   username: string;
   userId: string;
