@@ -12,7 +12,7 @@ import { AuthPayload, AuthService, UserService } from '@src/services';
 import { useAuth } from '@src/hooks';
 // import { Theme } from '@src/theme';
 
-// @todo styles
+// @todo styles (including error message)
 // @todo handle non-unique username error from API
 
 interface LoginFormProps {
@@ -65,7 +65,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
         const { user: existingUser, token } = result.data;
         setUser({ username: existingUser.username, id: existingUser._id, jwt: token });
       }
-      history.push('/channels');
+      // redirect successful logins an sign ups to the 'general' channel by default
+      history.push('/channels/general');
     } catch (err) {
       /* istanbul ignore else */
       if (!axios.isCancel(err)) {

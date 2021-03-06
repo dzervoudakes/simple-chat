@@ -4,8 +4,9 @@ import Button from '@src/components/Button';
 import Layout from '@src/components/Layout';
 import Spacer from '@src/components/Spacer';
 import Typography from '@src/components/Typography';
+import LoginForm from '@src/components/LoginForm';
 
-const LoginForm: React.FC = () => {
+const Home: React.FC = () => {
   const [isSignUp, setIsSignUp] = useState(false);
 
   return (
@@ -14,7 +15,7 @@ const LoginForm: React.FC = () => {
         <Typography variant="h2">
           {isSignUp ? 'Sign up' : 'Log in'} to enter Simple Chat!
         </Typography>
-        {/* @todo form here */}
+        <LoginForm isSignUp={isSignUp} />
         {isSignUp && (
           <Typography variant="disclaimer">
             Pro tip: this is a demo app with very few real-world features. Keep a record
@@ -35,4 +36,4 @@ const LoginForm: React.FC = () => {
   );
 };
 
-export default LoginForm;
+export default Home;
