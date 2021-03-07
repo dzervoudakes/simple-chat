@@ -34,12 +34,14 @@ const Chat: React.FC = () => {
   const { css, styles } = useStyles({ stylesFn });
 
   useEffect(() => {
+    /* istanbul ignore next */
     if (!chatId && channels?.[0]) {
       history.push(`/channels/${channels[0]._id}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatId, channels]);
 
+  /* istanbul ignore next */
   if (!user.username) {
     return <Redirect to="/" />;
   }
