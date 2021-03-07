@@ -10,7 +10,7 @@ import { useAuth } from '@src/hooks';
 const Missing: React.FC = () => {
   const history = useHistory();
   const { user } = useAuth();
-  const path = user.jwt ? '/channels/general' : '/';
+  const path = user.jwt ? '/channels' : '/';
 
   return (
     <Layout>

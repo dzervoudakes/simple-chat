@@ -65,8 +65,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
         const { user: existingUser, token } = result.data;
         setUser({ username: existingUser.username, id: existingUser._id, jwt: token });
       }
-      // redirect successful logins an sign ups to the 'general' channel by default
-      history.push('/channels/general');
+      history.push('/channels');
     } catch (err) {
       /* istanbul ignore else */
       if (!axios.isCancel(err)) {

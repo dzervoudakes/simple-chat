@@ -71,7 +71,7 @@ describe('LoginForm', () => {
           data: { username: 'TestUser', password: 'TestPassword' }
         })
       );
-      expect(mockHistoryPush).toHaveBeenCalledWith('/channels/general');
+      expect(mockHistoryPush).toHaveBeenCalledWith('/channels');
     });
   });
 
@@ -93,7 +93,7 @@ describe('LoginForm', () => {
           data: { username: 'TestUser', password: 'TestPassword' }
         })
       );
-      expect(mockHistoryPush).toHaveBeenCalledWith('/channels/general');
+      expect(mockHistoryPush).toHaveBeenCalledWith('/channels');
     });
   });
 

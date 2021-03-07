@@ -12,7 +12,7 @@ import Chat from '..';
 describe('Chat', () => {
   it('renders', () => {
     const { getByText, getByPlaceholderText } = render(
-      <MemoryRouter initialEntries={['/channels/general']}>
+      <MemoryRouter initialEntries={['/channels/11221']}>
         <Route path="/:chatType/:chatId">
           <WithStylesProvider>
             <AuthContext.Provider

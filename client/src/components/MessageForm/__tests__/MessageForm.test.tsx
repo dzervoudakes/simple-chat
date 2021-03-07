@@ -2,12 +2,14 @@ import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route } from 'react-router-dom';
 import { AuthContext, ChatProvider, WithStylesProvider } from '@src/context';
-import { MessageService } from '@src/services';
+import { ChannelService, MessageService, UserService } from '@src/services';
 import MessageForm from '..';
 
 const mockCreateMessage = jest.fn();
 const mockSendChatMessage = jest.fn();
 
+jest.mock('@src/services/ChannelService');
+jest.mock('@src/services/UserService');
 jest.mock('@src/services/MessageService');
 jest.mock('@src/socket', () => {
   return {
@@ -49,7 +51,7 @@ describe('MessageForm', () => {
   };
 
   const TestComponent: React.FC<{ initialEntry?: string }> = ({
-    initialEntry = '/channels/general'
+    initialEntry = '/channels/11221'
   }) => (
     <MemoryRouter initialEntries={[initialEntry]}>
       <Route path="/:chatType/:chatId">
@@ -71,6 +73,13 @@ describe('MessageForm', () => {
 
   beforeAll(() => {
     MessageService.createMessage = mockCreateMessage;
+  });
+
+  beforeEach(() => {
+    ChannelService.getChannels = jest
+      .fn()
+      .mockResolvedValueOnce({ data: { channels: [{ name: 'general', _id: '11221' }] } });
+    UserService.getUsers = jest.fn().mockResolvedValueOnce({ data: { users: [] } });
   });
 
   it('renders', () => {

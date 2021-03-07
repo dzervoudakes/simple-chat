@@ -55,6 +55,7 @@ export const ChatContext = createContext<ChatContextProps>({
 export const ChatProvider: React.FC = ({ children }) => {
   const { user } = useAuth();
   const [channels, setChannels] = useState([]);
+  const [channelLookup, setChannelLookup] = useState({});
   const [chat, setChat] = useState({});
   const [users, setUsers] = useState([]);
   const [dataLoading, setDataLoading] = useState(false);
@@ -85,17 +86,20 @@ export const ChatProvider: React.FC = ({ children }) => {
           // construct initial chat object
           const { messages } = messagesResult.data;
           const initialChat = {};
+          const lookup = {};
 
           channelList.forEach((channel: Channel) => {
-            initialChat[channel.name] = [];
+            lookup[channel.name] = channel._id;
+            initialChat[channel._id] = [];
           });
 
           messages.forEach((message: Message) => {
             const { channel, recipientId, senderId } = message;
 
             // public channels
-            if (channel && initialChat[channel]) {
-              initialChat[channel].push(message);
+            if (channel) {
+              const channelId = lookup[channel];
+              initialChat[channelId].push(message);
             }
 
             // private conversations
@@ -110,6 +114,7 @@ export const ChatProvider: React.FC = ({ children }) => {
             }
           });
 
+          setChannelLookup(lookup);
           setChat(initialChat);
           setDataLoading(false);
         } catch (err) {
@@ -133,7 +138,7 @@ export const ChatProvider: React.FC = ({ children }) => {
   // add a new chat message to the appropriate list
   const updateChat = (message: Omit<Message, '_id'>): void => {
     const updatedChat = { ...chat };
-    const key = message.channel ?? message.recipientId;
+    const key = message.channel ? channelLookup[message.channel] : message.recipientId;
 
     if (key) {
       updatedChat[key] = updatedChat[key]?.concat([message]) ?? [message];

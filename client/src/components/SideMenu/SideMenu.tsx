@@ -71,7 +71,7 @@ const SideMenu: React.FC = () => {
           <Typography variant="h3">Channels</Typography>
           {channels?.map(({ name, _id }) => (
             <Spacer pb="small" key={_id}>
-              <Button variant="link" onClick={() => history.push(`/channels/${name}`)}>
+              <Button variant="link" onClick={() => history.push(`/channels/${_id}`)}>
                 <div
                   {...css(
                     styles.sideMenuListItem,

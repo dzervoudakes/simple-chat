@@ -51,7 +51,7 @@ describe('SideMenu', () => {
   beforeEach(() => {
     ChannelService.getChannels = jest
       .fn()
-      .mockResolvedValueOnce({ data: { channels: [{ name: 'general', _id: '12345' }] } });
+      .mockResolvedValueOnce({ data: { channels: [{ name: 'general', _id: '11221' }] } });
     MessageService.getMessages = jest
       .fn()
       .mockResolvedValueOnce({ data: { messages: [] } });
@@ -81,7 +81,7 @@ describe('SideMenu', () => {
     fireEvent.click(getByText('general'));
     fireEvent.click(getByText('username1'));
 
-    expect(mockPush).toHaveBeenNthCalledWith(1, '/channels/general');
+    expect(mockPush).toHaveBeenNthCalledWith(1, '/channels/11221');
     expect(mockPush).toHaveBeenNthCalledWith(2, '/direct/userid1');
   });
 });

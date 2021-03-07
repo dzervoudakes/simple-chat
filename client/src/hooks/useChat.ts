@@ -4,13 +4,6 @@
  * Only one distinct conversation will be returned at any one time.
  *
  * @example
- * Retrieving messages from a public channel:
- * ```tsx
- * const { messages } = useChat('general');
- * ```
- *
- * @example
- * Retrieving messages from a direct message:
  * ```tsx
  * const { messages } = useChat('850d5d0e-4633-4cd7-b72d-4eb66a39751e');
  * ```

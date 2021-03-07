@@ -39,7 +39,7 @@ describe('ConversationPanel', () => {
   };
 
   const TestComponent: React.FC<{ initialEntry?: string }> = ({
-    initialEntry = '/general'
+    initialEntry = '/11221'
   }) => (
     <MemoryRouter initialEntries={[initialEntry]}>
       <Route path="/:chatId">
@@ -62,7 +62,7 @@ describe('ConversationPanel', () => {
   beforeEach(() => {
     ChannelService.getChannels = jest
       .fn()
-      .mockResolvedValueOnce({ data: { channels: [{ name: 'general', _id: '12345' }] } });
+      .mockResolvedValueOnce({ data: { channels: [{ name: 'general', _id: '11221' }] } });
     MessageService.getMessages = jest
       .fn()
       .mockResolvedValueOnce({ data: { messages: [publicMessage, privateMessage] } });

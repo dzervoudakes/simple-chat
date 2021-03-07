@@ -44,7 +44,7 @@ const stylesFn = ({ color }: Theme): Styles => ({
 const MessageForm: React.FC = () => {
   const { chatId, chatType } = useParams<Params>();
   const { user } = useAuth();
-  const { updateChat } = useChat(chatId);
+  const { updateChat, channels } = useChat(chatId);
   const [isFormSubmitError, setIsFormSubmitError] = useState(false);
   const isMobile = useMediaQuery(MOBILE_QUERY);
   const { css, styles } = useStyles({ stylesFn });
@@ -76,7 +76,10 @@ const MessageForm: React.FC = () => {
           senderId: user.id!,
           text: trimmedValue,
           recipientId: chatType === 'direct' ? chatId : null,
-          channel: chatType === 'channels' ? chatId : null
+          channel:
+            chatType === 'channels'
+              ? channels!.find(({ _id }) => _id === chatId)?.name ?? ''
+              : null
         };
 
         await MessageService.createMessage({

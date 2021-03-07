@@ -28,8 +28,8 @@ describe('ChatContext', () => {
     <ChatContext.Consumer>
       {({ chat, dataLoading, loadingError, updateChat }) => (
         <>
-          <div>Message: {chat.general?.[0]?.text}</div>
-          <div>Message: {chat.general?.[1]?.text}</div>
+          <div>Message: {chat['11221']?.[0]?.text}</div>
+          <div>Message: {chat['11221']?.[1]?.text}</div>
           <div>Message: {chat['67890']?.[0]?.text}</div>
           <div>Data loading: {dataLoading.toString()}</div>
           <div>Loading error: {loadingError.toString()}</div>
@@ -63,39 +63,40 @@ describe('ChatContext', () => {
   beforeEach(() => {
     ChannelService.getChannels = jest
       .fn()
-      .mockResolvedValueOnce({ data: { channels: [] } });
+      .mockResolvedValueOnce({ data: { channels: [{ name: 'general', _id: '11221' }] } });
     MessageService.getMessages = jest
       .fn()
       .mockResolvedValueOnce({ data: { messages: [] } });
     UserService.getUsers = jest.fn().mockResolvedValueOnce({ data: { users: [] } });
   });
 
-  it('updates the current message list for a public channel', () => {
+  it('updates the current message list for a public channel', async () => {
     const { getByText, queryByText } = render(<Wrapper />);
 
     expect(queryByText('Message: i am a message')).toBeNull();
     expect(queryByText('Message: i am another message')).toBeNull();
 
-    fireEvent.click(getByText('update public chat'));
-    fireEvent.click(getByText('update public chat again'));
+    await waitFor(() => {
+      fireEvent.click(getByText('update public chat'));
+      fireEvent.click(getByText('update public chat again'));
 
-    expect(getByText('Message: i am a message')).toBeInTheDocument();
-    expect(getByText('Message: i am another message')).toBeInTheDocument();
+      expect(getByText('Message: i am a message')).toBeInTheDocument();
+      expect(getByText('Message: i am another message')).toBeInTheDocument();
+    });
   });
 
-  it('updates the current message list for a private conversation', () => {
+  it('updates the current message list for a private conversation', async () => {
     const { getByText, queryByText } = render(<Wrapper />);
 
     expect(queryByText('Message: i am a private message')).toBeNull();
 
-    fireEvent.click(getByText('update private chat'));
-    expect(getByText('Message: i am a private message')).toBeInTheDocument();
+    await waitFor(() => {
+      fireEvent.click(getByText('update private chat'));
+      expect(getByText('Message: i am a private message')).toBeInTheDocument();
+    });
   });
 
   it('populates the default chat object', async () => {
-    ChannelService.getChannels = jest
-      .fn()
-      .mockResolvedValueOnce({ data: { channels: [{ name: 'general', _id: '12345' }] } });
     MessageService.getMessages = jest
       .fn()
       .mockResolvedValueOnce({ data: { messages: [publicMessage, privateMessage] } });

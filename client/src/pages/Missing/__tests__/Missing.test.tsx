@@ -51,6 +51,6 @@ describe('Missing', () => {
 
     fireEvent.click(getByText('Return to chat'));
 
-    expect(mockHistoryPush).toHaveBeenCalledWith('/channels/general');
+    expect(mockHistoryPush).toHaveBeenCalledWith('/channels');
   });
 });

@@ -27,7 +27,7 @@ describe('Routes', () => {
           setUser: jest.fn()
         }}
       >
-        <TestComponent initialEntry="/channels/general" />
+        <TestComponent initialEntry="/channels/11221" />
       </AuthContext.Provider>
     );
 
