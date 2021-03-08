@@ -1,6 +1,10 @@
 /**
  * Context that drives the core functionality of Simple Chat.
  * This context groups lists of messages for direct and public chats, updates conversations, and keeps a record of available users and channels.
+ *
+ * Note: For demo purposes only, and given the small initial size of messages and channels, everything is loaded up front by design.
+ * The ability to lazy load discussions should be feasible with the current data model should I decide to scope creep myself into it later.
+ *
  * @packageDocumentation
  */
 import React, { createContext, useEffect, useState } from 'react';
