@@ -10,7 +10,6 @@ interface LoadingIndicatorProps {
 const stylesFn = ({ color }: Theme): Styles => {
   // The styling for this component comes from https://projects.lukehaas.me/css-loaders/
   // I simply made it smaller and am using inline styles instead of scss
-
   const spinnerAnimationKeyframes = {
     '0%': {
       transform: 'rotate(0deg)'
