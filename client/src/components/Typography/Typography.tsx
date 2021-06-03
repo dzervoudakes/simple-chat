@@ -28,19 +28,7 @@ const Typography: React.FC<TypographyProps> = ({ children, variant = 'body' }) =
 
   const TextComponent = componentMapping[variant];
 
-  return (
-    <TextComponent
-      {...css(
-        variant === 'h1' && styles.h1,
-        variant === 'h2' && styles.h2,
-        variant === 'h3' && styles.h3,
-        variant === 'body' && styles.body,
-        variant === 'disclaimer' && styles.disclaimer
-      )}
-    >
-      {children}
-    </TextComponent>
-  );
+  return <TextComponent {...css(styles[variant])}>{children}</TextComponent>;
 };
 
 export default Typography;

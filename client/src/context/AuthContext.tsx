@@ -16,6 +16,8 @@ export interface AuthContextProps {
   setUser: Dispatch<SetStateAction<AuthUser>>;
 }
 
+// @todo update user to be nullable? (clean up some 'if' blocks throughout the app)
+
 const emptyUser = {
   username: null,
   id: null,

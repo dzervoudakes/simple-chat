@@ -72,7 +72,7 @@ const MessageForm: React.FC = () => {
     if (trimmedValue !== '') {
       try {
         const message = {
-          username: user.username!,
+          username: user.username!, // @todo remove non-null assertions
           senderId: user.id!,
           text: trimmedValue,
           recipientId: chatType === 'direct' ? chatId : null,

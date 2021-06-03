@@ -11,6 +11,7 @@
  * @packageDocumentation
  */
 import { useContext } from 'react';
+import omit from 'lodash/omit';
 import { ChatContext, ChatContextProps, Message } from '@src/context';
 
 interface UseChat extends Partial<ChatContextProps> {
@@ -26,12 +27,8 @@ export const useChat = (key?: string): UseChat => {
   }
 
   return {
-    channels: context.channels,
-    dataLoading: context.dataLoading,
-    loadingError: context.loadingError,
-    messages: key ? context.chat[key] : [],
-    updateChat: context.updateChat,
-    users: context.users
+    ...omit(context, ['messages']),
+    messages: key ? context.chat[key] : []
   };
 };
 

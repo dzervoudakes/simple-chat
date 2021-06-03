@@ -56,15 +56,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
   ): Promise<void> => {
     try {
       const payload = { data: values, source };
-      if (isSignUp) {
-        const result = await UserService.createUser(payload);
-        const { user: newUser, token } = result.data;
-        setUser({ username: newUser.username, id: newUser._id, jwt: token });
-      } else {
-        const result = await AuthService.generateToken(payload);
-        const { user: existingUser, token } = result.data;
-        setUser({ username: existingUser.username, id: existingUser._id, jwt: token });
-      }
+      const request = isSignUp ? UserService.createUser : AuthService.generateToken;
+
+      const result = await request(payload);
+      const { user, token } = result.data;
+      setUser({ username: user.username, id: user._id, jwt: token });
+
       history.push('/channels');
     } catch (err) {
       /* istanbul ignore else */
