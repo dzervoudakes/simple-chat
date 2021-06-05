@@ -13,6 +13,8 @@ import {
 } from './controllers';
 import { MessageType } from './models';
 
+// @todo unit tests for AppServer now failing
+
 export class AppServer extends Server {
   constructor() {
     super();
@@ -32,15 +34,11 @@ export class AppServer extends Server {
 
   private http = http.createServer(this.app);
 
-  // @todo cors setup doesn't seem to work with client
-  // @todo unit tests for AppServer now failing
-
   // apparently 'io()' doesn't work with import syntax
   private io = require('socket.io')(this.http, {
     cors: {
       origin: process.env.CLIENT_ORIGIN || '',
       methods: ['GET', 'POST']
-      // allowedHeaders: ['Authorization']
     }
   });
 
@@ -99,8 +97,8 @@ export class AppServer extends Server {
       // cleanup
       socket.on('disconnect', () => {
         socket.removeAllListeners();
-
         const closedSocket = this.sockets.find((item) => item.socketId === socket.id);
+
         if (closedSocket) {
           const index = this.sockets.indexOf(closedSocket);
           this.sockets.splice(index, 1);

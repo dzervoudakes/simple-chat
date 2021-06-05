@@ -51,7 +51,7 @@ const MessageForm: React.FC = () => {
 
   const source = axios.CancelToken.source();
   const { username, id: userId } = user;
-  const socket = new Socket({ username: username!, userId: userId! });
+  const socket = new Socket({ username: username!, userId: userId! }); // @todo this re-renders a few times here... move to a context?
 
   useEffect(() => {
     socket.subscribeToChat(updateChat!);

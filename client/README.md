@@ -92,7 +92,8 @@ npm run clean
 
 The following environment variables are used throughout the SPA. Default values are provided via the `webpack.base.js` file in the `./build` directory.
 
-| Variable      | Default                 | Description                                            |
-| ------------- | ----------------------- | ------------------------------------------------------ |
-| NODE_ENV      | `development`           | Dictates which `webpack` bundle to use at build time   |
-| API_BASE_URL  | `http://localhost:3000` | Base origin for sending network requests               |
+| Variable         | Default                     | Description                                            |
+| ---------------- | --------------------------- | ------------------------------------------------------ |
+| NODE_ENV         | `development`               | Dictates which `webpack` bundle to use at build time   |
+| API_BASE_URL     | `http://localhost:3000/api` | Base origin for sending network requests               |
+| SERVER_BASE_URL  | `http://localhost:3000`     | Base origin for socket connections                     |

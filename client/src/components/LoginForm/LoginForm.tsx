@@ -88,7 +88,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
     >
       {({ handleSubmit }) => (
         <Form>
-          <div {...css(styles.stickyFormContainer)}>
+          <div {...css(styles.formContainer)}>
             <Spacer pb="medium">
               <TextInput name="username" placeholder="NewUser123" />
               <ErrorMessage name="username" />

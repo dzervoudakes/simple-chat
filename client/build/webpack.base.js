@@ -11,7 +11,8 @@ module.exports = merge(webpackBaseConfig, {
   plugins: [
     new EnvironmentPlugin({
       NODE_ENV: process.env.NODE_ENV || 'development',
-      API_BASE_URL: process.env.API_BASE_URL || 'http://localhost:3000/api'
+      API_BASE_URL: process.env.API_BASE_URL || 'http://localhost:3000/api',
+      SERVER_BASE_URL: process.env.SERVER_BASE_URL || 'http://localhost:3000'
     })
   ]
 });
