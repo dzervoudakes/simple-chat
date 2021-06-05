@@ -13,8 +13,6 @@ import {
 } from './controllers';
 import { MessageType } from './models';
 
-// @todo unit tests for AppServer now failing
-
 export class AppServer extends Server {
   constructor() {
     super();
