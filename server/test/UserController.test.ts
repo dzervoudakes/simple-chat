@@ -35,7 +35,7 @@ describe('UserController', () => {
   let agent: SuperTest<Test>;
 
   const mockUser = {
-    username: 'Admin',
+    username: 'Admin123',
     password: 'passworddd'
   };
 

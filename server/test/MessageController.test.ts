@@ -32,7 +32,7 @@ describe('MessageController', () => {
   let agent: SuperTest<Test>;
 
   const mockMessage = {
-    username: 'Admin',
+    username: 'Admin123',
     senderId: '12345',
     recipientId: null,
     channel: 'general',

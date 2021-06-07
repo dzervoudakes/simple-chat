@@ -8,6 +8,7 @@ import { Socket } from 'socket.io';
 import {
   AuthController,
   ChannelController,
+  ChatOrchestrationController,
   MessageController,
   UserController
 } from './controllers';
@@ -53,12 +54,14 @@ export class AppServer extends Server {
   private setupControllers(): void {
     const authController = new AuthController();
     const channelController = new ChannelController();
+    const chatOrchestrationController = new ChatOrchestrationController();
     const messageController = new MessageController();
     const userController = new UserController();
 
     super.addControllers([
       authController,
       channelController,
+      chatOrchestrationController,
       messageController,
       userController
     ]);

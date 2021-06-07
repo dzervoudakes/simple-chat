@@ -279,6 +279,46 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "chat (orchestration)",
+			"item": [
+				{
+					"name": "Get Chat Orchestration",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{domain}}/api/chat?searchId={{userId}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"chat"
+							],
+							"query": [
+								{
+									"key": "searchId",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
