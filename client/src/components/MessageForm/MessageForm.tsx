@@ -96,7 +96,7 @@ const MessageForm: React.FC = () => {
 
         const variant = chatType === 'direct' ? 'private' : 'public';
         socket?.sendChatMessage(variant, message);
-        updateChat!(message);
+        updateChat!(message); // @todo
         resetForm();
       } catch (err) {
         /* istanbul ignore else */

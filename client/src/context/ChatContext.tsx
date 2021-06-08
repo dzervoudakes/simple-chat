@@ -10,16 +10,11 @@
  * @packageDocumentation
  */
 import React, { createContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import noop from 'lodash/noop';
 import clone from 'lodash/clone';
 import { ChatService } from '@src/services';
 import { useAuth } from '@src/hooks';
-
-interface Params {
-  chatId: string;
-}
 
 export interface Chat {
   [key: string]: Message[];
@@ -35,8 +30,10 @@ export interface ChatUser {
   _id: string;
 }
 
-// if a message is sent to a public channel, the channel property will be populated and recipientId will be null
-// if a message is private between two users, the recipientId will be populated and the channel will be null
+/**
+ * if a message is sent to a public channel, the channel property will be populated and recipientId will be null
+ * if a message is private between two users, the recipientId will be populated and the channel will be null
+ */
 export interface Message {
   username: string;
   senderId: string;
@@ -65,11 +62,10 @@ export const ChatContext = createContext<ChatContextProps>({
 });
 
 export const ChatProvider: React.FC = ({ children }) => {
-  const { chatId } = useParams<Params>();
   const { user } = useAuth();
-  const [channels, setChannels] = useState([]);
+  const [channels, setChannels] = useState<Channel[]>([]);
   const [chat, setChat] = useState({});
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<ChatUser[]>([]);
   const [dataLoading, setDataLoading] = useState(false);
   const [loadingError, setLoadingError] = useState(false);
 
@@ -115,15 +111,26 @@ export const ChatProvider: React.FC = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.jwt]);
 
-  // @todo this would only work for the sender, and not the recipient
-  // @todo updateChat needs to know which key to append a message to
-  // @todo useParams won't work here with ChatProvider wrapping the Routes switch
-
-  // add a new chat message to the appropriate list
+  /**
+   * Add a new chat message to the appropriate list.
+   * If 'message.channel', find channel ID from channels in context.
+   * If 'message.recipientId', then see if userId === recipientId:
+   * -- If yes, the key should be senderId
+   * -- Else (if userId !== recipientId), the key should be recipientId
+   */
   const updateChat = (message: Omit<Message, '_id'>): void => {
+    let chatId = '';
+    if (message.channel) {
+      chatId = channels.find((channel) => channel.name === message.channel)?._id ?? '';
+    } else if (message.recipientId) {
+      chatId = user.id === message.recipientId ? message.senderId : message.recipientId;
+    }
+
     const conversation = clone(chat[chatId]);
     conversation.push(message);
     setChat({ ...chat, [chatId]: conversation });
+
+    // @todo sent message is resetting chat to '{}' in the recipient's tab >:(
   };
 
   return (

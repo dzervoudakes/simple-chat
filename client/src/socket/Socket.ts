@@ -10,25 +10,12 @@ interface Query {
   userId: string;
 }
 
-interface Connection {
-  welcome: string;
-}
-
 export class Socket {
   constructor(query: Query) {
     this.socket = require('socket.io-client')(SERVER_BASE_URL, { query });
-
-    this.handleConnection();
   }
 
   private socket;
-
-  private handleConnection(): void {
-    this.socket.on('connection-success', (resp: Connection): void => {
-      // @todo something with the welcome message
-      console.log('handle something here', resp.welcome);
-    });
-  }
 
   public subscribeToChat(cb: (message: Omit<Message, '_id'>) => void): void {
     const messageHandler = (message: Omit<Message, '_id'>): void => {
