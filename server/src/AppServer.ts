@@ -70,13 +70,9 @@ export class AppServer extends Server {
   private setupWebSockets(): void {
     // new client connects
     this.io.on('connection', (socket: Socket) => {
-      const { username, userId } = socket.handshake.query;
-      const welcome = `Welcome to simple chat${username ? `, ${username}` : ''}!`;
+      const { userId } = socket.handshake.query;
 
       this.sockets.push({ userId: userId as string, socketId: socket.id });
-
-      // client socket is initialized and a welcome message is sent
-      this.io.to(socket.id).emit('connection-success', { welcome });
 
       // @todo 'new user' event type (consuming clients will need to refresh their list of users)
 

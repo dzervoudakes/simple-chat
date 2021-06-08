@@ -4,11 +4,6 @@ import { MessageType } from '@src/models';
 
 jest.mock('mongoose');
 
-interface Connection {
-  welcome: string;
-  channels: string[];
-}
-
 describe('AppServer', () => {
   const server = new AppServer();
   const HOST = 'http://localhost:3000';
@@ -27,22 +22,6 @@ describe('AppServer', () => {
 
   afterAll(async () => {
     await new Promise(() => server.stop());
-  });
-
-  it('establishes a websocket connection', async () => {
-    let mockWelcome;
-
-    receiver = require('socket.io-client')(HOST, {
-      query: { username: 'test' }
-    });
-
-    receiver.on('connection-success', ({ welcome }: Connection) => {
-      mockWelcome = welcome;
-    });
-
-    await new Promise((res) => setTimeout(res, 100));
-
-    expect(mockWelcome).toEqual('Welcome to simple chat, test!');
   });
 
   it('handles public chat messages', async () => {
