@@ -31,23 +31,4 @@ describe('UserService', () => {
       expect(spy).toHaveBeenCalledWith(url, data, options);
     });
   });
-
-  describe('getUsers', () => {
-    it('calls the API with the correct parameters', () => {
-      const spy = jest.spyOn(axios, 'get');
-      const source = axios.CancelToken.source();
-      const jwt = 'jwt';
-      const url = `${API_BASE_URL}/users`;
-      const options = {
-        cancelToken: source.token,
-        headers: {
-          Authorization: `Bearer ${jwt}`
-        }
-      };
-
-      UserService.getUsers({ source, jwt });
-
-      expect(spy).toHaveBeenCalledWith(url, options);
-    });
-  });
 });

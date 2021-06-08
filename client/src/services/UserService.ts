@@ -14,15 +14,6 @@ export class UserService {
       cancelToken: source.token
     });
   }
-
-  static getUsers({ source, jwt }: ApiRequest<void>): ApiResponse {
-    return axios.get(BASE_URL, {
-      cancelToken: source.token,
-      headers: {
-        Authorization: `Bearer ${jwt}`
-      }
-    });
-  }
 }
 
 export default UserService;

@@ -9,9 +9,11 @@ import TextInput from '@src/components/TextInput';
 import GeneralError from '@src/components/GeneralError';
 import { Theme } from '@src/theme';
 import { Socket } from '@src/socket';
+import { ChatService } from '@src/services';
 import { useAuth, useChat } from '@src/hooks';
-import { MessageService } from '@src/services';
 import { MOBILE_QUERY } from '@src/constants';
+
+// @todo shared interfaces in src/lib etc.
 
 interface Params {
   chatId: string;
@@ -46,19 +48,23 @@ const MessageForm: React.FC = () => {
   const { user } = useAuth();
   const { updateChat, channels } = useChat(chatId);
   const [isFormSubmitError, setIsFormSubmitError] = useState(false);
+  const [socket, setSocket] = useState<Socket | undefined>(undefined);
   const isMobile = useMediaQuery(MOBILE_QUERY);
   const { css, styles } = useStyles({ stylesFn });
 
   const source = axios.CancelToken.source();
   const { username, id: userId } = user;
-  const socket = new Socket({ username: username!, userId: userId! }); // @todo this re-renders a few times here... move to a context?
 
   useEffect(() => {
-    socket.subscribeToChat(updateChat!);
+    if (!socket) {
+      const newSocket = new Socket({ username: username!, userId: userId! });
+      newSocket.subscribeToChat(updateChat!);
+      setSocket(newSocket);
+    }
 
     return () => {
       source.cancel();
-      socket.disconnect();
+      socket?.disconnect();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -72,7 +78,7 @@ const MessageForm: React.FC = () => {
     if (trimmedValue !== '') {
       try {
         const message = {
-          username: user.username!, // @todo remove non-null assertions
+          username: user.username!, // @todo remove all non-null assertions
           senderId: user.id!,
           text: trimmedValue,
           recipientId: chatType === 'direct' ? chatId : null,
@@ -82,14 +88,15 @@ const MessageForm: React.FC = () => {
               : null
         };
 
-        await MessageService.createMessage({
+        await ChatService.createMessage({
           data: message,
           jwt: user.jwt!,
           source
         });
 
         const variant = chatType === 'direct' ? 'private' : 'public';
-        socket.sendChatMessage(variant, message);
+        socket?.sendChatMessage(variant, message);
+        updateChat!(message);
         resetForm();
       } catch (err) {
         /* istanbul ignore else */

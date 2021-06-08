@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { API_BASE_URL } from '@src/constants';
 import { Message } from '@src/context';
-import { MessageService } from '..';
+import { ChatService } from '..';
 
 jest.mock('axios', () => ({
   CancelToken: {
@@ -13,7 +13,27 @@ jest.mock('axios', () => ({
   post: jest.fn()
 }));
 
-describe('MessageService', () => {
+describe('ChatService', () => {
+  describe('getChat', () => {
+    it('calls the API with the correct parameters', () => {
+      const spy = jest.spyOn(axios, 'get');
+      const source = axios.CancelToken.source();
+      const jwt = 'jwt';
+      const userId = '12345';
+      const url = `${API_BASE_URL}/chat?searchId=${userId}`;
+      const options = {
+        cancelToken: source.token,
+        headers: {
+          Authorization: `Bearer ${jwt}`
+        }
+      };
+
+      ChatService.getChat({ source, userId, jwt });
+
+      expect(spy).toHaveBeenCalledWith(url, options);
+    });
+  });
+
   describe('createMessage', () => {
     it('calls the API with the correct parameters', () => {
       const spy = jest.spyOn(axios, 'post');
@@ -35,29 +55,9 @@ describe('MessageService', () => {
         }
       };
 
-      MessageService.createMessage({ source, data, jwt });
+      ChatService.createMessage({ source, data, jwt });
 
       expect(spy).toHaveBeenCalledWith(url, data, options);
-    });
-  });
-
-  describe('getMessages', () => {
-    it('calls the API with the correct parameters', () => {
-      const spy = jest.spyOn(axios, 'get');
-      const source = axios.CancelToken.source();
-      const jwt = 'jwt';
-      const userId = '12345';
-      const url = `${API_BASE_URL}/messages?searchId=${userId}`;
-      const options = {
-        cancelToken: source.token,
-        headers: {
-          Authorization: `Bearer ${jwt}`
-        }
-      };
-
-      MessageService.getMessages({ source, userId, jwt });
-
-      expect(spy).toHaveBeenCalledWith(url, options);
     });
   });
 });

@@ -10,10 +10,16 @@
  * @packageDocumentation
  */
 import React, { createContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import noop from 'lodash/noop';
-import { ChannelService, MessageService, UserService } from '@src/services';
+import clone from 'lodash/clone';
+import { ChatService } from '@src/services';
 import { useAuth } from '@src/hooks';
+
+interface Params {
+  chatId: string;
+}
 
 export interface Chat {
   [key: string]: Message[];
@@ -59,9 +65,9 @@ export const ChatContext = createContext<ChatContextProps>({
 });
 
 export const ChatProvider: React.FC = ({ children }) => {
+  const { chatId } = useParams<Params>();
   const { user } = useAuth();
   const [channels, setChannels] = useState([]);
-  const [channelLookup, setChannelLookup] = useState({});
   const [chat, setChat] = useState({});
   const [users, setUsers] = useState([]);
   const [dataLoading, setDataLoading] = useState(false);
@@ -76,52 +82,20 @@ export const ChatProvider: React.FC = ({ children }) => {
           setDataLoading(true);
 
           // retrieve all available channels, messages and users
-          const params = { jwt: user.jwt, source };
-          const results = await Promise.all([
-            ChannelService.getChannels(params),
-            UserService.getUsers(params),
-            MessageService.getMessages({ ...params, userId: user.id })
-          ]);
-          const [channelsResult, usersResult, messagesResult] = results;
-          const { channels: channelList } = channelsResult.data;
-          const { users: userList } = usersResult.data;
+          const result = await ChatService.getChat({
+            jwt: user.jwt,
+            userId: user.id,
+            source
+          });
+          const {
+            chat: initialChat,
+            channels: channelList,
+            users: userList
+          } = result.data;
 
+          setChat(initialChat);
           setChannels(channelList);
           setUsers(userList);
-
-          // construct initial chat object
-          const { messages } = messagesResult.data;
-          const initialChat = {};
-          const lookup = {};
-
-          channelList.forEach((channel: Channel) => {
-            lookup[channel.name] = channel._id;
-            initialChat[channel._id] = [];
-          });
-
-          messages.forEach((message: Message) => {
-            const { channel, recipientId, senderId } = message;
-
-            // public channels
-            if (channel) {
-              const channelId = lookup[channel];
-              initialChat[channelId].push(message);
-            }
-
-            // private conversations
-            if (recipientId !== null) {
-              const key = user.id === recipientId ? senderId : recipientId;
-
-              if (!initialChat[key]) {
-                initialChat[key] = [];
-              }
-
-              initialChat[key].push(message);
-            }
-          });
-
-          setChannelLookup(lookup);
-          setChat(initialChat);
           setDataLoading(false);
         } catch (err) {
           /* istanbul ignore else */
@@ -141,17 +115,15 @@ export const ChatProvider: React.FC = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.jwt]);
 
+  // @todo this would only work for the sender, and not the recipient
+  // @todo updateChat needs to know which key to append a message to
+  // @todo useParams won't work here with ChatProvider wrapping the Routes switch
+
   // add a new chat message to the appropriate list
   const updateChat = (message: Omit<Message, '_id'>): void => {
-    const updatedChat = { ...chat };
-    const key = message.channel ? channelLookup[message.channel] : message.recipientId;
-
-    if (key) {
-      // @todo I think this is broken...
-      updatedChat[key] = updatedChat[key]?.concat([message]) ?? [message];
-    }
-
-    setChat(updatedChat);
+    const conversation = clone(chat[chatId]);
+    conversation.push(message);
+    setChat({ ...chat, [chatId]: conversation });
   };
 
   return (
