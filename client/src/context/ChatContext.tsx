@@ -89,6 +89,7 @@ export const ChatProvider: React.FC = ({ children }) => {
             users: userList
           } = result.data;
 
+          // @todo useReducer here???
           setChat(initialChat);
           setChannels(channelList);
           setUsers(userList);
@@ -131,6 +132,7 @@ export const ChatProvider: React.FC = ({ children }) => {
     setChat({ ...chat, [chatId]: conversation });
 
     // @todo sent message is resetting chat to '{}' in the recipient's tab >:(
+    // @todo should this method be split into two? one for public; one for private
   };
 
   return (

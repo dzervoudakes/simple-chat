@@ -66,7 +66,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
     } catch (err) {
       /* istanbul ignore else */
       if (!axios.isCancel(err)) {
-        // @todo error handling here (some kind of toast? and unit test)
+        // @todo error handling here (and unit test)
         // @todo handle invalid credentials
 
         // unique error handling for anti-duplicate constraint

@@ -14,6 +14,7 @@ import { useAuth, useChat } from '@src/hooks';
 import { MOBILE_QUERY } from '@src/constants';
 
 // @todo shared interfaces in src/lib etc.
+// @todo remove all non-null assertions
 
 interface Params {
   chatId: string;
@@ -41,8 +42,6 @@ const stylesFn = ({ color }: Theme): Styles => ({
   }
 });
 
-// @todo something better than general error below / non-blocking?
-
 const MessageForm: React.FC = () => {
   const { chatId, chatType } = useParams<Params>();
   const { user } = useAuth();
@@ -56,11 +55,9 @@ const MessageForm: React.FC = () => {
   const { username, id: userId } = user;
 
   useEffect(() => {
-    if (!socket) {
-      const newSocket = new Socket({ username: username!, userId: userId! });
-      newSocket.subscribeToChat(updateChat!);
-      setSocket(newSocket);
-    }
+    const newSocket = new Socket({ username: username!, userId: userId! });
+    newSocket.subscribeToChat(updateChat!);
+    setSocket(newSocket);
 
     return () => {
       source.cancel();
@@ -78,7 +75,7 @@ const MessageForm: React.FC = () => {
     if (trimmedValue !== '') {
       try {
         const message = {
-          username: user.username!, // @todo remove all non-null assertions
+          username: user.username!,
           senderId: user.id!,
           text: trimmedValue,
           recipientId: chatType === 'direct' ? chatId : null,
