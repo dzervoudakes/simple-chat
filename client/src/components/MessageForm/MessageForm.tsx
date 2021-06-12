@@ -14,7 +14,6 @@ import { useAuth, useChat } from '@src/hooks';
 import { MOBILE_QUERY } from '@src/constants';
 
 // @todo shared interfaces in src/lib etc.
-// @todo remove all non-null assertions
 
 interface Params {
   chatId: string;
@@ -52,11 +51,11 @@ const MessageForm: React.FC = () => {
   const { css, styles } = useStyles({ stylesFn });
 
   const source = axios.CancelToken.source();
-  const { username, id: userId } = user;
+  const { username, id: userId } = user ?? {};
 
   useEffect(() => {
-    const newSocket = new Socket({ username: username!, userId: userId! });
-    newSocket.subscribeToChat(updateChat!);
+    const newSocket = new Socket({ username: username ?? '', userId: userId ?? '' });
+    newSocket.subscribeToChat(updateChat);
     setSocket(newSocket);
 
     return () => {
@@ -75,25 +74,25 @@ const MessageForm: React.FC = () => {
     if (trimmedValue !== '') {
       try {
         const message = {
-          username: user.username!,
-          senderId: user.id!,
+          username: user?.username ?? '',
+          senderId: user?.id ?? '',
           text: trimmedValue,
           recipientId: chatType === 'direct' ? chatId : null,
           channel:
             chatType === 'channels'
-              ? channels!.find(({ _id }) => _id === chatId)?.name ?? ''
+              ? channels?.find(({ _id }) => _id === chatId)?.name ?? ''
               : null
         };
 
         await ChatService.createMessage({
           data: message,
-          jwt: user.jwt!,
+          jwt: user?.jwt ?? '',
           source
         });
 
         const variant = chatType === 'direct' ? 'private' : 'public';
         socket?.sendChatMessage(variant, message);
-        updateChat!(message); // @todo
+        updateChat(message);
         resetForm();
       } catch (err) {
         /* istanbul ignore else */
