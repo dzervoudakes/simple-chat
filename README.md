@@ -18,7 +18,7 @@ A simple, real-time chat UI with a preconfigured list of chatrooms which users c
 - The UI is loosely inspired by Slack
 - Web sockets are awesome
 
-<!-- <img src="demo.gif" height="350"/> -->
+<!-- ![demo](demo.gif) -->
 
 ## Technologies Used
 
@@ -36,7 +36,7 @@ A simple, real-time chat UI with a preconfigured list of chatrooms which users c
 - From the project root, open your terminal and run `docker-compose up`
   - Seed data will be populated in the database automatically
   - The server will be running on `http://localhost:3000`
-  - The default login is `Admin123`/`passworddd`, but you may create your own through the UI as well
+  - There are two test users by default, `Admin123` and `TestUser123` ... The password for each is `passworddd`
 
 The `server/README.md` provides additional information on build scripts and environment variables.
 

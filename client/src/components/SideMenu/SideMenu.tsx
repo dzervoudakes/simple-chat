@@ -87,21 +87,23 @@ const SideMenu: React.FC = () => {
         </Spacer>
         <Spacer pb="medium">
           <Typography variant="h3">Direct messages</Typography>
-          {users?.map(({ username, _id }) => (
-            <Spacer pb="small" key={_id}>
-              <Button variant="link" onClick={() => history.push(`/direct/${_id}`)}>
-                <div
-                  {...css(
-                    styles.sideMenuListItem,
-                    isMobile && styles.sideMenuListItemMobile
-                  )}
-                  title={username}
-                >
-                  {username}
-                </div>
-              </Button>
-            </Spacer>
-          ))}
+          {users
+            ?.filter(({ username }) => username !== user.username)
+            ?.map(({ username, _id }) => (
+              <Spacer pb="small" key={_id}>
+                <Button variant="link" onClick={() => history.push(`/direct/${_id}`)}>
+                  <div
+                    {...css(
+                      styles.sideMenuListItem,
+                      isMobile && styles.sideMenuListItemMobile
+                    )}
+                    title={username}
+                  >
+                    {username}
+                  </div>
+                </Button>
+              </Spacer>
+            ))}
         </Spacer>
       </Spacer>
     </div>

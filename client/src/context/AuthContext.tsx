@@ -16,7 +16,8 @@ export interface AuthContextProps {
   setUser: Dispatch<SetStateAction<AuthUser>>;
 }
 
-// @todo update user to be nullable? (clean up some 'if' blocks throughout the app)
+// @todo update user to be nullable instead of individual properties? (clean up some 'if' blocks throughout the app)
+// @todo why is this re-rendering with each recompile???
 
 const emptyUser = {
   username: null,
