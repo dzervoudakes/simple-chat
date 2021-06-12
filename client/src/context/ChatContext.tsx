@@ -73,7 +73,7 @@ export const ChatProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     const getData = async (): Promise<void> => {
-      if (user.id && user.jwt) {
+      if (user) {
         try {
           setDataLoading(true);
 
@@ -110,7 +110,7 @@ export const ChatProvider: React.FC = ({ children }) => {
       source.cancel();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user.jwt]);
+  }, [user]);
 
   /**
    * Add a new chat message to the appropriate list.
@@ -124,7 +124,7 @@ export const ChatProvider: React.FC = ({ children }) => {
     if (message.channel) {
       chatId = channels.find((channel) => channel.name === message.channel)?._id ?? '';
     } else if (message.recipientId) {
-      chatId = user.id === message.recipientId ? message.senderId : message.recipientId;
+      chatId = user?.id === message.recipientId ? message.senderId : message.recipientId;
     }
 
     const conversation = clone(chat[chatId]);

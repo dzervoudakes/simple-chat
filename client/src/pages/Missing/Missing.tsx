@@ -10,7 +10,7 @@ import { useAuth } from '@src/hooks';
 const Missing: React.FC = () => {
   const history = useHistory();
   const { user } = useAuth();
-  const path = user.jwt ? '/channels' : '/';
+  const path = user?.jwt ? '/channels' : '/';
 
   return (
     <Layout>
@@ -21,7 +21,7 @@ const Missing: React.FC = () => {
         </Spacer>
         <Spacer pb="xsmall">
           <Button variant="primary" onClick={() => history.push(path)}>
-            Return to {user.jwt ? 'chat' : 'login'}
+            Return to {user?.jwt ? 'chat' : 'login'}
           </Button>
         </Spacer>
       </Card>

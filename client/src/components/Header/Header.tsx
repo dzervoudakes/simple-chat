@@ -49,7 +49,7 @@ const Header: React.FC = () => {
 
   return (
     <header {...css(styles.header, isMobile && styles.headerMobile)}>
-      {isMobile && user.username && (
+      {isMobile && user && (
         <button
           type="button"
           data-testid="mobileMenuIcon"

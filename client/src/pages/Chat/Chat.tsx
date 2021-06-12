@@ -42,7 +42,7 @@ const Chat: React.FC = () => {
   }, [chatId, channels]);
 
   /* istanbul ignore next */
-  if (!user.username) {
+  if (!user?.username) {
     return <Redirect to="/" />;
   }
 

@@ -88,7 +88,7 @@ const SideMenu: React.FC = () => {
         <Spacer pb="medium">
           <Typography variant="h3">Direct messages</Typography>
           {users
-            ?.filter(({ username }) => username !== user.username)
+            ?.filter(({ username }) => username !== user?.username)
             ?.map(({ username, _id }) => (
               <Spacer pb="small" key={_id}>
                 <Button variant="link" onClick={() => history.push(`/direct/${_id}`)}>
