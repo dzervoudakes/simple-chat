@@ -21,7 +21,6 @@ module.exports = {
     }
   ],
   rules: {
-    '@typescript-eslint/no-non-null-assertion': OFF,
     'import/no-extraneous-dependencies': [
       ERROR,
       {
