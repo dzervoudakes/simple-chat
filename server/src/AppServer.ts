@@ -114,7 +114,6 @@ export class AppServer extends Server {
   }
 
   public stop(): void {
-    console.log('stopping???');
     this.http.close();
   }
 }
