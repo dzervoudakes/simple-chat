@@ -83,8 +83,9 @@ export class AppServer extends Server {
 
       // send and receive private messages
       socket.on('send-message-private', (message: MessageType) => {
-        const recipient = this.sockets.find((item) => item.userId === message.recipientId)
-          ?.socketId;
+        const recipient = this.sockets.find(
+          (item) => item.userId === message.recipientId
+        )?.socketId;
 
         if (recipient) {
           socket.broadcast.to(recipient).emit('receive-message-private', message);
@@ -113,6 +114,7 @@ export class AppServer extends Server {
   }
 
   public stop(): void {
+    console.log('stopping???');
     this.http.close();
   }
 }

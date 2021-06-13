@@ -20,8 +20,8 @@ describe('AppServer', () => {
     sender?.disconnect();
   });
 
-  afterAll(async () => {
-    await new Promise(() => server.stop());
+  afterAll(() => {
+    server.stop();
   });
 
   it('handles public chat messages', async () => {

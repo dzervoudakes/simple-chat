@@ -33,7 +33,7 @@ A simple, real-time chat UI with a preconfigured list of chatrooms which users c
 
 - Ensure `Docker` is installed and running
 - In your terminal, `cd` into the `server` directory and run `npm install`
-- From the project root, open your terminal and run `docker-compose up`
+- From the project root, open your terminal and run `docker compose up`
   - Seed data will be populated in the database automatically
   - The server will be running on `http://localhost:3000`
   - There are two test users by default, `Admin123` and `TestUser123` ... The password for each is `passworddd`
