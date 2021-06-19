@@ -17,8 +17,8 @@ export class Socket {
 
   private socket;
 
-  public subscribeToChat(cb: (message: Omit<Message, '_id'>) => void): void {
-    const messageHandler = (message: Omit<Message, '_id'>): void => {
+  public subscribeToChat(cb: (message: Message) => void): void {
+    const messageHandler = (message: Message): void => {
       cb(message);
     };
 
@@ -28,10 +28,7 @@ export class Socket {
     // @todo 'new-user' event type here after implementing in the API
   }
 
-  public sendChatMessage = (
-    variant: 'public' | 'private',
-    message: Omit<Message, '_id'>
-  ): void => {
+  public sendChatMessage = (variant: 'public' | 'private', message: Message): void => {
     this.socket.emit(`send-message-${variant}`, message);
   };
 

@@ -12,7 +12,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import noop from 'lodash/noop';
-import clone from 'lodash/clone';
+import cloneDeep from 'lodash/cloneDeep';
 import { ChatService } from '@src/services';
 import { useAuth } from '@src/hooks';
 
@@ -46,8 +46,8 @@ export interface Message {
 export interface ChatContextProps {
   channels: Channel[];
   chat: Chat;
-  dataLoading: boolean;
-  loadingError: boolean;
+  dataLoading: boolean; // @todo 'loading'
+  loadingError: boolean; // @todo 'error'
   updateChat: (message: Omit<Message, '_id'>) => void;
   users: ChatUser[];
 }
@@ -127,9 +127,14 @@ export const ChatProvider: React.FC = ({ children }) => {
       chatId = user?.id === message.recipientId ? message.senderId : message.recipientId;
     }
 
-    const conversation = clone(chat[chatId]);
-    conversation.push(message);
-    setChat({ ...chat, [chatId]: conversation });
+    const updatedChat = cloneDeep(chat);
+
+    if (!updatedChat[chatId]) {
+      updatedChat[chatId] = [];
+    }
+
+    updatedChat[chatId].push(message);
+    setChat(updatedChat);
 
     // @todo sent message is resetting chat to '{}' in the recipient's tab >:(
     // @todo should this method be split into two? one for public; one for private

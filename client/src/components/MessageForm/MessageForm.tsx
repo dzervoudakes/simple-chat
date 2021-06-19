@@ -44,7 +44,7 @@ const stylesFn = ({ color }: Theme): Styles => ({
 const MessageForm: React.FC = () => {
   const { chatId, chatType } = useParams<Params>();
   const { user } = useAuth();
-  const { updateChat, channels } = useChat(chatId);
+  const { updateChat, channels } = useChat();
   const [isFormSubmitError, setIsFormSubmitError] = useState(false);
   const [socket, setSocket] = useState<Socket | undefined>(undefined);
   const isMobile = useMediaQuery(MOBILE_QUERY);
@@ -54,16 +54,19 @@ const MessageForm: React.FC = () => {
   const { username, id: userId } = user ?? {};
 
   useEffect(() => {
-    const newSocket = new Socket({ username: username ?? '', userId: userId ?? '' });
-    newSocket.subscribeToChat(updateChat);
-    setSocket(newSocket);
+    // @todo move socket instance into a top-level context
+    if (user && !socket) {
+      const newSocket = new Socket({ username: username ?? '', userId: userId ?? '' });
+      newSocket.subscribeToChat(updateChat);
+      setSocket(newSocket);
+    }
 
     return () => {
       source.cancel();
       socket?.disconnect();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user, socket]);
 
   const onSubmit = async (
     values: Values,
@@ -84,15 +87,17 @@ const MessageForm: React.FC = () => {
               : null
         };
 
-        await ChatService.createMessage({
+        const result = await ChatService.createMessage({
           data: message,
           jwt: user?.jwt ?? '',
           source
         });
 
+        const { message: savedMessage } = result.data;
+
         const variant = chatType === 'direct' ? 'private' : 'public';
-        socket?.sendChatMessage(variant, message);
-        updateChat(message);
+        socket?.sendChatMessage(variant, savedMessage);
+        updateChat(savedMessage);
         resetForm();
       } catch (err) {
         /* istanbul ignore else */

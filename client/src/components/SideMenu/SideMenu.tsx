@@ -11,6 +11,7 @@ import { MOBILE_QUERY } from '@src/constants';
 import { Theme } from '@src/theme';
 
 // @todo close side menu when selecting a list item
+// @todo alphabetize channels and users
 
 const stylesFn = ({ color }: Theme): Styles => ({
   sideMenu: {

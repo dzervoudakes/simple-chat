@@ -94,7 +94,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
               <ErrorMessage name="username" />
             </Spacer>
             <Spacer pb="medium">
-              <TextInput name="password" placeholder="ilovesecurity123" />
+              <TextInput name="password" type="password" placeholder="ilovesecurity123" />
               <ErrorMessage name="password" />
             </Spacer>
             <Button onClick={() => handleSubmit()}>
