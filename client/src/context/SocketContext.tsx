@@ -16,7 +16,7 @@ export const SocketProvider: React.FC = ({ children }) => {
   const { updateChat } = useChat();
 
   useEffect(() => {
-    if (!socket) {
+    if (!socket && user) {
       const newSocket = new Socket({ userId: user?.id ?? '' });
       newSocket.subscribeToChat(updateChat);
       setSocket(newSocket);
@@ -26,7 +26,7 @@ export const SocketProvider: React.FC = ({ children }) => {
       socket?.disconnect();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user]);
 
   return <SocketContext.Provider value={{ socket }}>{children}</SocketContext.Provider>;
 };
