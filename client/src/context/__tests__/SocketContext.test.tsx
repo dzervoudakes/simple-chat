@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { AuthContext, ChatContext, SocketContext, SocketProvider } from '..';
 
 describe('SocketContext', () => {
@@ -34,10 +34,10 @@ describe('SocketContext', () => {
   );
 
   it('provides the socket instance', async () => {
-    const { getByText } = render(<Wrapper />);
+    render(<Wrapper />);
 
     await waitFor(() => {
-      expect(getByText('Socket is enabled')).toBeInTheDocument();
+      expect(screen.getByText('Socket is enabled')).toBeInTheDocument();
     });
   });
 });

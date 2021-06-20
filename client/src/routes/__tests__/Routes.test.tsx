@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { AuthContext, WithStylesProvider } from '@src/context';
 import Routes from '..';
@@ -14,13 +14,13 @@ describe('Routes', () => {
   );
 
   it('renders the home page', () => {
-    const { getByText } = render(<TestComponent />);
+    render(<TestComponent />);
 
-    expect(getByText('Log in to enter Simple Chat!')).toBeInTheDocument();
+    expect(screen.getByText('Log in to enter Simple Chat!')).toBeInTheDocument();
   });
 
   it('renders the chat page', async () => {
-    const { getByText } = render(
+    render(
       <AuthContext.Provider
         value={{
           user: { username: 'test', id: '12345', jwt: 'jwt' },
@@ -32,15 +32,15 @@ describe('Routes', () => {
     );
 
     await waitFor(() => {
-      expect(getByText('Current user')).toBeInTheDocument();
+      expect(screen.getByText('Current user')).toBeInTheDocument();
     });
   });
 
   it('renders the 404 page', async () => {
-    const { getByText } = render(<TestComponent initialEntry="/some/fake/route" />);
+    render(<TestComponent initialEntry="/some/fake/route" />);
 
     await waitFor(() => {
-      expect(getByText('You must be lost...')).toBeInTheDocument();
+      expect(screen.getByText('You must be lost...')).toBeInTheDocument();
     });
   });
 });

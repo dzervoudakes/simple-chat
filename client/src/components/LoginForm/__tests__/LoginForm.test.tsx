@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { AuthProvider, WithStylesProvider } from '@src/context';
 import { AuthService, UserService } from '@src/services';
@@ -47,23 +47,23 @@ describe('LoginForm', () => {
   });
 
   it('renders', () => {
-    const { getByPlaceholderText } = render(<TestComponent />);
+    render(<TestComponent />);
 
-    expect(getByPlaceholderText('NewUser123')).toBeInTheDocument();
-    expect(getByPlaceholderText('ilovesecurity123')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('NewUser123')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('ilovesecurity123')).toBeInTheDocument();
   });
 
   it('calls the auth service to generate a token', async () => {
     const spy = jest.spyOn(AuthService, 'generateToken');
-    const { getByText, getByPlaceholderText } = render(<TestComponent />);
+    render(<TestComponent />);
 
-    fireEvent.change(getByPlaceholderText('NewUser123'), {
+    fireEvent.change(screen.getByPlaceholderText('NewUser123'), {
       target: { value: 'TestUser' }
     });
-    fireEvent.change(getByPlaceholderText('ilovesecurity123'), {
+    fireEvent.change(screen.getByPlaceholderText('ilovesecurity123'), {
       target: { value: 'TestPassword' }
     });
-    fireEvent.click(getByText('Log in'));
+    fireEvent.click(screen.getByText('Log in'));
 
     await waitFor(() => {
       expect(spy).toHaveBeenCalledWith(
@@ -77,15 +77,15 @@ describe('LoginForm', () => {
 
   it('calls the user service to create a new user', async () => {
     const spy = jest.spyOn(UserService, 'createUser');
-    const { getByText, getByPlaceholderText } = render(<TestComponent isSignUp />);
+    render(<TestComponent isSignUp />);
 
-    fireEvent.change(getByPlaceholderText('NewUser123'), {
+    fireEvent.change(screen.getByPlaceholderText('NewUser123'), {
       target: { value: 'TestUser' }
     });
-    fireEvent.change(getByPlaceholderText('ilovesecurity123'), {
+    fireEvent.change(screen.getByPlaceholderText('ilovesecurity123'), {
       target: { value: 'TestPassword' }
     });
-    fireEvent.click(getByText('Sign up'));
+    fireEvent.click(screen.getByText('Sign up'));
 
     await waitFor(() => {
       expect(spy).toHaveBeenCalledWith(
@@ -98,33 +98,33 @@ describe('LoginForm', () => {
   });
 
   it('displays error messaging for empty fields', async () => {
-    const { getByText } = render(<TestComponent />);
+    render(<TestComponent />);
 
-    fireEvent.click(getByText('Log in'));
+    fireEvent.click(screen.getByText('Log in'));
 
     await waitFor(() => {
-      expect(getByText('Please enter your username.')).toBeInTheDocument();
-      expect(getByText('Please enter your password.')).toBeInTheDocument();
+      expect(screen.getByText('Please enter your username.')).toBeInTheDocument();
+      expect(screen.getByText('Please enter your password.')).toBeInTheDocument();
     });
   });
 
   it('displays error messaging for invalid fields', async () => {
-    const { getByText, getByPlaceholderText } = render(<TestComponent />);
+    render(<TestComponent />);
 
-    fireEvent.change(getByPlaceholderText('NewUser123'), {
+    fireEvent.change(screen.getByPlaceholderText('NewUser123'), {
       target: { value: 'user' }
     });
-    fireEvent.change(getByPlaceholderText('ilovesecurity123'), {
+    fireEvent.change(screen.getByPlaceholderText('ilovesecurity123'), {
       target: { value: 'pw' }
     });
-    fireEvent.click(getByText('Log in'));
+    fireEvent.click(screen.getByText('Log in'));
 
     await waitFor(() => {
       expect(
-        getByText('Username must be between 8 and 30 characters.')
+        screen.getByText('Username must be between 8 and 30 characters.')
       ).toBeInTheDocument();
       expect(
-        getByText('Password must be between 8 and 30 characters.')
+        screen.getByText('Password must be between 8 and 30 characters.')
       ).toBeInTheDocument();
     });
   });

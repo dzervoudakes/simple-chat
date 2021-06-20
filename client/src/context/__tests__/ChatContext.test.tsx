@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import { AuthContext, ChatContext, ChatProvider } from '@src/context';
 import { ChatService } from '@src/services';
 
@@ -76,28 +76,28 @@ describe('ChatContext', () => {
   });
 
   it('updates the current message list for a public channel', async () => {
-    const { getByText, queryByText } = render(<Wrapper />);
+    render(<Wrapper />);
 
-    expect(queryByText('Message: i am a message')).toBeNull();
-    expect(queryByText('Message: i am another message')).toBeNull();
+    expect(screen.queryByText('Message: i am a message')).toBeNull();
+    expect(screen.queryByText('Message: i am another message')).toBeNull();
 
     await waitFor(() => {
-      fireEvent.click(getByText('update public chat'));
-      fireEvent.click(getByText('update public chat again'));
+      fireEvent.click(screen.getByText('update public chat'));
+      fireEvent.click(screen.getByText('update public chat again'));
 
-      expect(getByText('Message: i am a message')).toBeInTheDocument();
-      expect(getByText('Message: i am another message')).toBeInTheDocument();
+      expect(screen.getByText('Message: i am a message')).toBeInTheDocument();
+      expect(screen.getByText('Message: i am another message')).toBeInTheDocument();
     });
   });
 
   it('updates the current message list for a private conversation', async () => {
-    const { getByText, queryByText } = render(<Wrapper />);
+    render(<Wrapper />);
 
-    expect(queryByText('Message: i am a private message')).toBeNull();
+    expect(screen.queryByText('Message: i am a private message')).toBeNull();
 
     await waitFor(() => {
-      fireEvent.click(getByText('update private chat'));
-      expect(getByText('Message: i am a private message')).toBeInTheDocument();
+      fireEvent.click(screen.getByText('update private chat'));
+      expect(screen.getByText('Message: i am a private message')).toBeInTheDocument();
     });
   });
 
@@ -109,24 +109,24 @@ describe('ChatContext', () => {
         users: []
       }
     });
-    const { getByText } = render(<Wrapper />);
+    render(<Wrapper />);
 
     await waitFor(() => {
-      expect(getByText('Message: i am a message')).toBeInTheDocument();
-      expect(getByText('Message: i am a private message')).toBeInTheDocument();
+      expect(screen.getByText('Message: i am a message')).toBeInTheDocument();
+      expect(screen.getByText('Message: i am a private message')).toBeInTheDocument();
     });
   });
 
   it('handles the error state', async () => {
     ChatService.getChat = jest.fn().mockRejectedValueOnce('error');
-    const { getByText } = render(<Wrapper />);
+    render(<Wrapper />);
 
-    expect(getByText('Data loading: true')).toBeInTheDocument();
-    expect(getByText('Loading error: false')).toBeInTheDocument();
+    expect(screen.getByText('Data loading: true')).toBeInTheDocument();
+    expect(screen.getByText('Loading error: false')).toBeInTheDocument();
 
     await waitFor(() => {
-      expect(getByText('Data loading: false')).toBeInTheDocument();
-      expect(getByText('Loading error: true')).toBeInTheDocument();
+      expect(screen.getByText('Data loading: false')).toBeInTheDocument();
+      expect(screen.getByText('Loading error: true')).toBeInTheDocument();
     });
   });
 });

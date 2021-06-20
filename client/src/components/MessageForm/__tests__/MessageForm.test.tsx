@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route } from 'react-router-dom';
 import {
   AuthContext,
@@ -87,16 +87,16 @@ describe('MessageForm', () => {
   });
 
   it('renders', () => {
-    const { getByPlaceholderText } = render(<TestComponent />);
+    render(<TestComponent />);
 
-    expect(getByPlaceholderText(placeholderText)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(placeholderText)).toBeInTheDocument();
   });
 
   it('submits a public message', async () => {
     mockCreateMessage.mockResolvedValueOnce({ data: { message: publicMessage } });
-    const { getByPlaceholderText } = render(<TestComponent />);
+    render(<TestComponent />);
 
-    const input = getByPlaceholderText(placeholderText);
+    const input = screen.getByPlaceholderText(placeholderText);
     fireEvent.change(input, { target: { value: 'i am a message' } });
     fireEvent.submit(input);
 
@@ -113,11 +113,9 @@ describe('MessageForm', () => {
 
   it('submits a private message', async () => {
     mockCreateMessage.mockResolvedValueOnce({ data: { message: privateMessage } });
-    const { getByPlaceholderText } = render(
-      <TestComponent initialEntry="/direct/67890" />
-    );
+    render(<TestComponent initialEntry="/direct/67890" />);
 
-    const input = getByPlaceholderText(placeholderText);
+    const input = screen.getByPlaceholderText(placeholderText);
     fireEvent.change(input, { target: { value: 'i am a private message' } });
     fireEvent.submit(input);
 
@@ -134,14 +132,14 @@ describe('MessageForm', () => {
 
   it('displays the error state', async () => {
     mockCreateMessage.mockRejectedValueOnce('');
-    const { getByText, getByPlaceholderText } = render(<TestComponent />);
+    render(<TestComponent />);
 
-    const input = getByPlaceholderText(placeholderText);
+    const input = screen.getByPlaceholderText(placeholderText);
     fireEvent.change(input, { target: { value: 'i am a message' } });
     fireEvent.submit(input);
 
     await waitFor(() => {
-      expect(getByText('Uh oh, something went wrong.')).toBeInTheDocument();
+      expect(screen.getByText('Uh oh, something went wrong.')).toBeInTheDocument();
     });
   });
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import {
   AuthContext,
   ChatProvider,
@@ -57,25 +57,25 @@ describe('SideMenu', () => {
   });
 
   it('renders', async () => {
-    const { getByText } = render(<TestComponent />);
+    render(<TestComponent />);
 
     await waitFor(() => {
-      expect(getByText('Current user')).toBeInTheDocument();
-      expect(getByText('Channels')).toBeInTheDocument();
-      expect(getByText('Direct messages')).toBeInTheDocument();
-      expect(getByText('general')).toBeInTheDocument();
-      expect(getByText('username1')).toBeInTheDocument();
-      expect(getByText('username2')).toBeInTheDocument();
+      expect(screen.getByText('Current user')).toBeInTheDocument();
+      expect(screen.getByText('Channels')).toBeInTheDocument();
+      expect(screen.getByText('Direct messages')).toBeInTheDocument();
+      expect(screen.getByText('general')).toBeInTheDocument();
+      expect(screen.getByText('username1')).toBeInTheDocument();
+      expect(screen.getByText('username2')).toBeInTheDocument();
     });
   });
 
   it('navigates to public and private conversations', async () => {
-    const { getByText } = render(<TestComponent />);
+    render(<TestComponent />);
 
-    await waitFor(() => getByText('Current user'));
+    await screen.findByText('Current user');
 
-    fireEvent.click(getByText('general'));
-    fireEvent.click(getByText('username1'));
+    fireEvent.click(screen.getByText('general'));
+    fireEvent.click(screen.getByText('username1'));
 
     expect(mockPush).toHaveBeenNthCalledWith(1, '/channels/11221');
     expect(mockPush).toHaveBeenNthCalledWith(2, '/direct/userid1');

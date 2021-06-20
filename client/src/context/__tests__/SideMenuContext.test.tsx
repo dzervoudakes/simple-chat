@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import { SideMenuContext, SideMenuProvider } from '..';
 
 describe('SideMenuContext', () => {
@@ -23,16 +23,16 @@ describe('SideMenuContext', () => {
   );
 
   it('provides the current side menu open state', () => {
-    const { getByText } = render(<Wrapper />);
+    render(<Wrapper />);
 
-    expect(getByText('Is side menu open: false')).toBeInTheDocument();
+    expect(screen.getByText('Is side menu open: false')).toBeInTheDocument();
   });
 
   it('updates the current side menu open state', () => {
-    const { getByText } = render(<Wrapper />);
+    render(<Wrapper />);
 
-    fireEvent.click(getByText('update state'));
+    fireEvent.click(screen.getByText('update state'));
 
-    expect(getByText('Is side menu open: true')).toBeInTheDocument();
+    expect(screen.getByText('Is side menu open: true')).toBeInTheDocument();
   });
 });

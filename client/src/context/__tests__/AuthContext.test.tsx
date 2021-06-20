@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import { AuthContext, AuthProvider } from '..';
 
 describe('AuthContext', () => {
@@ -28,20 +28,20 @@ describe('AuthContext', () => {
   );
 
   it('provides the current user', () => {
-    const { getByText } = render(<Wrapper />);
+    render(<Wrapper />);
 
-    expect(getByText('Current username: empty')).toBeInTheDocument();
-    expect(getByText('Current id: empty')).toBeInTheDocument();
-    expect(getByText('Current jwt: empty')).toBeInTheDocument();
+    expect(screen.getByText('Current username: empty')).toBeInTheDocument();
+    expect(screen.getByText('Current id: empty')).toBeInTheDocument();
+    expect(screen.getByText('Current jwt: empty')).toBeInTheDocument();
   });
 
   it('updates the current username', () => {
-    const { getByText } = render(<Wrapper />);
+    render(<Wrapper />);
 
-    fireEvent.click(getByText('update user'));
+    fireEvent.click(screen.getByText('update user'));
 
-    expect(getByText('Current username: test')).toBeInTheDocument();
-    expect(getByText('Current id: 12345')).toBeInTheDocument();
-    expect(getByText('Current jwt: jwt')).toBeInTheDocument();
+    expect(screen.getByText('Current username: test')).toBeInTheDocument();
+    expect(screen.getByText('Current id: 12345')).toBeInTheDocument();
+    expect(screen.getByText('Current jwt: jwt')).toBeInTheDocument();
   });
 });

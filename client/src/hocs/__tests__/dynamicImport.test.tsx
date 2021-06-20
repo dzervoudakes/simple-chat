@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitForElementToBeRemoved } from '@testing-library/react';
+import { render, screen, waitForElementToBeRemoved } from '@testing-library/react';
 import { WithStylesProvider } from '@src/context';
 import { dynamicImport } from '..';
 
@@ -9,16 +9,16 @@ describe('dynamicImport', () => {
   );
 
   it('Loads an external component and displays a loading indicator as a fallback', async () => {
-    const { getByText, getByTestId } = render(
+    render(
       <WithStylesProvider>
         <ImportedComponent />
       </WithStylesProvider>
     );
 
-    expect(getByTestId('loadingIndicator')).toBeInTheDocument();
+    expect(screen.getByTestId('loadingIndicator')).toBeInTheDocument();
 
-    await waitForElementToBeRemoved(() => getByTestId('loadingIndicator'));
+    await waitForElementToBeRemoved(() => screen.getByTestId('loadingIndicator'));
 
-    expect(getByText('imported component')).toBeInTheDocument();
+    expect(screen.getByText('imported component')).toBeInTheDocument();
   });
 });

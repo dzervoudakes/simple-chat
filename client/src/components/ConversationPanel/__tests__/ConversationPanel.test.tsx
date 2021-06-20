@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route } from 'react-router-dom';
 import { AuthContext, ChatProvider, WithStylesProvider } from '@src/context';
 import { ChatService } from '@src/services';
@@ -68,18 +68,18 @@ describe('ConversationPanel', () => {
   });
 
   it('renders public channels', async () => {
-    const { getByText } = render(<TestComponent />);
+    render(<TestComponent />);
 
     await waitFor(() => {
-      expect(getByText('i am a message')).toBeInTheDocument();
+      expect(screen.getByText('i am a message')).toBeInTheDocument();
     });
   });
 
   it('renders direct messages', async () => {
-    const { getByText } = render(<TestComponent initialEntry="/67890" />);
+    render(<TestComponent initialEntry="/67890" />);
 
     await waitFor(() => {
-      expect(getByText('i am a private message')).toBeInTheDocument();
+      expect(screen.getByText('i am a private message')).toBeInTheDocument();
     });
   });
 });

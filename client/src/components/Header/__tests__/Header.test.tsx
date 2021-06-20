@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import { useMediaQuery } from 'react-responsive';
 import { AuthContext, SideMenuProvider, WithStylesProvider } from '@src/context';
 import Header from '..';
@@ -38,27 +38,27 @@ describe('Header', () => {
 
   it('renders on desktop', () => {
     (useMediaQuery as jest.Mock).mockImplementation(() => false);
-    const { getByText, getByTestId, queryByTestId } = render(<TestComponent />);
+    render(<TestComponent />);
 
-    expect(getByTestId('chatIcon')).toBeInTheDocument();
-    expect(getByText('Simple Chat')).toBeInTheDocument();
-    expect(queryByTestId('mobileMenuIcon')).toBeNull();
+    expect(screen.getByTestId('chatIcon')).toBeInTheDocument();
+    expect(screen.getByText('Simple Chat')).toBeInTheDocument();
+    expect(screen.queryByTestId('mobileMenuIcon')).toBeNull();
   });
 
   it('renders on mobile', () => {
     (useMediaQuery as jest.Mock).mockImplementation(() => true);
-    const { getByText, getByTestId } = render(<TestComponent />);
+    render(<TestComponent />);
 
-    expect(getByTestId('chatIcon')).toBeInTheDocument();
-    expect(getByText('Simple Chat')).toBeInTheDocument();
-    expect(getByTestId('mobileMenuIcon')).toBeInTheDocument();
+    expect(screen.getByTestId('chatIcon')).toBeInTheDocument();
+    expect(screen.getByText('Simple Chat')).toBeInTheDocument();
+    expect(screen.getByTestId('mobileMenuIcon')).toBeInTheDocument();
   });
 
   it('opens the mobile menu', () => {
     (useMediaQuery as jest.Mock).mockImplementation(() => true);
-    const { getByTestId } = render(<TestComponent />);
+    render(<TestComponent />);
 
-    fireEvent.click(getByTestId('mobileMenuIcon'));
+    fireEvent.click(screen.getByTestId('mobileMenuIcon'));
 
     expect(mockSetIsSideMenuOpen).toHaveBeenCalledWith(true);
   });

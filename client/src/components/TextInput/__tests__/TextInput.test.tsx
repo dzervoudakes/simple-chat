@@ -1,12 +1,12 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Formik } from 'formik';
 import { WithStylesProvider } from '@src/context';
 import TextInput from '..';
 
 describe('TextInput', () => {
   it('renders the placeholder text', () => {
-    const { getByPlaceholderText } = render(
+    render(
       <WithStylesProvider>
         <Formik initialValues={{ test: '' }} onSubmit={jest.fn()}>
           {() => <TextInput name="test" placeholder="I am a placeholder" />}
@@ -14,6 +14,6 @@ describe('TextInput', () => {
       </WithStylesProvider>
     );
 
-    expect(getByPlaceholderText('I am a placeholder')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('I am a placeholder')).toBeInTheDocument();
   });
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import { AuthContext, WithStylesProvider } from '@src/context';
 import Missing from '..';
 
@@ -23,22 +23,22 @@ describe('Missing', () => {
   );
 
   it('renders the title and description', () => {
-    const { getByText } = render(<TestComponent />);
+    render(<TestComponent />);
 
-    expect(getByText('You must be lost...')).toBeInTheDocument();
-    expect(getByText("Let's get you back home.")).toBeInTheDocument();
+    expect(screen.getByText('You must be lost...')).toBeInTheDocument();
+    expect(screen.getByText("Let's get you back home.")).toBeInTheDocument();
   });
 
   it('redirects to the login form', () => {
-    const { getByText } = render(<TestComponent />);
+    render(<TestComponent />);
 
-    fireEvent.click(getByText('Return to login'));
+    fireEvent.click(screen.getByText('Return to login'));
 
     expect(mockHistoryPush).toHaveBeenCalledWith('/');
   });
 
   it('redirects to the chat panel', () => {
-    const { getByText } = render(
+    render(
       <AuthContext.Provider
         value={{
           user: { username: 'test', id: '12345', jwt: 'jwt' },
@@ -49,7 +49,7 @@ describe('Missing', () => {
       </AuthContext.Provider>
     );
 
-    fireEvent.click(getByText('Return to chat'));
+    fireEvent.click(screen.getByText('Return to chat'));
 
     expect(mockHistoryPush).toHaveBeenCalledWith('/channels');
   });

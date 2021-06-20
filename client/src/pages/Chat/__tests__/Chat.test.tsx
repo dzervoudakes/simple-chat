@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Route } from 'react-router-dom';
 import {
   AuthContext,
@@ -11,7 +11,7 @@ import Chat from '..';
 
 describe('Chat', () => {
   it('renders', () => {
-    const { getByText, getByPlaceholderText } = render(
+    render(
       <MemoryRouter initialEntries={['/channels/11221']}>
         <Route path="/:chatType/:chatId">
           <WithStylesProvider>
@@ -32,9 +32,9 @@ describe('Chat', () => {
       </MemoryRouter>
     );
 
-    expect(getByText('Current user')).toBeInTheDocument();
+    expect(screen.getByText('Current user')).toBeInTheDocument();
     expect(
-      getByPlaceholderText("Type your message here, then press 'Enter' to send.")
+      screen.getByPlaceholderText("Type your message here, then press 'Enter' to send.")
     ).toBeInTheDocument();
   });
 });
