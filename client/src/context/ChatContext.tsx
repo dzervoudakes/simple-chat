@@ -9,7 +9,7 @@
  *
  * @packageDocumentation
  */
-import React, { createContext, useEffect, useReducer } from 'react';
+import React, { createContext, useEffect, useReducer, Reducer } from 'react';
 import axios from 'axios';
 import noop from 'lodash/noop';
 import { ChatService } from '@src/services';
@@ -51,6 +51,13 @@ export interface ChatContextProps {
   users: ChatUser[];
 }
 
+type ActionType = 'API_LOADING' | 'API_SUCCESS' | 'API_FAILURE' | 'UPDATE_CHAT';
+
+interface Action {
+  type: ActionType;
+  payload?: Partial<ChatContextProps>;
+}
+
 const initialState = {
   channels: [],
   chat: {},
@@ -70,9 +77,12 @@ export const ChatProvider: React.FC = ({ children }) => {
   const source = axios.CancelToken.source();
 
   // @todo state still resets after receiving messages >:(
-  // @todo remove 'any' types below
+  // @todo remove 'any' types on chatReducer
 
-  const chatReducer = (state: ChatContextProps, action: any): any => {
+  const chatReducer = (
+    state: Partial<ChatContextProps>,
+    action: Action
+  ): Partial<ChatContextProps> => {
     switch (action.type) {
       case 'API_LOADING':
         return { ...state, loading: true };
@@ -87,7 +97,10 @@ export const ChatProvider: React.FC = ({ children }) => {
     }
   };
 
-  const [chatState, chatDispatch] = useReducer(chatReducer, initialState);
+  const [chatState, chatDispatch] = useReducer<Reducer<any, Action>>(
+    chatReducer,
+    initialState
+  );
 
   useEffect(() => {
     const getData = async (): Promise<void> => {
