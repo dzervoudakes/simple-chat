@@ -12,7 +12,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import noop from 'lodash/noop';
-import cloneDeep from 'lodash/cloneDeep';
 import { ChatService } from '@src/services';
 import { useAuth } from '@src/hooks';
 
@@ -89,7 +88,7 @@ export const ChatProvider: React.FC = ({ children }) => {
             users: userList
           } = result.data;
 
-          // @todo useReducer here???
+          // @todo useReducer here to set all state: 'updateChat' below depends on single state for recipient re-renders
           setChat(initialChat);
           setChannels(channelList);
           setUsers(userList);
@@ -120,24 +119,24 @@ export const ChatProvider: React.FC = ({ children }) => {
    * -- Else (if userId !== recipientId), the key should be recipientId
    */
   const updateChat = (message: Message): void => {
-    let chatId = '';
-    if (message.channel) {
-      chatId = channels.find((channel) => channel.name === message.channel)?._id ?? '';
-    } else if (message.recipientId) {
-      chatId = user?.id === message.recipientId ? message.senderId : message.recipientId;
-    }
+    setChat((prevChat) => {
+      let chatId = '';
+      if (message.channel) {
+        chatId = channels.find((channel) => channel.name === message.channel)?._id ?? '';
+      } else if (message.recipientId) {
+        chatId =
+          user?.id === message.recipientId ? message.senderId : message.recipientId;
+      }
 
-    const updatedChat = cloneDeep(chat);
+      const updatedChat = { ...prevChat };
 
-    if (!updatedChat[chatId]) {
-      updatedChat[chatId] = [];
-    }
+      if (!updatedChat[chatId]) {
+        updatedChat[chatId] = [];
+      }
 
-    updatedChat[chatId].push(message);
-    setChat(updatedChat);
-
-    // @todo sent message is resetting chat to '{}' in the recipient's tab >:(
-    // @todo should this method be split in two? one for public; one for private
+      updatedChat[chatId].push(message);
+      return updatedChat;
+    });
   };
 
   return (
