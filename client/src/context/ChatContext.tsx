@@ -9,7 +9,7 @@
  *
  * @packageDocumentation
  */
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useReducer } from 'react';
 import axios from 'axios';
 import noop from 'lodash/noop';
 import { ChatService } from '@src/services';
@@ -45,36 +45,55 @@ export interface Message {
 export interface ChatContextProps {
   channels: Channel[];
   chat: Chat;
-  dataLoading: boolean; // @todo 'loading'
-  loadingError: boolean; // @todo 'error'
+  error: boolean;
+  loading: boolean;
   updateChat: (message: Message) => void;
   users: ChatUser[];
 }
 
-export const ChatContext = createContext<ChatContextProps>({
+const initialState = {
   channels: [],
   chat: {},
-  dataLoading: false,
-  loadingError: false,
-  updateChat: noop,
+  error: false,
+  loading: false,
   users: []
+};
+
+export const ChatContext = createContext<ChatContextProps>({
+  ...initialState,
+  updateChat: noop
 });
 
 export const ChatProvider: React.FC = ({ children }) => {
   const { user } = useAuth();
-  const [channels, setChannels] = useState<Channel[]>([]);
-  const [chat, setChat] = useState({});
-  const [users, setUsers] = useState<ChatUser[]>([]);
-  const [dataLoading, setDataLoading] = useState(false);
-  const [loadingError, setLoadingError] = useState(false);
 
   const source = axios.CancelToken.source();
+
+  // @todo state still resets after receiving messages >:(
+  // @todo remove 'any' types below
+
+  const chatReducer = (state: ChatContextProps, action: any): any => {
+    switch (action.type) {
+      case 'API_LOADING':
+        return { ...state, loading: true };
+      case 'API_SUCCESS':
+        return { ...state, ...action.payload, loading: false, error: false };
+      case 'API_FAILURE':
+        return { ...state, loading: false, error: true };
+      case 'UPDATE_CHAT':
+        return { ...state, ...action.payload };
+      default:
+        return state;
+    }
+  };
+
+  const [chatState, chatDispatch] = useReducer(chatReducer, initialState);
 
   useEffect(() => {
     const getData = async (): Promise<void> => {
       if (user) {
         try {
-          setDataLoading(true);
+          chatDispatch({ type: 'API_LOADING' });
 
           // retrieve all available channels, messages and users
           const result = await ChatService.getChat({
@@ -82,22 +101,12 @@ export const ChatProvider: React.FC = ({ children }) => {
             userId: user.id,
             source
           });
-          const {
-            chat: initialChat,
-            channels: channelList,
-            users: userList
-          } = result.data;
 
-          // @todo useReducer here to set all state: 'updateChat' below depends on single state for recipient re-renders
-          setChat(initialChat);
-          setChannels(channelList);
-          setUsers(userList);
-          setDataLoading(false);
+          chatDispatch({ type: 'API_SUCCESS', payload: result.data });
         } catch (err) {
           /* istanbul ignore else */
           if (!axios.isCancel(err)) {
-            setLoadingError(true);
-            setDataLoading(false);
+            chatDispatch({ type: 'API_FAILURE' });
           }
         }
       }
@@ -119,30 +128,29 @@ export const ChatProvider: React.FC = ({ children }) => {
    * -- Else (if userId !== recipientId), the key should be recipientId
    */
   const updateChat = (message: Message): void => {
-    setChat((prevChat) => {
-      let chatId = '';
-      if (message.channel) {
-        chatId = channels.find((channel) => channel.name === message.channel)?._id ?? '';
-      } else if (message.recipientId) {
-        chatId =
-          user?.id === message.recipientId ? message.senderId : message.recipientId;
-      }
+    let conversationId = '';
+    if (message.channel) {
+      conversationId =
+        chatState.channels.find((channel: Channel) => channel.name === message.channel)
+          ?._id ?? '';
+    } else if (message.recipientId) {
+      conversationId =
+        user?.id === message.recipientId ? message.senderId : message.recipientId;
+    }
 
-      const updatedChat = { ...prevChat };
+    const updatedChat = { ...chatState.chat };
 
-      if (!updatedChat[chatId]) {
-        updatedChat[chatId] = [];
-      }
+    if (!updatedChat[conversationId]) {
+      updatedChat[conversationId] = [];
+    }
 
-      updatedChat[chatId].push(message);
-      return updatedChat;
-    });
+    updatedChat[conversationId].push(message);
+    const payload = { chat: updatedChat };
+    chatDispatch({ type: 'UPDATE_CHAT', payload });
   };
 
   return (
-    <ChatContext.Provider
-      value={{ channels, chat, dataLoading, loadingError, updateChat, users }}
-    >
+    <ChatContext.Provider value={{ ...chatState, updateChat }}>
       {children}
     </ChatContext.Provider>
   );
