@@ -1,16 +1,19 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route } from 'react-router-dom';
-import { AuthContext, ChatProvider, WithStylesProvider } from '@src/context';
-import { ChannelService, MessageService, UserService } from '@src/services';
+import {
+  AuthContext,
+  ChatProvider,
+  SocketProvider,
+  WithStylesProvider
+} from '@src/context';
+import { ChatService } from '@src/services';
 import MessageForm from '..';
 
 const mockCreateMessage = jest.fn();
 const mockSendChatMessage = jest.fn();
 
-jest.mock('@src/services/ChannelService');
-jest.mock('@src/services/UserService');
-jest.mock('@src/services/MessageService');
+jest.mock('@src/services/ChatService');
 jest.mock('@src/socket', () => {
   return {
     Socket: jest.fn().mockImplementation(() => {
@@ -63,7 +66,9 @@ describe('MessageForm', () => {
         >
           <WithStylesProvider>
             <ChatProvider>
-              <MessageForm />
+              <SocketProvider>
+                <MessageForm />
+              </SocketProvider>
             </ChatProvider>
           </WithStylesProvider>
         </AuthContext.Provider>
@@ -72,14 +77,13 @@ describe('MessageForm', () => {
   );
 
   beforeAll(() => {
-    MessageService.createMessage = mockCreateMessage;
+    ChatService.createMessage = mockCreateMessage;
   });
 
   beforeEach(() => {
-    ChannelService.getChannels = jest
-      .fn()
-      .mockResolvedValueOnce({ data: { channels: [{ name: 'general', _id: '11221' }] } });
-    UserService.getUsers = jest.fn().mockResolvedValueOnce({ data: { users: [] } });
+    ChatService.getChat = jest.fn().mockResolvedValueOnce({
+      data: { channels: [{ name: 'general', _id: '11221' }], chat: {}, users: [] }
+    });
   });
 
   it('renders', () => {
@@ -89,7 +93,7 @@ describe('MessageForm', () => {
   });
 
   it('submits a public message', async () => {
-    mockCreateMessage.mockResolvedValueOnce(publicMessage);
+    mockCreateMessage.mockResolvedValueOnce({ data: { message: publicMessage } });
     const { getByPlaceholderText } = render(<TestComponent />);
 
     const input = getByPlaceholderText(placeholderText);
@@ -108,7 +112,7 @@ describe('MessageForm', () => {
   });
 
   it('submits a private message', async () => {
-    mockCreateMessage.mockResolvedValueOnce(privateMessage);
+    mockCreateMessage.mockResolvedValueOnce({ data: { message: privateMessage } });
     const { getByPlaceholderText } = render(
       <TestComponent initialEntry="/direct/67890" />
     );

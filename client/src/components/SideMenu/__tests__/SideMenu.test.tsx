@@ -6,14 +6,12 @@ import {
   SideMenuProvider,
   WithStylesProvider
 } from '@src/context';
-import { ChannelService, MessageService, UserService } from '@src/services';
+import { ChatService } from '@src/services';
 import SideMenu from '..';
 
 const mockPush = jest.fn();
 
-jest.mock('@src/services/ChannelService');
-jest.mock('@src/services/MessageService');
-jest.mock('@src/services/UserService');
+jest.mock('@src/services/ChatService');
 jest.mock('react-router-dom', () => ({
   useHistory: jest.fn().mockImplementation(() => ({
     push: mockPush
@@ -49,15 +47,13 @@ describe('SideMenu', () => {
   );
 
   beforeEach(() => {
-    ChannelService.getChannels = jest
-      .fn()
-      .mockResolvedValueOnce({ data: { channels: [{ name: 'general', _id: '11221' }] } });
-    MessageService.getMessages = jest
-      .fn()
-      .mockResolvedValueOnce({ data: { messages: [] } });
-    UserService.getUsers = jest
-      .fn()
-      .mockResolvedValueOnce({ data: { users: [mockUserOne, mockUserTwo] } });
+    ChatService.getChat = jest.fn().mockResolvedValueOnce({
+      data: {
+        channels: [{ name: 'general', _id: '11221' }],
+        chat: {},
+        users: [mockUserOne, mockUserTwo]
+      }
+    });
   });
 
   it('renders', async () => {

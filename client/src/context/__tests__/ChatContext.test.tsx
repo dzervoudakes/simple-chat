@@ -1,11 +1,9 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import { AuthContext, ChatContext, ChatProvider } from '@src/context';
-import { ChannelService, MessageService, UserService } from '@src/services';
+import { ChatService } from '@src/services';
 
-jest.mock('@src/services/ChannelService');
-jest.mock('@src/services/MessageService');
-jest.mock('@src/services/UserService');
+jest.mock('@src/services/ChatService');
 
 describe('ChatContext', () => {
   const publicMessage = {
@@ -26,23 +24,34 @@ describe('ChatContext', () => {
 
   const TestComponent: React.FC = () => (
     <ChatContext.Consumer>
-      {({ chat, dataLoading, loadingError, updateChat }) => (
+      {({ chat, loading, error, chatDispatch }) => (
         <>
           <div>Message: {chat['11221']?.[0]?.text}</div>
           <div>Message: {chat['11221']?.[1]?.text}</div>
           <div>Message: {chat['67890']?.[0]?.text}</div>
-          <div>Data loading: {dataLoading.toString()}</div>
-          <div>Loading error: {loadingError.toString()}</div>
-          <button type="button" onClick={() => updateChat(publicMessage)}>
+          <div>Data loading: {loading.toString()}</div>
+          <div>Loading error: {error.toString()}</div>
+          <button
+            type="button"
+            onClick={() => chatDispatch({ type: 'UPDATE_CHAT', payload: publicMessage })}
+          >
             update public chat
           </button>
           <button
             type="button"
-            onClick={() => updateChat({ ...publicMessage, text: 'i am another message' })}
+            onClick={() =>
+              chatDispatch({
+                type: 'UPDATE_CHAT',
+                payload: { ...publicMessage, text: 'i am another message' }
+              })
+            }
           >
             update public chat again
           </button>
-          <button type="button" onClick={() => updateChat(privateMessage)}>
+          <button
+            type="button"
+            onClick={() => chatDispatch({ type: 'UPDATE_CHAT', payload: privateMessage })}
+          >
             update private chat
           </button>
         </>
@@ -61,13 +70,9 @@ describe('ChatContext', () => {
   );
 
   beforeEach(() => {
-    ChannelService.getChannels = jest
-      .fn()
-      .mockResolvedValueOnce({ data: { channels: [{ name: 'general', _id: '11221' }] } });
-    MessageService.getMessages = jest
-      .fn()
-      .mockResolvedValueOnce({ data: { messages: [] } });
-    UserService.getUsers = jest.fn().mockResolvedValueOnce({ data: { users: [] } });
+    ChatService.getChat = jest.fn().mockResolvedValueOnce({
+      data: { channels: [{ name: 'general', _id: '11221' }], messages: [], users: [] }
+    });
   });
 
   it('updates the current message list for a public channel', async () => {
@@ -97,9 +102,13 @@ describe('ChatContext', () => {
   });
 
   it('populates the default chat object', async () => {
-    MessageService.getMessages = jest
-      .fn()
-      .mockResolvedValueOnce({ data: { messages: [publicMessage, privateMessage] } });
+    ChatService.getChat = jest.fn().mockResolvedValueOnce({
+      data: {
+        channels: [],
+        chat: { '11221': [publicMessage], '67890': [privateMessage] },
+        users: []
+      }
+    });
     const { getByText } = render(<Wrapper />);
 
     await waitFor(() => {
@@ -109,7 +118,7 @@ describe('ChatContext', () => {
   });
 
   it('handles the error state', async () => {
-    ChannelService.getChannels = jest.fn().mockRejectedValueOnce('error');
+    ChatService.getChat = jest.fn().mockRejectedValueOnce('error');
     const { getByText } = render(<Wrapper />);
 
     expect(getByText('Data loading: true')).toBeInTheDocument();

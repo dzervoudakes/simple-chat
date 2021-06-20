@@ -2,12 +2,10 @@ import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route } from 'react-router-dom';
 import { AuthContext, ChatProvider, WithStylesProvider } from '@src/context';
-import { ChannelService, MessageService, UserService } from '@src/services';
+import { ChatService } from '@src/services';
 import ConversationPanel from '..';
 
-jest.mock('@src/services/ChannelService');
-jest.mock('@src/services/MessageService');
-jest.mock('@src/services/UserService');
+jest.mock('@src/services/ChatService');
 
 describe('ConversationPanel', () => {
   const mockUserOne = {
@@ -60,15 +58,13 @@ describe('ConversationPanel', () => {
   );
 
   beforeEach(() => {
-    ChannelService.getChannels = jest
-      .fn()
-      .mockResolvedValueOnce({ data: { channels: [{ name: 'general', _id: '11221' }] } });
-    MessageService.getMessages = jest
-      .fn()
-      .mockResolvedValueOnce({ data: { messages: [publicMessage, privateMessage] } });
-    UserService.getUsers = jest
-      .fn()
-      .mockResolvedValueOnce({ data: { users: [mockUserOne, mockUserTwo] } });
+    ChatService.getChat = jest.fn().mockResolvedValueOnce({
+      data: {
+        channels: [{ name: 'general', _id: '11221' }],
+        chat: { '11221': [publicMessage], '67890': [privateMessage] },
+        users: [mockUserOne, mockUserTwo]
+      }
+    });
   });
 
   it('renders public channels', async () => {

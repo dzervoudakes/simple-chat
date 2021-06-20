@@ -16,8 +16,8 @@ describe('useAuth', () => {
     const { result } = renderHook(() => useAuth(), { wrapper: TestComponent });
     const { user } = result.current;
 
-    expect(user.username).toBe('test');
-    expect(user.id).toBe('12345');
-    expect(user.jwt).toBe('jwt');
+    expect(user?.username).toBe('test');
+    expect(user?.id).toBe('12345');
+    expect(user?.jwt).toBe('jwt');
   });
 });
