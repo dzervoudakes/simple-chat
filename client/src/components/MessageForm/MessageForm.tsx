@@ -44,7 +44,7 @@ const MessageForm: React.FC = () => {
   const { chatId, chatType } = useParams<Params>();
   const { user } = useAuth();
   const { socket } = useSocket();
-  const { updateChat, channels } = useChat();
+  const { channels, chatDispatch } = useChat();
   const [isFormSubmitError, setIsFormSubmitError] = useState(false);
   const isMobile = useMediaQuery(MOBILE_QUERY);
   const { css, styles } = useStyles({ stylesFn });
@@ -87,7 +87,7 @@ const MessageForm: React.FC = () => {
 
         const variant = chatType === 'direct' ? 'private' : 'public';
         socket?.sendChatMessage(variant, savedMessage);
-        updateChat(savedMessage);
+        chatDispatch({ type: 'UPDATE_CHAT', payload: savedMessage });
         resetForm();
       } catch (err) {
         /* istanbul ignore else */

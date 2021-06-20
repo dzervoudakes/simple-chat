@@ -3,6 +3,7 @@
  * @packageDocumentation
  */
 import React, { createContext, useEffect, useState } from 'react';
+import { Message } from '@src/context';
 import { useAuth, useChat } from '@src/hooks';
 import { Socket } from '@src/socket';
 
@@ -17,12 +18,14 @@ export const SocketContext = createContext<SocketContextProps>({});
 export const SocketProvider: React.FC = ({ children }) => {
   const [socket, setSocket] = useState<Socket | undefined>();
   const { user } = useAuth();
-  const { updateChat } = useChat();
+  const { chatDispatch } = useChat();
 
   useEffect(() => {
     if (!socket && user) {
       const newSocket = new Socket({ userId: user?.id ?? '' });
-      newSocket.subscribeToChat(updateChat);
+      newSocket.subscribeToChat((message: Message) => {
+        chatDispatch({ type: 'UPDATE_CHAT', payload: message });
+      });
       setSocket(newSocket);
     }
 

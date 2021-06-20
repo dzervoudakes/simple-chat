@@ -32,6 +32,7 @@ export class Socket {
   };
 
   public disconnect = (): void => {
+    this.socket.off();
     this.socket.disconnect();
   };
 }

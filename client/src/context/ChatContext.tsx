@@ -14,6 +14,7 @@ import axios from 'axios';
 import noop from 'lodash/noop';
 import { ChatService } from '@src/services';
 import { useAuth } from '@src/hooks';
+import { updateChat } from './utils';
 
 export interface Chat {
   [key: string]: Message[];
@@ -45,9 +46,9 @@ export interface Message {
 export interface ChatContextProps {
   channels: Channel[];
   chat: Chat;
+  chatDispatch: any;
   error: boolean;
   loading: boolean;
-  updateChat: (message: Message) => void;
   users: ChatUser[];
 }
 
@@ -68,7 +69,7 @@ const initialState = {
 
 export const ChatContext = createContext<ChatContextProps>({
   ...initialState,
-  updateChat: noop
+  chatDispatch: noop
 });
 
 export const ChatProvider: React.FC = ({ children }) => {
@@ -76,11 +77,10 @@ export const ChatProvider: React.FC = ({ children }) => {
 
   const source = axios.CancelToken.source();
 
-  // @todo state still resets after receiving messages >:(
   // @todo remove 'any' types on chatReducer
 
   const chatReducer = (
-    state: Partial<ChatContextProps>,
+    state: Omit<ChatContextProps, 'chatDispatch'>,
     action: Action
   ): Partial<ChatContextProps> => {
     switch (action.type) {
@@ -91,7 +91,14 @@ export const ChatProvider: React.FC = ({ children }) => {
       case 'API_FAILURE':
         return { ...state, loading: false, error: true };
       case 'UPDATE_CHAT':
-        return { ...state, ...action.payload };
+        return {
+          ...state,
+          chat: updateChat({
+            state,
+            message: action.payload as Message,
+            userId: user?.id ?? ''
+          })
+        };
       default:
         return state;
     }
@@ -133,37 +140,8 @@ export const ChatProvider: React.FC = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  /**
-   * Add a new chat message to the appropriate list.
-   * If 'message.channel', find channel ID from channels in context.
-   * If 'message.recipientId', then see if userId === recipientId:
-   * -- If yes, the key should be senderId
-   * -- Else (if userId !== recipientId), the key should be recipientId
-   */
-  const updateChat = (message: Message): void => {
-    let conversationId = '';
-    if (message.channel) {
-      conversationId =
-        chatState.channels.find((channel: Channel) => channel.name === message.channel)
-          ?._id ?? '';
-    } else if (message.recipientId) {
-      conversationId =
-        user?.id === message.recipientId ? message.senderId : message.recipientId;
-    }
-
-    const updatedChat = { ...chatState.chat };
-
-    if (!updatedChat[conversationId]) {
-      updatedChat[conversationId] = [];
-    }
-
-    updatedChat[conversationId].push(message);
-    const payload = { chat: updatedChat };
-    chatDispatch({ type: 'UPDATE_CHAT', payload });
-  };
-
   return (
-    <ChatContext.Provider value={{ ...chatState, updateChat }}>
+    <ChatContext.Provider value={{ ...chatState, chatDispatch }}>
       {children}
     </ChatContext.Provider>
   );
