@@ -11,7 +11,8 @@
  * @packageDocumentation
  */
 import cloneDeep from 'lodash/cloneDeep';
-import { Channel, Chat, ChatContextProps, Message } from '..';
+import { Channel, Chat, Message } from '@src/types';
+import { ChatContextProps } from '..';
 
 interface UpdateChatProps {
   state: Omit<ChatContextProps, 'chatDispatch'>;

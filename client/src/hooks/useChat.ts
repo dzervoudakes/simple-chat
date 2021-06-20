@@ -11,7 +11,8 @@
  * @packageDocumentation
  */
 import { useContext } from 'react';
-import { ChatContext, ChatContextProps, Message } from '@src/context';
+import { ChatContext, ChatContextProps } from '@src/context';
+import { Message } from '@src/types';
 
 interface UseChat extends ChatContextProps {
   messages: Message[];

@@ -11,13 +11,7 @@ import { Theme } from '@src/theme';
 import { ChatService } from '@src/services';
 import { useAuth, useChat, useSocket } from '@src/hooks';
 import { MOBILE_QUERY } from '@src/constants';
-
-// @todo shared interfaces in src/lib etc.
-
-interface Params {
-  chatId: string;
-  chatType: string;
-}
+import { RouteParams } from '@src/types';
 
 interface Values {
   message: string;
@@ -41,7 +35,7 @@ const stylesFn = ({ color }: Theme): Styles => ({
 });
 
 const MessageForm: React.FC = () => {
-  const { chatId, chatType } = useParams<Params>();
+  const { chatId, chatType } = useParams<RouteParams>();
   const { user } = useAuth();
   const { socket } = useSocket();
   const { channels, chatDispatch } = useChat();

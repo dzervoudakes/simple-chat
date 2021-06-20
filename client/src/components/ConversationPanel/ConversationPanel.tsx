@@ -4,13 +4,10 @@ import Layout from '@src/components/Layout';
 import Spacer from '@src/components/Spacer';
 import Typography from '@src/components/Typography';
 import { useChat } from '@src/hooks';
-
-interface Params {
-  chatId: string;
-}
+import { RouteParams } from '@src/types';
 
 const ConversationPanel: React.FC = () => {
-  const { chatId } = useParams<Params>();
+  const { chatId } = useParams<RouteParams>();
   const { messages } = useChat(chatId);
 
   return (

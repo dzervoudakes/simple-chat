@@ -6,13 +6,10 @@ import SideMenu from '@src/components/SideMenu';
 import ConversationPanel from '@src/components/ConversationPanel';
 import MessageForm from '@src/components/MessageForm';
 import { useAuth, useChat } from '@src/hooks';
+import { RouteParams } from '@src/types';
 
 // @todo clean up flex styling here/within side menu (long paragraphs in the panel cause weird overflow things)
 // @todo handle new message visibility/scrolling as the list extends beyond viewport height
-
-interface Params {
-  chatId: string;
-}
 
 const stylesFn = (): Styles => ({
   conversationPanel: {
@@ -28,7 +25,7 @@ const stylesFn = (): Styles => ({
 
 const Chat: React.FC = () => {
   const history = useHistory();
-  const { chatId } = useParams<Params>();
+  const { chatId } = useParams<RouteParams>();
   const { user } = useAuth();
   const { channels } = useChat();
   const { css, styles } = useStyles({ stylesFn });

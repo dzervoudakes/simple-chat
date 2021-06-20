@@ -3,9 +3,9 @@
  * @packageDocumentation
  */
 import React, { createContext, useEffect, useState } from 'react';
-import { Message } from '@src/context';
 import { useAuth, useChat } from '@src/hooks';
 import { Socket } from '@src/socket';
+import { Message } from '@src/types';
 
 export interface SocketContextProps {
   socket?: Socket;

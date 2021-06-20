@@ -14,34 +14,8 @@ import axios from 'axios';
 import noop from 'lodash/noop';
 import { ChatService } from '@src/services';
 import { useAuth } from '@src/hooks';
+import { Chat, Channel, ChatUser, Message } from '@src/types';
 import { updateChat } from './utils';
-
-export interface Chat {
-  [key: string]: Message[];
-}
-
-export interface Channel {
-  name: string;
-  _id: string;
-}
-
-export interface ChatUser {
-  username: string;
-  _id: string;
-}
-
-/**
- * if a message is sent to a public channel, the channel property will be populated and recipientId will be null
- * if a message is private between two users, the recipientId will be populated and the channel will be null
- */
-export interface Message {
-  username: string;
-  senderId: string;
-  recipientId: string | null;
-  channel: string | null;
-  text: string;
-  _id: string;
-}
 
 export interface ChatContextProps {
   channels: Channel[];

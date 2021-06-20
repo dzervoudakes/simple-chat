@@ -4,8 +4,7 @@
  */
 import axios from 'axios';
 import { API_BASE_URL } from '@src/constants';
-import { Message } from '@src/context';
-import { ApiRequest, ApiResponse } from './types';
+import { ApiRequest, ApiResponse, Message } from '@src/types';
 
 export class ChatService {
   /**

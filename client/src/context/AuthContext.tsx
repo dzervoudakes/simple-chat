@@ -4,12 +4,7 @@
  */
 import React, { createContext, SetStateAction, useState, Dispatch } from 'react';
 import noop from 'lodash/noop';
-
-export interface AuthUser {
-  username: string;
-  id: string;
-  jwt: string;
-}
+import { AuthUser } from '@src/types';
 
 export interface AuthContextProps {
   user: AuthUser | undefined;

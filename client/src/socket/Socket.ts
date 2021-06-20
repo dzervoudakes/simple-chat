@@ -3,7 +3,7 @@
  * @packageDocumentation
  */
 import { SERVER_BASE_URL } from '@src/constants';
-import { Message } from '@src/context';
+import { Message } from '@src/types';
 
 interface Query {
   userId: string;

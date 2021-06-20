@@ -8,8 +8,9 @@ import { Styles } from 'react-with-styles';
 import Button from '@src/components/Button';
 import Spacer from '@src/components/Spacer';
 import TextInput from '@src/components/TextInput';
-import { AuthPayload, AuthService, UserService } from '@src/services';
+import { AuthService, UserService } from '@src/services';
 import { useAuth } from '@src/hooks';
+import { AuthPayload } from '@src/types';
 
 // @todo styles (including error message)
 // @todo handle non-unique username error from API
