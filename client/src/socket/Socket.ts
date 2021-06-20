@@ -6,7 +6,6 @@ import { SERVER_BASE_URL } from '@src/constants';
 import { Message } from '@src/context';
 
 interface Query {
-  username: string;
   userId: string;
 }
 

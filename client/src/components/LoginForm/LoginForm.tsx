@@ -60,7 +60,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
 
       const result = await request(payload);
       const { user, token } = result.data;
-      setUser({ username: user.username, id: user._id, jwt: token });
+      const currentUser = { username: user.username, id: user._id, jwt: token };
+      setUser(currentUser);
+      sessionStorage.setItem('user', JSON.stringify(currentUser));
 
       history.push('/channels');
     } catch (err) {

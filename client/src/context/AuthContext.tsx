@@ -16,16 +16,15 @@ export interface AuthContextProps {
   setUser: Dispatch<SetStateAction<AuthUser | undefined>>;
 }
 
-// @todo update user to be nullable instead of individual properties? (clean up some 'if' blocks throughout the app)
-// @todo why is this re-rendering with each recompile???
-
 export const AuthContext = createContext<AuthContextProps>({
   user: undefined,
   setUser: noop
 });
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [user, setUser] = useState<AuthUser | undefined>(undefined);
+  const previousUser = sessionStorage.getItem('user');
+  const initialUser = previousUser ? JSON.parse(previousUser) : undefined;
+  const [user, setUser] = useState<AuthUser | undefined>(initialUser);
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>{children}</AuthContext.Provider>

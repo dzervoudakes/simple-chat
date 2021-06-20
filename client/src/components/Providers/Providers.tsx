@@ -3,6 +3,7 @@ import {
   AuthProvider,
   ChatProvider,
   SideMenuProvider,
+  SocketProvider,
   WithStylesProvider
 } from '@src/context';
 
@@ -10,7 +11,9 @@ const Providers: React.FC = ({ children }) => (
   <WithStylesProvider>
     <AuthProvider>
       <ChatProvider>
-        <SideMenuProvider>{children}</SideMenuProvider>
+        <SocketProvider>
+          <SideMenuProvider>{children}</SideMenuProvider>
+        </SocketProvider>
       </ChatProvider>
     </AuthProvider>
   </WithStylesProvider>

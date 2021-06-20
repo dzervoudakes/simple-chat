@@ -48,7 +48,7 @@ export interface ChatContextProps {
   chat: Chat;
   dataLoading: boolean; // @todo 'loading'
   loadingError: boolean; // @todo 'error'
-  updateChat: (message: Omit<Message, '_id'>) => void;
+  updateChat: (message: Message) => void;
   users: ChatUser[];
 }
 
@@ -119,7 +119,7 @@ export const ChatProvider: React.FC = ({ children }) => {
    * -- If yes, the key should be senderId
    * -- Else (if userId !== recipientId), the key should be recipientId
    */
-  const updateChat = (message: Omit<Message, '_id'>): void => {
+  const updateChat = (message: Message): void => {
     let chatId = '';
     if (message.channel) {
       chatId = channels.find((channel) => channel.name === message.channel)?._id ?? '';
@@ -137,7 +137,7 @@ export const ChatProvider: React.FC = ({ children }) => {
     setChat(updatedChat);
 
     // @todo sent message is resetting chat to '{}' in the recipient's tab >:(
-    // @todo should this method be split into two? one for public; one for private
+    // @todo should this method be split in two? one for public; one for private
   };
 
   return (

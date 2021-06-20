@@ -8,9 +8,8 @@ import useStyles from 'react-with-styles/lib/hooks/useStyles';
 import TextInput from '@src/components/TextInput';
 import GeneralError from '@src/components/GeneralError';
 import { Theme } from '@src/theme';
-import { Socket } from '@src/socket';
 import { ChatService } from '@src/services';
-import { useAuth, useChat } from '@src/hooks';
+import { useAuth, useChat, useSocket } from '@src/hooks';
 import { MOBILE_QUERY } from '@src/constants';
 
 // @todo shared interfaces in src/lib etc.
@@ -44,29 +43,20 @@ const stylesFn = ({ color }: Theme): Styles => ({
 const MessageForm: React.FC = () => {
   const { chatId, chatType } = useParams<Params>();
   const { user } = useAuth();
+  const { socket } = useSocket();
   const { updateChat, channels } = useChat();
   const [isFormSubmitError, setIsFormSubmitError] = useState(false);
-  const [socket, setSocket] = useState<Socket | undefined>(undefined);
   const isMobile = useMediaQuery(MOBILE_QUERY);
   const { css, styles } = useStyles({ stylesFn });
 
   const source = axios.CancelToken.source();
-  const { username, id: userId } = user ?? {};
 
   useEffect(() => {
-    // @todo move socket instance into a top-level context
-    if (user && !socket) {
-      const newSocket = new Socket({ username: username ?? '', userId: userId ?? '' });
-      newSocket.subscribeToChat(updateChat);
-      setSocket(newSocket);
-    }
-
     return () => {
       source.cancel();
-      socket?.disconnect();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, socket]);
+  }, []);
 
   const onSubmit = async (
     values: Values,
