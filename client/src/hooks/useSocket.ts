@@ -5,8 +5,6 @@
 import { useContext } from 'react';
 import { SocketContext, SocketContextProps } from '@src/context';
 
-// @todo unit testing
-
 export const useSocket = (): SocketContextProps => {
   const context = useContext(SocketContext);
 

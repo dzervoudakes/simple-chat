@@ -7,8 +7,6 @@ import { Message } from '@src/context';
 import { useAuth, useChat } from '@src/hooks';
 import { Socket } from '@src/socket';
 
-// @todo unit testing
-
 export interface SocketContextProps {
   socket?: Socket;
 }
