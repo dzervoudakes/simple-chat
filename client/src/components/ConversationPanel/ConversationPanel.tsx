@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { format } from 'date-fns';
 import Layout from '@src/components/Layout';
 import Spacer from '@src/components/Spacer';
 import Typography from '@src/components/Typography';
@@ -19,7 +20,10 @@ const ConversationPanel: React.FC = () => {
           <Spacer pb="xsmall" key={message._id}>
             {previousMessage?.username !== message.username && (
               <Spacer pt={index !== 0 ? 'xsmall' : undefined} pb="xsmall">
-                <Typography variant="disclaimer">{message.username}</Typography>
+                <Typography variant="disclaimer">
+                  {message.username} |{' '}
+                  {format(new Date(message.createdAt), 'h:mm a EEEE, MMMM do')}
+                </Typography>
               </Spacer>
             )}
             <Typography variant="body">{message.text}</Typography>

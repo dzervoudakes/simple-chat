@@ -12,7 +12,8 @@ describe('ChatContext', () => {
     recipientId: null,
     channel: 'general',
     text: 'i am a message',
-    _id: '11221'
+    _id: '11221',
+    createdAt: '2021-02-28T22:31:02.589Z'
   };
 
   const privateMessage = {
@@ -21,7 +22,8 @@ describe('ChatContext', () => {
     recipientId: '67890',
     channel: null,
     text: 'i am a private message',
-    _id: '22112'
+    _id: '22112',
+    createdAt: '2021-02-28T22:31:02.589Z'
   };
 
   const TestComponent: React.FC = () => (

@@ -44,7 +44,8 @@ describe('ChatService', () => {
         recipientId: null,
         channel: 'general',
         text: 'i am a message',
-        _id: '67890'
+        _id: '67890',
+        createdAt: '2021-02-28T22:31:02.589Z'
       };
       const jwt = 'jwt';
       const url = `${API_BASE_URL}/messages`;

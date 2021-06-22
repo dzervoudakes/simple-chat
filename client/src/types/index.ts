@@ -45,6 +45,7 @@ export interface Message {
   channel: string | null;
   text: string;
   _id: string;
+  createdAt: string;
 }
 
 export interface RouteParams {

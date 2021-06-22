@@ -6,6 +6,8 @@ import axios from 'axios';
 import { API_BASE_URL } from '@src/constants';
 import { ApiRequest, ApiResponse, Message } from '@src/types';
 
+type NewMessage = Omit<Message, '_id' | 'createdAt'>;
+
 export class ChatService {
   /**
    * Retrieve full initial Chat experience, including channels, users, and conversation lists preconfigured from the service.
@@ -23,11 +25,7 @@ export class ChatService {
     });
   }
 
-  static createMessage({
-    data,
-    source,
-    jwt
-  }: ApiRequest<Omit<Message, '_id'>>): ApiResponse {
+  static createMessage({ data, source, jwt }: ApiRequest<NewMessage>): ApiResponse {
     return axios.post(`${API_BASE_URL}/messages`, data, {
       cancelToken: source.token,
       headers: {
