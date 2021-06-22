@@ -9,7 +9,7 @@
  *
  * @packageDocumentation
  */
-import React, { createContext, useEffect, useReducer, Reducer } from 'react';
+import React, { createContext, useEffect, useReducer, Reducer, Dispatch } from 'react';
 import axios from 'axios';
 import noop from 'lodash/noop';
 import { ChatService } from '@src/services';
@@ -17,21 +17,23 @@ import { useAuth } from '@src/hooks';
 import { Chat, Channel, ChatUser, Message } from '@src/types';
 import { updateChat } from './utils';
 
-export interface ChatContextProps {
-  channels: Channel[];
-  chat: Chat;
-  chatDispatch: any;
-  error: boolean;
-  loading: boolean;
-  users: ChatUser[];
-}
-
 type ActionType = 'API_LOADING' | 'API_SUCCESS' | 'API_FAILURE' | 'UPDATE_CHAT';
 
 interface Action {
   type: ActionType;
   payload?: Partial<ChatContextProps>;
 }
+
+export interface ChatContextProps {
+  channels: Channel[];
+  chat: Chat;
+  chatDispatch: Dispatch<Action>;
+  error: boolean;
+  loading: boolean;
+  users: ChatUser[];
+}
+
+type ChatContextWithoutDispatch = Omit<ChatContextProps, 'chatDispatch'>;
 
 const initialState = {
   channels: [],
@@ -51,12 +53,10 @@ export const ChatProvider: React.FC = ({ children }) => {
 
   const source = axios.CancelToken.source();
 
-  // @todo remove 'any' types on chatReducer
-
   const chatReducer = (
-    state: Omit<ChatContextProps, 'chatDispatch'>,
+    state: ChatContextWithoutDispatch,
     action: Action
-  ): Omit<ChatContextProps, 'chatDispatch'> => {
+  ): ChatContextWithoutDispatch => {
     switch (action.type) {
       case 'API_LOADING':
         return { ...state, loading: true };
@@ -78,10 +78,9 @@ export const ChatProvider: React.FC = ({ children }) => {
     }
   };
 
-  const [chatState, chatDispatch] = useReducer<Reducer<any, Action>>(
-    chatReducer,
-    initialState
-  );
+  const [chatState, chatDispatch] = useReducer<
+    Reducer<ChatContextWithoutDispatch, Action>
+  >(chatReducer, initialState);
 
   useEffect(() => {
     const getData = async (): Promise<void> => {
