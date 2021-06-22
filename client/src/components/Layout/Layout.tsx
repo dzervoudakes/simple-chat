@@ -6,7 +6,7 @@ import { Theme } from '@src/theme';
 const stylesFn = ({ spacing }: Theme): Styles => ({
   layout: {
     flexGrow: 1,
-    padding: spacing.large,
+    padding: spacing.small,
     positon: 'relative'
   }
 });

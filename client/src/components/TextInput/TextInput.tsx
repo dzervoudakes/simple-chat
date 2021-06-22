@@ -15,6 +15,7 @@ const stylesFn = ({ color, fonts, spacing }: Theme): Styles => ({
     border: `0.0625rem solid ${color.grayLightest}`,
     borderRadius: spacing.tiny,
     boxShadow: 'inset 0 0 0.125rem rgba(0, 0, 0, 0.2)',
+    boxSizing: 'border-box',
     color: color.grayDark,
     fontFamily: fonts.body,
     fontSize: '0.75rem',

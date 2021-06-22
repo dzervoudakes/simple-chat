@@ -1,5 +1,5 @@
 /**
- * Hook into the current state of the websocket.
+ * Hook that returns the current websocket instance.
  * @packageDocumentation
  */
 import { useContext } from 'react';

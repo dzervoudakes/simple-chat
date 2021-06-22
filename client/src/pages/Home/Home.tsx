@@ -23,7 +23,7 @@ const Home: React.FC = () => {
             your account later.
           </Typography>
         )}
-        <Spacer pb="medium">
+        <Spacer pb="xsmall">
           <Typography variant="body">
             {isSignUp ? 'Already a member?' : 'New to the app?'}
           </Typography>

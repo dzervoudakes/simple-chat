@@ -17,20 +17,23 @@ interface Values {
   message: string;
 }
 
-const stylesFn = ({ color }: Theme): Styles => ({
+// @todo is 'calc' usage below a code smell related to improper flex styling?
+
+const stylesFn = ({ color, spacing }: Theme): Styles => ({
   formContainer: {
     alignItems: 'center',
     background: color.white,
     bottom: '0',
-    boxShadow: '0 -0.625rem 1.25rem 0 rgba(89, 89, 89, 0.1)',
+    boxShadow: '0 -2px 2px 0 rgba(89, 89, 89, 0.1)',
     display: 'flex',
     height: '3.125rem',
-    padding: '0 2rem',
+    paddingLeft: spacing.small,
+    paddingRight: spacing.small,
     position: 'fixed',
-    width: 'calc(100vw - 16.5rem)' // 16.5rem === paddingX of the Layout component + side menu width
+    width: 'calc(100vw - 14.5rem)' // 14.5rem === paddingX of the Layout component + side menu width
   },
   formContainerMobile: {
-    width: 'calc(100vw - 4rem)' // 4rem === paddingX of the Layout component
+    width: 'calc(100vw - 2rem)' // 2rem === paddingX of the Layout component
   }
 });
 
@@ -96,12 +99,7 @@ const MessageForm: React.FC = () => {
     <Formik initialValues={{ message: '' }} onSubmit={onSubmit}>
       {() => (
         <Form>
-          <div
-            {...css(
-              styles.stickyFormContainer,
-              isMobile && styles.stickyFormContainerMobile
-            )}
-          >
+          <div {...css(styles.formContainer, isMobile && styles.formContainerMobile)}>
             {isFormSubmitError ? (
               <GeneralError />
             ) : (

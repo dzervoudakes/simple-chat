@@ -56,7 +56,7 @@ export const ChatProvider: React.FC = ({ children }) => {
   const chatReducer = (
     state: Omit<ChatContextProps, 'chatDispatch'>,
     action: Action
-  ): Partial<ChatContextProps> => {
+  ): Omit<ChatContextProps, 'chatDispatch'> => {
     switch (action.type) {
       case 'API_LOADING':
         return { ...state, loading: true };

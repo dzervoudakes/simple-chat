@@ -52,8 +52,6 @@ export const defaultTheme: Theme = {
     thinTertiary: `0.0625rem solid ${color.tertiary}`
   },
 
-  // @todo customize 'h1' styling here
-
   typography: {
     h1: {
       color: color.grayDark,
@@ -91,7 +89,6 @@ export const defaultTheme: Theme = {
       color: color.grayLight,
       fontFamily: fonts.body,
       fontSize: '0.875rem',
-      fontStyle: 'italic',
       fontWeight: 400,
       lineHeight: 1.2,
       WebkitFontSmoothing: 'antialiased'

@@ -10,6 +10,7 @@ import Spacer from '@src/components/Spacer';
 import TextInput from '@src/components/TextInput';
 import { AuthService, UserService } from '@src/services';
 import { useAuth } from '@src/hooks';
+import { Theme } from '@src/theme';
 import { AuthPayload } from '@src/types';
 
 // @todo styles (including error message)
@@ -20,8 +21,11 @@ interface LoginFormProps {
   isSignUp: boolean;
 }
 
-const stylesFn = (): Styles => ({
-  formContainer: {}
+const stylesFn = ({ spacing }: Theme): Styles => ({
+  formContainer: {
+    paddingBottom: spacing.small,
+    paddingTop: spacing.small
+  }
 });
 
 const validationSchema = Yup.object().shape({
@@ -94,11 +98,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
       {({ handleSubmit }) => (
         <Form>
           <div {...css(styles.formContainer)}>
-            <Spacer pb="medium">
+            <Spacer pb="small">
               <TextInput name="username" placeholder="NewUser123" />
               <ErrorMessage name="username" />
             </Spacer>
-            <Spacer pb="medium">
+            <Spacer pb="small">
               <TextInput name="password" type="password" placeholder="ilovesecurity123" />
               <ErrorMessage name="password" />
             </Spacer>
