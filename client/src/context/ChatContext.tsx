@@ -21,7 +21,7 @@ type ActionType = 'API_LOADING' | 'API_SUCCESS' | 'API_FAILURE' | 'UPDATE_CHAT';
 
 interface Action {
   type: ActionType;
-  payload?: Partial<ChatContextProps>;
+  payload?: Partial<ChatContextProps> | Message;
 }
 
 export interface ChatContextProps {
