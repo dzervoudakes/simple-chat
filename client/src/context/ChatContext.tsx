@@ -33,7 +33,7 @@ export interface ChatContextProps {
   users: ChatUser[];
 }
 
-type ChatContextWithoutDispatch = Omit<ChatContextProps, 'chatDispatch'>;
+type ChatState = Omit<ChatContextProps, 'chatDispatch'>;
 
 const initialState = {
   channels: [],
@@ -53,10 +53,7 @@ export const ChatProvider: React.FC = ({ children }) => {
 
   const source = axios.CancelToken.source();
 
-  const chatReducer = (
-    state: ChatContextWithoutDispatch,
-    action: Action
-  ): ChatContextWithoutDispatch => {
+  const chatReducer = (state: ChatState, action: Action): ChatState => {
     switch (action.type) {
       case 'API_LOADING':
         return { ...state, loading: true };
@@ -78,9 +75,10 @@ export const ChatProvider: React.FC = ({ children }) => {
     }
   };
 
-  const [chatState, chatDispatch] = useReducer<
-    Reducer<ChatContextWithoutDispatch, Action>
-  >(chatReducer, initialState);
+  const [chatState, chatDispatch] = useReducer<Reducer<ChatState, Action>>(
+    chatReducer,
+    initialState
+  );
 
   useEffect(() => {
     const getData = async (): Promise<void> => {
