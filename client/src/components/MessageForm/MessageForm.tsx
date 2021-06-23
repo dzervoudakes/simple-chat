@@ -38,7 +38,7 @@ const stylesFn = ({ color, spacing }: Theme): Styles => ({
 });
 
 const MessageForm: React.FC = () => {
-  const { chatId, chatType } = useParams<RouteParams>();
+  const { conversationId, conversationType } = useParams<RouteParams>();
   const { user } = useAuth();
   const { socket } = useSocket();
   const { channels, chatDispatch } = useChat();
@@ -67,10 +67,10 @@ const MessageForm: React.FC = () => {
           username: user?.username ?? '',
           senderId: user?.id ?? '',
           text: trimmedValue,
-          recipientId: chatType === 'direct' ? chatId : null,
+          recipientId: conversationType === 'direct' ? conversationId : null,
           channel:
-            chatType === 'channels'
-              ? channels?.find(({ _id }) => _id === chatId)?.name ?? ''
+            conversationType === 'channels'
+              ? channels?.find(({ _id }) => _id === conversationId)?.name ?? ''
               : null
         };
 
@@ -82,7 +82,7 @@ const MessageForm: React.FC = () => {
 
         const { message: savedMessage } = result.data;
 
-        const variant = chatType === 'direct' ? 'private' : 'public';
+        const variant = conversationType === 'direct' ? 'private' : 'public';
         socket?.sendChatMessage(variant, savedMessage);
         chatDispatch({ type: 'UPDATE_CHAT', payload: savedMessage });
         resetForm();

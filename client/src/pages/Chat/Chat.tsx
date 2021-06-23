@@ -25,21 +25,19 @@ const stylesFn = (): Styles => ({
 
 const Chat: React.FC = () => {
   const history = useHistory();
-  const { chatId } = useParams<RouteParams>();
+  const { conversationId } = useParams<RouteParams>();
   const { user } = useAuth();
   const { channels } = useChat();
   const { css, styles } = useStyles({ stylesFn });
 
   useEffect(() => {
-    /* istanbul ignore next */
-    if (!chatId && channels?.[0]) {
+    if (!conversationId && channels?.[0]) {
       history.push(`/channels/${channels[0]._id}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chatId, channels]);
+  }, [conversationId, channels]);
 
-  /* istanbul ignore next */
-  if (!user?.username) {
+  if (!user) {
     return <Redirect to="/" />;
   }
 

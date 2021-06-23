@@ -41,7 +41,7 @@ const validationSchema = Yup.object().shape({
     .max(30, 'Password must be between 8 and 30 characters.')
 });
 
-// @todo loading state
+// @todo loading state (disable submit button)
 
 const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
   const history = useHistory();

@@ -49,6 +49,6 @@ export interface Message {
 }
 
 export interface RouteParams {
-  chatId: string;
-  chatType: string;
+  conversationId: string;
+  conversationType: string;
 }

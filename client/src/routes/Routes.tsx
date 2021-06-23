@@ -8,7 +8,7 @@ const Routes: React.FC = () => (
     <Route exact path="/" component={Home} />
     <Route
       exact
-      path="/:chatType/:chatId?"
+      path="/:conversationType/:conversationId?"
       component={dynamicImport(
         () => import(/* webpackChunkName: 'chat' */ '@src/pages/Chat')
       )}

@@ -8,8 +8,8 @@ import { useChat } from '@src/hooks';
 import { RouteParams } from '@src/types';
 
 const ConversationPanel: React.FC = () => {
-  const { chatId } = useParams<RouteParams>();
-  const { messages } = useChat(chatId);
+  const { conversationId } = useParams<RouteParams>();
+  const { messages } = useChat(conversationId);
 
   return (
     <Layout>

@@ -42,7 +42,7 @@ describe('ConversationPanel', () => {
     initialEntry = '/11221'
   }) => (
     <MemoryRouter initialEntries={[initialEntry]}>
-      <Route path="/:chatId">
+      <Route path="/:conversationId">
         <AuthContext.Provider
           value={{
             user: { username: 'test', id: '12345', jwt: 'jwt' },
