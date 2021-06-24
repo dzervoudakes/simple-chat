@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { useMediaQuery } from 'react-responsive';
 import { Formik, Form, FormikHelpers } from 'formik';
 import { Styles } from 'react-with-styles';
 import useStyles from 'react-with-styles/lib/hooks/useStyles';
@@ -10,14 +9,11 @@ import GeneralError from '@src/components/GeneralError';
 import { Theme } from '@src/theme';
 import { ChatService } from '@src/services';
 import { useAuth, useChat, useSocket } from '@src/hooks';
-import { MOBILE_QUERY } from '@src/constants';
 import { RouteParams } from '@src/types';
 
 interface Values {
   message: string;
 }
-
-// @todo is 'calc' usage below a code smell related to improper flex styling?
 
 const stylesFn = ({ color, spacing }: Theme): Styles => ({
   formContainer: {
@@ -28,12 +24,7 @@ const stylesFn = ({ color, spacing }: Theme): Styles => ({
     display: 'flex',
     height: '3.125rem',
     paddingLeft: spacing.small,
-    paddingRight: spacing.small,
-    position: 'fixed',
-    width: 'calc(100vw - 14.5rem)' // 14.5rem === paddingX of the Layout component + side menu width
-  },
-  formContainerMobile: {
-    width: 'calc(100vw - 2rem)' // 2rem === paddingX of the Layout component
+    paddingRight: spacing.small
   }
 });
 
@@ -43,7 +34,6 @@ const MessageForm: React.FC = () => {
   const { socket } = useSocket();
   const { channels, chatDispatch } = useChat();
   const [isFormSubmitError, setIsFormSubmitError] = useState(false);
-  const isMobile = useMediaQuery(MOBILE_QUERY);
   const { css, styles } = useStyles({ stylesFn });
 
   const source = axios.CancelToken.source();
@@ -99,7 +89,7 @@ const MessageForm: React.FC = () => {
     <Formik initialValues={{ message: '' }} onSubmit={onSubmit}>
       {() => (
         <Form>
-          <div {...css(styles.formContainer, isMobile && styles.formContainerMobile)}>
+          <div {...css(styles.formContainer)}>
             {isFormSubmitError ? (
               <GeneralError />
             ) : (

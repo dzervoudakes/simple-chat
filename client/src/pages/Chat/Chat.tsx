@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useHistory, useParams, Redirect } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 import useStyles from 'react-with-styles/lib/hooks/useStyles';
 import { Styles } from 'react-with-styles';
 import SideMenu from '@src/components/SideMenu';
@@ -7,19 +8,20 @@ import ConversationPanel from '@src/components/ConversationPanel';
 import MessageForm from '@src/components/MessageForm';
 import { useAuth, useChat } from '@src/hooks';
 import { RouteParams } from '@src/types';
+import { MOBILE_QUERY } from '@src/constants';
 
-// @todo clean up flex styling here/within side menu (long paragraphs in the panel cause weird overflow things)
-// @todo handle new message visibility/scrolling as the list extends beyond viewport height
+// @todo handle new message scrolling as the list extends beyond viewport height
 
 const stylesFn = (): Styles => ({
-  conversationPanel: {
+  chatContainer: {
     display: 'flex'
   },
   messagePanel: {
-    flexGrow: 1,
-    maxHeight: 'calc(100vh - 6.5rem)', // 6rem === header height + footer height
-    overflowX: 'scroll',
-    position: 'relative'
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  messagePanelMobile: {
+    height: 'calc(100vh - 3.125rem)' // 3.125rem === header height
   }
 });
 
@@ -28,6 +30,7 @@ const Chat: React.FC = () => {
   const { conversationId } = useParams<RouteParams>();
   const { user } = useAuth();
   const { channels } = useChat();
+  const isMobile = useMediaQuery(MOBILE_QUERY);
   const { css, styles } = useStyles({ stylesFn });
 
   useEffect(() => {
@@ -42,9 +45,9 @@ const Chat: React.FC = () => {
   }
 
   return (
-    <div {...css(styles.conversationPanel)}>
+    <div {...css(styles.chatContainer)}>
       <SideMenu />
-      <div {...css(styles.messagePanel)}>
+      <div {...css(styles.messagePanel, isMobile && styles.messagePanelMobile)}>
         <ConversationPanel />
         <MessageForm />
       </div>

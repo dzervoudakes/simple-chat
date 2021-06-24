@@ -15,10 +15,11 @@ const stylesFn = ({ color }: Theme): Styles => ({
   sideMenu: {
     background: color.secondary,
     boxShadow: '1rem 0.625rem 1.25rem 0 rgba(89, 89, 89, 0.1)',
+    flexShrink: 0,
     height: 'calc(100vh - 3.125rem)', // 3.125rem === header height
     overflowY: 'scroll',
     transition: 'all 0.2s ease',
-    width: '12.5rem' // 200px
+    width: '15rem' // 240px
   },
   sideMenuListItem: {
     maxWidth: '8rem',
