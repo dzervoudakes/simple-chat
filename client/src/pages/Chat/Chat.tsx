@@ -10,7 +10,7 @@ import { useAuth, useChat } from '@src/hooks';
 import { RouteParams } from '@src/types';
 import { MOBILE_QUERY } from '@src/constants';
 
-// @todo handle new message scrolling as the list extends beyond viewport height
+// @todo handle scrollable container (mobile + desktop)
 
 const stylesFn = (): Styles => ({
   chatContainer: {
@@ -18,7 +18,8 @@ const stylesFn = (): Styles => ({
   },
   messagePanel: {
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    flexGrow: 1
   },
   messagePanelMobile: {
     height: 'calc(100vh - 3.125rem)' // 3.125rem === header height

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -13,9 +13,7 @@ import { useAuth } from '@src/hooks';
 import { Theme } from '@src/theme';
 import { AuthPayload } from '@src/types';
 
-// @todo styles (including error message)
-// @todo handle non-unique username error from API
-// @todo pressing 'Enter' doesn't submit the form
+// @todo error message styling
 
 interface LoginFormProps {
   isSignUp: boolean;
@@ -41,9 +39,8 @@ const validationSchema = Yup.object().shape({
     .max(30, 'Password must be between 8 and 30 characters.')
 });
 
-// @todo loading state (disable submit button)
-
 const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
   const { setUser } = useAuth();
   const { css, styles } = useStyles({ stylesFn });
@@ -61,27 +58,31 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
     values: AuthPayload,
     setFieldError: (field: string, message: string) => void
   ): Promise<void> => {
-    try {
-      const payload = { data: values, source };
-      const request = isSignUp ? UserService.createUser : AuthService.generateToken;
+    if (!loading) {
+      try {
+        setLoading(true);
+        const payload = { data: values, source };
+        const request = isSignUp ? UserService.createUser : AuthService.generateToken;
 
-      const result = await request(payload);
-      const { user, token } = result.data;
-      const currentUser = { username: user.username, id: user._id, jwt: token };
-      setUser(currentUser);
-      sessionStorage.setItem('user', JSON.stringify(currentUser));
+        const result = await request(payload);
+        const { user, token } = result.data;
+        const currentUser = { username: user.username, id: user._id, jwt: token };
+        setUser(currentUser);
+        sessionStorage.setItem('user', JSON.stringify(currentUser));
 
-      history.push('/channels');
-    } catch (err) {
-      /* istanbul ignore else */
-      if (!axios.isCancel(err)) {
-        // @todo error handling here (and unit test)
-        // @todo handle invalid credentials
+        setLoading(false);
+        history.push('/channels');
+      } catch (err) {
+        /* istanbul ignore else */
+        if (!axios.isCancel(err)) {
+          setLoading(false);
+          // @todo handle invalid credentials (and unit testing)
 
-        // unique error handling for anti-duplicate constraint
-        const { error: description } = err.response.data;
-        if (description.includes('E11000') && description.includes('username')) {
-          setFieldError('username', 'Username already exists.');
+          // unique error handling for anti-duplicate constraint
+          const { error: description } = err.response.data;
+          if (description.includes('E11000') && description.includes('username')) {
+            setFieldError('username', 'Username already exists.');
+          }
         }
       }
     }
@@ -96,7 +97,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
       validateOnChange={false}
     >
       {({ handleSubmit }) => (
-        <Form>
+        <Form
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              handleSubmit();
+            }
+          }}
+        >
           <div {...css(styles.formContainer)}>
             <Spacer pb="small">
               <TextInput name="username" placeholder="NewUser123" />
@@ -106,7 +113,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
               <TextInput name="password" type="password" placeholder="ilovesecurity123" />
               <ErrorMessage name="password" />
             </Spacer>
-            <Button onClick={() => handleSubmit()}>
+            <Button onClick={() => handleSubmit()} disabled={loading}>
               {isSignUp ? 'Sign up' : 'Log in'}
             </Button>
           </div>

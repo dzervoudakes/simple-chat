@@ -17,11 +17,13 @@ const Home: React.FC = () => {
         </Typography>
         <LoginForm isSignUp={isSignUp} />
         {isSignUp && (
-          <Typography variant="disclaimer">
-            Pro tip: this is a demo app with very few real-world features. Keep a record
-            of your username and password, as you will not be able to change or recover
-            your account later.
-          </Typography>
+          <Spacer pb="xsmall">
+            <Typography variant="disclaimer">
+              Pro tip: this is a demo app with very few real-world features. Keep a record
+              of your username and password, as you will not be able to change or recover
+              your account later.
+            </Typography>
+          </Spacer>
         )}
         <Spacer pb="xsmall">
           <Typography variant="body">
