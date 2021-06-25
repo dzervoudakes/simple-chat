@@ -128,4 +128,42 @@ describe('LoginForm', () => {
       ).toBeInTheDocument();
     });
   });
+
+  it('displays error messaging for API errors', async () => {
+    AuthService.generateToken = jest
+      .fn()
+      .mockRejectedValueOnce({ response: { data: { error: 'Invalid credentials.' } } });
+    render(<TestComponent />);
+
+    fireEvent.change(screen.getByPlaceholderText('NewUser123'), {
+      target: { value: 'TestUser' }
+    });
+    fireEvent.change(screen.getByPlaceholderText('ilovesecurity123'), {
+      target: { value: 'TestPassword' }
+    });
+    fireEvent.click(screen.getByText('Log in'));
+
+    await waitFor(() => {
+      expect(screen.getByText('Invalid credentials.')).toBeInTheDocument();
+    });
+  });
+
+  it('displays error messaging for duplicate username', async () => {
+    AuthService.generateToken = jest
+      .fn()
+      .mockRejectedValueOnce({ response: { data: { error: 'E11000 username' } } });
+    render(<TestComponent />);
+
+    fireEvent.change(screen.getByPlaceholderText('NewUser123'), {
+      target: { value: 'TestUser' }
+    });
+    fireEvent.change(screen.getByPlaceholderText('ilovesecurity123'), {
+      target: { value: 'TestPassword' }
+    });
+    fireEvent.click(screen.getByText('Log in'));
+
+    await waitFor(() => {
+      expect(screen.getByText('Username already exists.')).toBeInTheDocument();
+    });
+  });
 });

@@ -53,4 +53,14 @@ describe('Typography', () => {
 
     expect(screen.getByText('hello world')).toBeInTheDocument();
   });
+
+  it('renders the error variant', () => {
+    render(
+      <WithStylesProvider>
+        <Typography variant="error">hello world</Typography>
+      </WithStylesProvider>
+    );
+
+    expect(screen.getByText('hello world')).toBeInTheDocument();
+  });
 });

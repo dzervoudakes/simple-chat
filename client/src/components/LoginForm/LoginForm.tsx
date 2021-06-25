@@ -42,6 +42,7 @@ const validationSchema = Yup.object().shape({
 
 const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const history = useHistory();
   const { setUser } = useAuth();
   const { css, styles } = useStyles({ stylesFn });
@@ -62,6 +63,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
     if (!loading) {
       try {
         setLoading(true);
+        setError(null);
         const payload = { data: values, source };
         const request = isSignUp ? UserService.createUser : AuthService.generateToken;
 
@@ -77,12 +79,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
         /* istanbul ignore else */
         if (!axios.isCancel(err)) {
           setLoading(false);
-          // @todo handle invalid credentials (and unit testing)
+          const { error: message } = err.response.data;
 
           // unique error handling for anti-duplicate constraint
-          const { error: description } = err.response.data;
-          if (description.includes('E11000') && description.includes('username')) {
+          if (message.includes('E11000') && message.includes('username')) {
             setFieldError('username', 'Username already exists.');
+          } else {
+            setError(message);
           }
         }
       }
@@ -125,6 +128,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
                   </Spacer>
                 )}
               </ErrorMessage>
+              {error && (
+                <Spacer pt="tiny">
+                  <Typography variant="error">{error}</Typography>
+                </Spacer>
+              )}
             </Spacer>
             <Button onClick={() => handleSubmit()} disabled={loading}>
               {isSignUp ? 'Sign up' : 'Log in'}
