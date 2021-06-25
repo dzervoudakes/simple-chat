@@ -29,11 +29,17 @@ const stylesFn = ({ color, fonts, spacing }: Theme): Styles => ({
     ':focus': {
       borderColor: color.tertiary
     }
+  },
+  error: {
+    border: `0.0625rem solid ${color.error}`,
+    ':focus': {
+      border: `0.0625rem solid ${color.error}`
+    }
   }
 });
 
 const TextInput: React.FC<TextInputProps> = ({ name, placeholder, type = 'text' }) => {
-  const [field] = useField(name);
+  const [field, meta] = useField(name);
   const { css, styles } = useStyles({ stylesFn });
 
   return (
@@ -44,7 +50,7 @@ const TextInput: React.FC<TextInputProps> = ({ name, placeholder, type = 'text' 
       onBlur={field.onBlur}
       placeholder={placeholder}
       value={field.value || ''}
-      {...css(styles.textInput)}
+      {...css(styles.textInput, meta.error && styles.error)}
     />
   );
 };

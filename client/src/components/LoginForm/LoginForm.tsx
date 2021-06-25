@@ -12,8 +12,7 @@ import { AuthService, UserService } from '@src/services';
 import { useAuth } from '@src/hooks';
 import { Theme } from '@src/theme';
 import { AuthPayload } from '@src/types';
-
-// @todo error message styling
+import Typography from '../Typography';
 
 interface LoginFormProps {
   isSignUp: boolean;
@@ -21,6 +20,8 @@ interface LoginFormProps {
 
 const stylesFn = ({ spacing }: Theme): Styles => ({
   formContainer: {
+    margin: '0 auto',
+    maxWidth: '21.25rem', // 340px
     paddingBottom: spacing.small,
     paddingTop: spacing.small
   }
@@ -107,11 +108,23 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
           <div {...css(styles.formContainer)}>
             <Spacer pb="small">
               <TextInput name="username" placeholder="NewUser123" />
-              <ErrorMessage name="username" />
+              <ErrorMessage name="username">
+                {(message) => (
+                  <Spacer pt="tiny">
+                    <Typography variant="error">{message}</Typography>
+                  </Spacer>
+                )}
+              </ErrorMessage>
             </Spacer>
             <Spacer pb="small">
               <TextInput name="password" type="password" placeholder="ilovesecurity123" />
-              <ErrorMessage name="password" />
+              <ErrorMessage name="password">
+                {(message) => (
+                  <Spacer pt="tiny">
+                    <Typography variant="error">{message}</Typography>
+                  </Spacer>
+                )}
+              </ErrorMessage>
             </Spacer>
             <Button onClick={() => handleSubmit()} disabled={loading}>
               {isSignUp ? 'Sign up' : 'Log in'}

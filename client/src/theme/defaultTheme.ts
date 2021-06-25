@@ -24,7 +24,7 @@ const color = {
   gray: '#5a5a5a',
   grayLight: '#989898',
   grayLightest: '#e1e1e1',
-  error: '#db3820',
+  error: '#dc143c',
   blueFocus: 'rgba(0, 140, 210, 0.6)',
   grayFocus: 'rgba(90, 90, 90, 0.6)'
 };
@@ -91,6 +91,14 @@ export const defaultTheme: Theme = {
       fontSize: '0.875rem',
       fontWeight: 400,
       lineHeight: 1.2,
+      WebkitFontSmoothing: 'antialiased'
+    },
+    error: {
+      color: color.error,
+      fontFamily: fonts.body,
+      fontSize: '1rem',
+      fontWeight: 400,
+      lineHeight: 1.25,
       WebkitFontSmoothing: 'antialiased'
     }
   }
