@@ -10,19 +10,15 @@ import { useAuth, useChat } from '@src/hooks';
 import { RouteParams } from '@src/types';
 import { MOBILE_QUERY } from '@src/constants';
 
-// @todo handle scrollable container (mobile + desktop)
-
 const stylesFn = (): Styles => ({
   chatContainer: {
-    display: 'flex'
+    display: 'flex',
+    height: 'calc(100vh - 3.125rem)' // 3.125rem === header height
   },
   messagePanel: {
     display: 'flex',
     flexDirection: 'column',
     flexGrow: 1
-  },
-  messagePanelMobile: {
-    height: 'calc(100vh - 3.125rem)' // 3.125rem === header height
   }
 });
 

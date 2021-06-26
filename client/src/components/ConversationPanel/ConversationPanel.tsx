@@ -11,10 +11,12 @@ import { RouteParams } from '@src/types';
 
 const stylesFn = (): Styles => ({
   conversationPanel: {
-    height: '100%',
+    height: 'min-content',
+    minHeight: '100%',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    wordBreak: 'break-word'
   }
 });
 

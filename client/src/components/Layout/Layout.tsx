@@ -7,7 +7,7 @@ const stylesFn = ({ spacing }: Theme): Styles => ({
   layout: {
     height: '100%',
     padding: spacing.small,
-    positon: 'relative'
+    overflowY: 'scroll'
   }
 });
 
