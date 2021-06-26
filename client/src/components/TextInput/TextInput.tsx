@@ -38,21 +38,22 @@ const stylesFn = ({ color, fonts, spacing }: Theme): Styles => ({
   }
 });
 
-const TextInput: React.FC<TextInputProps> = ({ name, placeholder, type = 'text' }) => {
-  const [field, meta] = useField(name);
+const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref) => {
+  const [field, meta] = useField(props.name);
   const { css, styles } = useStyles({ stylesFn });
 
   return (
     <input
-      type={type}
-      name={name}
+      ref={ref}
+      type={props.type || 'text'}
+      name={props.name}
       onChange={field.onChange}
       onBlur={field.onBlur}
-      placeholder={placeholder}
+      placeholder={props.placeholder}
       value={field.value || ''}
       {...css(styles.textInput, meta.error && styles.error)}
     />
   );
-};
+});
 
 export default TextInput;

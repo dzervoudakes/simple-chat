@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { createRef, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Formik, Form, FormikHelpers } from 'formik';
@@ -34,16 +34,20 @@ const MessageForm: React.FC = () => {
   const { socket } = useSocket();
   const { channels, chatDispatch } = useChat();
   const [isFormSubmitError, setIsFormSubmitError] = useState(false);
+  const inputRef = createRef<HTMLInputElement>();
   const { css, styles } = useStyles({ stylesFn });
 
   const source = axios.CancelToken.source();
 
   useEffect(() => {
+    // focus on the text input when switching conversations
+    inputRef.current?.focus();
+
     return () => {
       source.cancel();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [conversationId]);
 
   const onSubmit = async (
     values: Values,
@@ -96,6 +100,7 @@ const MessageForm: React.FC = () => {
               <TextInput
                 name="message"
                 placeholder="Type your message here, then press 'Enter' to send."
+                ref={inputRef}
               />
             )}
           </div>
