@@ -17,3 +17,5 @@ Object.defineProperty(window, 'location', {
   configurable: true,
   value: { assign: jest.fn(), reload: jest.fn() }
 });
+
+Element.prototype.scrollTo = jest.fn();
