@@ -12,19 +12,19 @@
 
 A simple, real-time chat UI with a preconfigured list of chatrooms which users can contribute to. Users can also send private messages to each other.
 
-**Some notes:**
+**Notes:**
 
 - This is a full rewrite of an older project that had some nasty patterns I wanted to clean up
 - I decided to experiment with `react-with-styles` and custom components as an alternative to Material (and had a lot of fun doing it)
 - The UI is loosely inspired by Slack
-- Web sockets are awesome
+- WebSockets are awesome
 
 <!-- ![demo](demo.gif) -->
 
 ## Technologies Used
 
 - **Frontend:** React, TypeScript, Socket.io-client, CSS-in-JS theming
-- **Backend:** Node + Express, OvernightJS, Socket.io
+- **Backend:** Node + Express, OvernightJS, Mongoose, Socket.io
 - **Database:** Docker, MongoDB
 - **CI/CD:** GitHub Actions
 
