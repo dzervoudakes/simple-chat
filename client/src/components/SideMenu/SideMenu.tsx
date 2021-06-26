@@ -7,6 +7,7 @@ import sortBy from 'lodash/sortBy';
 import Button from '@src/components/Button';
 import Spacer from '@src/components/Spacer';
 import Typography from '@src/components/Typography';
+import Skeleton from '@src/components/Skeleton';
 import { useAuth, useChat, useSideMenu } from '@src/hooks';
 import { MOBILE_QUERY } from '@src/constants';
 import { Theme } from '@src/theme';
@@ -77,7 +78,9 @@ const SideMenu: React.FC = () => {
     >
       <Spacer padding="small">
         <Spacer pb="medium">
-          <Typography variant="h3">Current user</Typography>
+          <Skeleton height={20}>
+            <Typography variant="h3">Current user</Typography>
+          </Skeleton>
           {user?.username && (
             <Spacer pt="xsmall">
               <Typography variant="disclaimer">{user.username}</Typography>
@@ -85,7 +88,9 @@ const SideMenu: React.FC = () => {
           )}
         </Spacer>
         <Spacer pb="medium">
-          <Typography variant="h3">Channels</Typography>
+          <Skeleton height={20}>
+            <Typography variant="h3">Channels</Typography>
+          </Skeleton>
           {sortBy(channels, 'name').map((channel) => (
             <Spacer pt="xsmall" key={channel._id}>
               {renderLinkButton(`/channels/${channel._id}`, channel.name)}
@@ -93,7 +98,9 @@ const SideMenu: React.FC = () => {
           ))}
         </Spacer>
         <Spacer pb="medium">
-          <Typography variant="h3">Direct messages</Typography>
+          <Skeleton height={20}>
+            <Typography variant="h3">Direct messages</Typography>
+          </Skeleton>
           {sortBy(users, 'username')
             ?.filter((listUser) => listUser.username !== user?.username)
             .map((listUser) => (

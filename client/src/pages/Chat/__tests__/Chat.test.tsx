@@ -67,17 +67,19 @@ describe('Chat', () => {
     });
   });
 
-  it('renders', () => {
+  it('renders', async () => {
     render(
       <MockAuthProvider>
         <TestComponent />
       </MockAuthProvider>
     );
 
-    expect(screen.getByText('Current user')).toBeInTheDocument();
-    expect(
-      screen.getByPlaceholderText("Type your message here, then press 'Enter' to send.")
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('Current user')).toBeInTheDocument();
+      expect(
+        screen.getByPlaceholderText("Type your message here, then press 'Enter' to send.")
+      ).toBeInTheDocument();
+    });
   });
 
   it('redirects to the first channel route when no conversationId is provided', async () => {

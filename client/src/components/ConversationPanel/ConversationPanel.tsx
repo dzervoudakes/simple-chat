@@ -5,6 +5,7 @@ import useStyles from 'react-with-styles/lib/hooks/useStyles';
 import { Styles } from 'react-with-styles';
 import Layout from '@src/components/Layout';
 import Spacer from '@src/components/Spacer';
+import Skeleton from '@src/components/Skeleton';
 import Typography from '@src/components/Typography';
 import { useChat } from '@src/hooks';
 import { RouteParams } from '@src/types';
@@ -36,9 +37,16 @@ const ConversationPanel: React.FC = () => {
     <Layout ref={layoutRef}>
       <div {...css(styles.conversationPanel)}>
         {!messages?.length && (
-          <Typography variant="body">
-            Nothing here, yet! Send a message to get things started.
-          </Typography>
+          <>
+            <Spacer pb="tiny">
+              <Skeleton height={16} />
+            </Spacer>
+            <Skeleton height={24}>
+              <Typography variant="body">
+                Nothing here, yet! Send a message to get things started.
+              </Typography>
+            </Skeleton>
+          </>
         )}
         {messages?.map((message, index) => {
           const previousMessage = messages[index - 1];
