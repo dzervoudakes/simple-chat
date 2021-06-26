@@ -101,6 +101,7 @@ const MessageForm: React.FC = () => {
                 name="message"
                 placeholder="Type your message here, then press 'Enter' to send."
                 ref={inputRef}
+                emojis
               />
             )}
           </div>

@@ -3,7 +3,14 @@
  * @packageDocumentation
  */
 
-export type Spacing = 'tiny' | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
+export type Spacing =
+  | 'nudge'
+  | 'tiny'
+  | 'xsmall'
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'xlarge';
 
 export interface Theme {
   color: Record<string, string>;
@@ -35,6 +42,7 @@ const fonts = {
 };
 
 const spacing = {
+  nudge: '0.125rem',
   tiny: '0.25rem',
   xsmall: '0.5rem',
   small: '1rem',

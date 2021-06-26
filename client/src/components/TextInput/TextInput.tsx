@@ -1,10 +1,14 @@
 import React from 'react';
-import { useField } from 'formik';
+import { useField, useFormikContext } from 'formik';
+import { IEmojiData } from 'emoji-picker-react';
 import useStyles from 'react-with-styles/lib/hooks/useStyles';
 import { Styles } from 'react-with-styles';
+import EmojiButton from '@src/components/EmojiButton';
+import Spacer from '@src/components/Spacer';
 import { Theme } from '@src/theme';
 
 interface TextInputProps {
+  emojis?: boolean;
   name: string;
   placeholder: string;
   type?: 'text' | 'password';
@@ -13,8 +17,8 @@ interface TextInputProps {
 const stylesFn = ({ color, fonts, spacing }: Theme): Styles => ({
   textInput: {
     border: `0.0625rem solid ${color.grayLightest}`,
-    borderRadius: spacing.tiny,
-    boxShadow: 'inset 0 0 0.125rem rgba(0, 0, 0, 0.2)',
+    borderRadius: spacing.medium,
+    boxShadow: 'inset 0 0 0.0625rem rgba(0, 0, 0, 0.2)',
     boxSizing: 'border-box',
     color: color.grayDark,
     fontFamily: fonts.body,
@@ -40,19 +44,34 @@ const stylesFn = ({ color, fonts, spacing }: Theme): Styles => ({
 
 const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref) => {
   const [field, meta] = useField(props.name);
+  const { setFieldValue } = useFormikContext();
   const { css, styles } = useStyles({ stylesFn });
 
+  const emojis = props.emojis || false;
+
+  const onEmojiClick = ({ emoji }: IEmojiData): void => {
+    setFieldValue(field.name, (field.value += emoji));
+    (document.querySelector(`input[name="${field.name}"]`) as HTMLElement)?.focus();
+  };
+
   return (
-    <input
-      ref={ref}
-      type={props.type || 'text'}
-      name={props.name}
-      onChange={field.onChange}
-      onBlur={field.onBlur}
-      placeholder={props.placeholder}
-      value={field.value || ''}
-      {...css(styles.textInput, meta.error && styles.error)}
-    />
+    <>
+      <input
+        ref={ref}
+        type={props.type || 'text'}
+        name={props.name}
+        onChange={field.onChange}
+        onBlur={field.onBlur}
+        placeholder={props.placeholder}
+        value={field.value || ''}
+        {...css(styles.textInput, meta.error && styles.error)}
+      />
+      {emojis && (
+        <Spacer as="span" pl="xsmall" pt="nudge">
+          <EmojiButton onEmojiClick={onEmojiClick} />
+        </Spacer>
+      )}
+    </>
   );
 });
 

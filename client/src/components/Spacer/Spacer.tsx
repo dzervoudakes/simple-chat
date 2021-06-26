@@ -4,6 +4,7 @@ import { Styles } from 'react-with-styles';
 import { Spacing, Theme } from '@src/theme';
 
 interface SpacerProps {
+  as?: 'div' | 'span';
   padding?: Spacing;
   px?: Spacing;
   py?: Spacing;
@@ -17,7 +18,17 @@ const stylesFn = ({ spacing }: Theme): Styles => ({
   spacing
 });
 
-const Spacer: React.FC<SpacerProps> = ({ children, padding, px, py, pt, pb, pl, pr }) => {
+const Spacer: React.FC<SpacerProps> = ({
+  as = 'div',
+  children,
+  padding,
+  px,
+  py,
+  pt,
+  pb,
+  pl,
+  pr
+}) => {
   const {
     css,
     styles: { spacing }
@@ -32,7 +43,14 @@ const Spacer: React.FC<SpacerProps> = ({ children, padding, px, py, pt, pb, pl, 
     paddingBottom: spacingdef?.[padding || py || pb || ''] || undefined
   };
 
-  return <div {...css(style)}>{children}</div>;
+  const componentMap = {
+    div: 'div',
+    span: 'span'
+  };
+
+  const Component = componentMap[as];
+
+  return <Component {...css(style)}>{children}</Component>;
 };
 
 export default Spacer;
