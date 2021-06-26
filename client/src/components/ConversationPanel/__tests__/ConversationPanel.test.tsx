@@ -84,4 +84,21 @@ describe('ConversationPanel', () => {
       expect(screen.getByText('i am a private message')).toBeInTheDocument();
     });
   });
+
+  it('renders the empty state', async () => {
+    ChatService.getChat = jest.fn().mockResolvedValueOnce({
+      data: {
+        channels: [{ name: 'general', _id: '11221' }],
+        chat: { '11221': [publicMessage], '67890': [] },
+        users: [mockUserOne, mockUserTwo]
+      }
+    });
+    render(<TestComponent initialEntry="/67890" />);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('Nothing here, yet! Send a message to get things started.')
+      ).toBeInTheDocument();
+    });
+  });
 });

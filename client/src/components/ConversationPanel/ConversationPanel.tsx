@@ -35,6 +35,11 @@ const ConversationPanel: React.FC = () => {
   return (
     <Layout ref={layoutRef}>
       <div {...css(styles.conversationPanel)}>
+        {!messages?.length && (
+          <Typography variant="body">
+            Nothing here, yet! Send a message to get things started.
+          </Typography>
+        )}
         {messages?.map((message, index) => {
           const previousMessage = messages[index - 1];
 
