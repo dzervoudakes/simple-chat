@@ -60,7 +60,7 @@ const MessageForm: React.FC = () => {
           recipientId: conversationType === 'direct' ? conversationId : null,
           channel:
             conversationType === 'channels'
-              ? channels?.find(({ _id }) => _id === conversationId)?.name ?? ''
+              ? channels?.find((channel) => channel._id === conversationId)?.name ?? ''
               : null
         };
 

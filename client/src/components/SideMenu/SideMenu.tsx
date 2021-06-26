@@ -86,19 +86,19 @@ const SideMenu: React.FC = () => {
         </Spacer>
         <Spacer pb="medium">
           <Typography variant="h3">Channels</Typography>
-          {sortBy(channels, 'name').map(({ name, _id }) => (
-            <Spacer pt="xsmall" key={_id}>
-              {renderLinkButton(`/channels/${_id}`, name)}
+          {sortBy(channels, 'name').map((channel) => (
+            <Spacer pt="xsmall" key={channel._id}>
+              {renderLinkButton(`/channels/${channel._id}`, channel.name)}
             </Spacer>
           ))}
         </Spacer>
         <Spacer pb="medium">
           <Typography variant="h3">Direct messages</Typography>
           {sortBy(users, 'username')
-            ?.filter(({ username }) => username !== user?.username)
-            .map(({ username, _id }) => (
-              <Spacer pt="xsmall" key={_id}>
-                {renderLinkButton(`/direct/${_id}`, username)}
+            ?.filter((listUser) => listUser.username !== user?.username)
+            .map((listUser) => (
+              <Spacer pt="xsmall" key={listUser._id}>
+                {renderLinkButton(`/direct/${listUser._id}`, listUser.username)}
               </Spacer>
             ))}
         </Spacer>

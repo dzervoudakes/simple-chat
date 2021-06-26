@@ -7,14 +7,23 @@ const stylesFn = ({ spacing }: Theme): Styles => ({
   layout: {
     height: '100%',
     padding: spacing.small,
-    overflowY: 'scroll'
+    overflowY: 'scroll',
+    scrollBehavior: 'smooth'
   }
 });
 
-const Layout: React.FC = ({ children }) => {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+const Layout = React.forwardRef<HTMLElement, LayoutProps>((props, ref) => {
   const { css, styles } = useStyles({ stylesFn });
 
-  return <main {...css(styles.layout)}>{children}</main>;
-};
+  return (
+    <main ref={ref} {...css(styles.layout)}>
+      {props.children}
+    </main>
+  );
+});
 
 export default Layout;

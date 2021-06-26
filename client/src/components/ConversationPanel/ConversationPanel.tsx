@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import useStyles from 'react-with-styles/lib/hooks/useStyles';
@@ -23,10 +23,17 @@ const stylesFn = (): Styles => ({
 const ConversationPanel: React.FC = () => {
   const { conversationId } = useParams<RouteParams>();
   const { messages } = useChat(conversationId);
+  const layoutRef = createRef<HTMLElement>();
   const { css, styles } = useStyles({ stylesFn });
 
+  useEffect(() => {
+    const height = (layoutRef.current?.offsetHeight ?? 0) + 2000;
+    layoutRef.current?.scrollTo(0, height);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [messages]);
+
   return (
-    <Layout>
+    <Layout ref={layoutRef}>
       <div {...css(styles.conversationPanel)}>
         {messages?.map((message, index) => {
           const previousMessage = messages[index - 1];
