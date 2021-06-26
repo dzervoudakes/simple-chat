@@ -26,15 +26,21 @@ describe('ChatContext', () => {
     createdAt: '2021-02-28T22:31:02.589Z'
   };
 
+  const newUser = {
+    username: 'NewUser123',
+    _id: '66778'
+  };
+
   const TestComponent: React.FC = () => (
     <ChatContext.Consumer>
-      {({ chat, loading, error, chatDispatch }) => (
+      {({ chat, loading, error, users, chatDispatch }) => (
         <>
           <div>Message: {chat['11221']?.[0]?.text}</div>
           <div>Message: {chat['11221']?.[1]?.text}</div>
           <div>Message: {chat['67890']?.[0]?.text}</div>
           <div>Data loading: {loading.toString()}</div>
           <div>Loading error: {error.toString()}</div>
+          <div>New user: {users[0]?.username}</div>
           <button
             type="button"
             onClick={() => chatDispatch({ type: 'UPDATE_CHAT', payload: publicMessage })}
@@ -57,6 +63,12 @@ describe('ChatContext', () => {
             onClick={() => chatDispatch({ type: 'UPDATE_CHAT', payload: privateMessage })}
           >
             update private chat
+          </button>
+          <button
+            type="button"
+            onClick={() => chatDispatch({ type: 'UPDATE_USERS', payload: newUser })}
+          >
+            update users
           </button>
         </>
       )}
@@ -102,6 +114,17 @@ describe('ChatContext', () => {
     await waitFor(() => {
       fireEvent.click(screen.getByText('update private chat'));
       expect(screen.getByText('Message: i am a private message')).toBeInTheDocument();
+    });
+  });
+
+  it('updates the current users list', async () => {
+    render(<Wrapper />);
+
+    expect(screen.queryByText('New user: NewUser123')).toBeNull();
+
+    await waitFor(() => {
+      fireEvent.click(screen.getByText('update users'));
+      expect(screen.getByText('New user: NewUser123')).toBeInTheDocument();
     });
   });
 

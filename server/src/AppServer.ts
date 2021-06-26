@@ -12,7 +12,7 @@ import {
   MessageController,
   UserController
 } from './controllers';
-import { MessageType } from './models';
+import { MessageType, UserType } from './models';
 
 export class AppServer extends Server {
   constructor() {
@@ -74,8 +74,6 @@ export class AppServer extends Server {
 
       this.sockets.push({ userId: userId as string, socketId: socket.id });
 
-      // @todo 'new user' event type (consuming clients will need to refresh their list of users)
-
       // send and receive public messages
       socket.on('send-message-public', (message: MessageType) => {
         socket.broadcast.emit('receive-message-public', message);
@@ -90,6 +88,11 @@ export class AppServer extends Server {
         if (recipient) {
           socket.broadcast.to(recipient).emit('receive-message-private', message);
         }
+      });
+
+      // inform sockets when a new user creates their account
+      socket.on('send-new-user', (user: UserType) => {
+        socket.broadcast.emit('receive-new-user', user);
       });
 
       // cleanup

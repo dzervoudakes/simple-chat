@@ -5,7 +5,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { useAuth, useChat } from '@src/hooks';
 import { Socket } from '@src/socket';
-import { Message } from '@src/types';
+import { ChatUser, Message } from '@src/types';
 
 export interface SocketContextProps {
   socket?: Socket;
@@ -21,9 +21,24 @@ export const SocketProvider: React.FC = ({ children }) => {
   useEffect(() => {
     if (!socket && user) {
       const newSocket = new Socket({ userId: user?.id ?? '' });
-      newSocket.subscribeToChat((message: Message) => {
+      const chatUser = { username: user.username, _id: user.id };
+      const isNewUser = sessionStorage.getItem('new-user') === 'true';
+
+      const messageDispatch = (message: Message): void => {
         chatDispatch({ type: 'UPDATE_CHAT', payload: message });
-      });
+      };
+
+      const userDispatch = (newUser: ChatUser): void => {
+        chatDispatch({ type: 'UPDATE_USERS', payload: newUser });
+      };
+
+      newSocket.subscribeToChat(messageDispatch, userDispatch);
+
+      if (isNewUser) {
+        newSocket.sendNewUser(chatUser);
+        sessionStorage.setItem('new-user', 'false');
+      }
+
       setSocket(newSocket);
     }
 

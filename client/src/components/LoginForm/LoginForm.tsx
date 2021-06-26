@@ -73,6 +73,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
         setUser(currentUser);
         sessionStorage.setItem('user', JSON.stringify(currentUser));
 
+        if (isSignUp) {
+          sessionStorage.setItem('new-user', 'true');
+        }
+
         setLoading(false);
         history.push('/channels');
       } catch (err) {

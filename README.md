@@ -2,7 +2,8 @@
 
 > No frills chat app built with React and Socket.io.
 
-<!-- [![build](https://github.com/dzervoudakes/simple-chat/workflows/Build%20and%20Test/badge.svg)](https://github.com/dzervoudakes/simple-chat/actions)
+<!-- [![build](https://github.com/dzervoudakes/simple-chat/workflows/Client/badge.svg)](https://github.com/dzervoudakes/simple-chat/actions)
+[![build](https://github.com/dzervoudakes/simple-chat/workflows/Server/badge.svg)](https://github.com/dzervoudakes/simple-chat/actions)
 [![codecov](https://codecov.io/gh/dzervoudakes/simple-chat/branch/main/graph/badge.svg)](https://codecov.io/gh/dzervoudakes/simple-chat)
 [![quality](https://app.codacy.com/project/badge/Grade/373b659cba7b4b8cb0f275db57c3ef38)](https://www.codacy.com/gh/dzervoudakes/simple-chat/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dzervoudakes/simple-chat&amp;utm_campaign=Badge_Grade) -->
 [![prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://prettier.io/)
@@ -14,7 +15,7 @@ A simple, real-time chat UI with a preconfigured list of chatrooms which users c
 **Some notes:**
 
 - This is a full rewrite of an older project that had some nasty patterns I wanted to clean up
-- I didn't bother testing in IE11, so good luck there
+- I decided to experiment with `react-with-styles` and custom components as an alternative to Material (and had a lot of fun doing it)
 - The UI is loosely inspired by Slack
 - Web sockets are awesome
 

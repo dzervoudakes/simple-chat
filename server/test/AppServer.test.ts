@@ -1,6 +1,6 @@
 import { Socket } from 'socket.io';
 import AppServer from '@src/AppServer';
-import { MessageType } from '@src/models';
+import { MessageType, UserType } from '@src/models';
 
 jest.mock('mongoose');
 
@@ -69,5 +69,24 @@ describe('AppServer', () => {
     await new Promise((res) => setTimeout(res, 100));
 
     expect(mockPrivateMessage).toBe('Private messaging works');
+  });
+
+  it('handles new users', async () => {
+    let mockUsername;
+
+    receiver = require('socket.io-client')(HOST, { query: { userId: '12345' } });
+    receiver.on('receive-new-user', (user: UserType) => {
+      mockUsername = user.username;
+    });
+
+    sender = require('socket.io-client')(HOST, { query: { userId: '67890' } });
+    sender.emit('send-new-user', {
+      username: 'TestUser123',
+      _id: '67890'
+    });
+
+    await new Promise((res) => setTimeout(res, 100));
+
+    expect(mockUsername).toBe('TestUser123');
   });
 });

@@ -3,7 +3,7 @@
  * @packageDocumentation
  */
 import { SERVER_BASE_URL } from '@src/constants';
-import { Message } from '@src/types';
+import { ChatUser, Message } from '@src/types';
 
 interface Query {
   userId: string;
@@ -16,19 +16,27 @@ export class Socket {
 
   private socket;
 
-  public subscribeToChat(cb: (message: Message) => void): void {
+  public subscribeToChat = (
+    updateChat: (message: Message) => void,
+    updateUsers: (user: ChatUser) => void
+  ): void => {
     const messageHandler = (message: Message): void => {
-      cb(message);
+      updateChat(message);
     };
 
     this.socket.on('receive-message-public', messageHandler);
     this.socket.on('receive-message-private', messageHandler);
-
-    // @todo 'new-user' event type here after implementing in the API
-  }
+    this.socket.on('receive-new-user', (user: ChatUser) => {
+      updateUsers(user);
+    });
+  };
 
   public sendChatMessage = (variant: 'public' | 'private', message: Message): void => {
     this.socket.emit(`send-message-${variant}`, message);
+  };
+
+  public sendNewUser = (user: ChatUser): void => {
+    this.socket.emit('send-new-user', user);
   };
 
   public disconnect = (): void => {

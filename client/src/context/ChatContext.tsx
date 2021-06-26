@@ -15,13 +15,18 @@ import noop from 'lodash/noop';
 import { ChatService } from '@src/services';
 import { useAuth } from '@src/hooks';
 import { Chat, Channel, ChatUser, Message } from '@src/types';
-import { updateChat } from './utils';
+import { updateChat, updateUsers } from './utils';
 
-type ActionType = 'API_LOADING' | 'API_SUCCESS' | 'API_FAILURE' | 'UPDATE_CHAT';
+type ActionType =
+  | 'API_LOADING'
+  | 'API_SUCCESS'
+  | 'API_FAILURE'
+  | 'UPDATE_CHAT'
+  | 'UPDATE_USERS';
 
 interface Action {
   type: ActionType;
-  payload?: Partial<ChatContextProps> | Message;
+  payload?: Partial<ChatContextProps> | Message | ChatUser;
 }
 
 export interface ChatContextProps {
@@ -69,6 +74,11 @@ export const ChatProvider: React.FC = ({ children }) => {
             message: action.payload as Message,
             userId: user?.id ?? ''
           })
+        };
+      case 'UPDATE_USERS':
+        return {
+          ...state,
+          users: updateUsers({ state, user: action.payload as ChatUser })
         };
       default:
         return state;
