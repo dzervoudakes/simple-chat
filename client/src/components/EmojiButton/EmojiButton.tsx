@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Picker, { IEmojiData } from 'emoji-picker-react';
+import { Picker, BaseEmoji } from 'emoji-mart';
 import noop from 'lodash/noop';
 import useStyles from 'react-with-styles/lib/hooks/useStyles';
 import { Styles } from 'react-with-styles';
@@ -8,7 +8,7 @@ import { EmojiIcon } from '@src/icons';
 import './EmojiButton.scss';
 
 interface EmojiButtonProps {
-  onEmojiClick?: (emojiObject: IEmojiData) => void;
+  onSelect?: (emoji: BaseEmoji) => void;
 }
 
 const stylesFn = ({ color, spacing }: Theme): Styles => ({
@@ -26,7 +26,7 @@ const stylesFn = ({ color, spacing }: Theme): Styles => ({
   }
 });
 
-const EmojiButton: React.FC<EmojiButtonProps> = ({ onEmojiClick = noop }) => {
+const EmojiButton: React.FC<EmojiButtonProps> = ({ onSelect = noop }) => {
   const [showPicker, setShowPicker] = useState(false);
   const { css, styles } = useStyles({ stylesFn });
 
@@ -37,14 +37,16 @@ const EmojiButton: React.FC<EmojiButtonProps> = ({ onEmojiClick = noop }) => {
   return (
     <>
       {showPicker && (
-        <div data-testid="emojiPicker">
-          <Picker
-            onEmojiClick={(event, emojiObject) => {
-              togglePicker();
-              onEmojiClick(emojiObject);
-            }}
-          />
-        </div>
+        <Picker
+          onSelect={(emoji) => {
+            togglePicker();
+            onSelect(emoji);
+          }}
+          emoji="smirk"
+          title="Select an emoji"
+          color="#119da4" // primary
+          autoFocus
+        />
       )}
       <button
         type="button"

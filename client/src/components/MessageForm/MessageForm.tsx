@@ -32,7 +32,7 @@ const MessageForm: React.FC = () => {
   const { conversationId, conversationType } = useParams<RouteParams>();
   const { user } = useAuth();
   const { socket } = useSocket();
-  const { channels, chatDispatch } = useChat();
+  const { channels, chatDispatch, loading } = useChat();
   const [isFormSubmitError, setIsFormSubmitError] = useState(false);
   const inputRef = createRef<HTMLInputElement>();
   const { css, styles } = useStyles({ stylesFn });
@@ -98,6 +98,7 @@ const MessageForm: React.FC = () => {
               <GeneralError />
             ) : (
               <TextInput
+                disabled={loading}
                 name="message"
                 placeholder="Type your message here, then press 'Enter' to send."
                 ref={inputRef}

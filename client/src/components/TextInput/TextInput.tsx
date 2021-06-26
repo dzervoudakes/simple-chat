@@ -1,6 +1,6 @@
 import React from 'react';
 import { useField, useFormikContext } from 'formik';
-import { IEmojiData } from 'emoji-picker-react';
+import { BaseEmoji } from 'emoji-mart';
 import useStyles from 'react-with-styles/lib/hooks/useStyles';
 import { Styles } from 'react-with-styles';
 import EmojiButton from '@src/components/EmojiButton';
@@ -8,6 +8,7 @@ import Spacer from '@src/components/Spacer';
 import { Theme } from '@src/theme';
 
 interface TextInputProps {
+  disabled?: boolean;
   emojis?: boolean;
   name: string;
   placeholder: string;
@@ -49,8 +50,8 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
 
   const emojis = props.emojis || false;
 
-  const onEmojiClick = ({ emoji }: IEmojiData): void => {
-    setFieldValue(field.name, (field.value += emoji));
+  const onEmojiClick = (emoji: BaseEmoji): void => {
+    setFieldValue(field.name, (field.value += emoji.native));
     (document.querySelector(`input[name="${field.name}"]`) as HTMLElement)?.focus();
   };
 
@@ -58,6 +59,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
     <>
       <input
         ref={ref}
+        disabled={props.disabled || false}
         type={props.type || 'text'}
         name={props.name}
         onChange={field.onChange}
@@ -68,7 +70,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref
       />
       {emojis && (
         <Spacer as="span" pl="xsmall" pt="nudge">
-          <EmojiButton onEmojiClick={onEmojiClick} />
+          <EmojiButton onSelect={onEmojiClick} />
         </Spacer>
       )}
     </>

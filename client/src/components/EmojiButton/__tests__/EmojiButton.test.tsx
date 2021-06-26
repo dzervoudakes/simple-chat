@@ -11,9 +11,9 @@ describe('EmojiButton', () => {
       </WithStylesProvider>
     );
 
-    expect(screen.queryByTestId('emojiPicker')).toBeNull();
+    expect(screen.queryByLabelText('Select an emoji')).toBeNull();
 
     fireEvent.click(screen.getByTestId('emojiButton'));
-    expect(screen.getByTestId('emojiPicker')).toBeInTheDocument();
+    expect(screen.getByLabelText('Select an emoji')).toBeInTheDocument();
   });
 });
