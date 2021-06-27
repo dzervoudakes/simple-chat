@@ -37,7 +37,8 @@ A simple, real-time chat UI with a preconfigured list of chatrooms which users c
 - From the project root, open your terminal and run `docker compose up`
   - Seed data will be populated in the database automatically
   - The server will be running on `http://localhost:3000`
-  - There are two test users by default, `Admin123` and `TestUser123` ... The password for each is `passworddd`
+  - There are two test users by default, `Admin123` and `TestUser123`
+  - The password for each test user is `passworddd`
 
 The `server/README.md` provides additional information on build scripts and environment variables.
 

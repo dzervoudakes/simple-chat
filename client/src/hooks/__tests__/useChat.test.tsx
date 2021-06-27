@@ -22,7 +22,7 @@ describe('useChat', () => {
   const TestComponent: React.FC = ({ children }) => (
     <ChatContext.Provider
       value={{
-        channels: [{ name: 'general', _id: '12345' }],
+        channels: [{ name: 'general', description: 'test description', _id: '12345' }],
         chat: { general: [message] },
         chatDispatch: jest.fn(),
         loading: false,

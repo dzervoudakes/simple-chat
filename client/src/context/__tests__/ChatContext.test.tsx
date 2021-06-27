@@ -87,7 +87,11 @@ describe('ChatContext', () => {
 
   beforeEach(() => {
     ChatService.getChat = jest.fn().mockResolvedValueOnce({
-      data: { channels: [{ name: 'general', _id: '11221' }], messages: [], users: [] }
+      data: {
+        channels: [{ name: 'general', description: 'test description', _id: '11221' }],
+        messages: [],
+        users: []
+      }
     });
   });
 

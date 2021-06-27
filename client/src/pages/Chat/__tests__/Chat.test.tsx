@@ -60,7 +60,7 @@ describe('Chat', () => {
   beforeEach(() => {
     ChatService.getChat = jest.fn().mockResolvedValueOnce({
       data: {
-        channels: [{ name: 'general', _id: '11221' }],
+        channels: [{ name: 'general', description: 'test description', _id: '11221' }],
         chat: { '11221': [publicMessage] },
         users: []
       }

@@ -29,6 +29,7 @@ export interface Chat {
 }
 
 export interface Channel {
+  description: string;
   name: string;
   _id: string;
 }

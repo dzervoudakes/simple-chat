@@ -18,7 +18,9 @@ describe('ConversationHeader', () => {
         <WithStylesProvider>
           <ChatContext.Provider
             value={{
-              channels: [{ name: 'general', _id: '11221' }],
+              channels: [
+                { name: 'general', description: 'test description', _id: '11221' }
+              ],
               chat: {},
               chatDispatch: noop,
               error: false,
@@ -33,10 +35,11 @@ describe('ConversationHeader', () => {
     </MemoryRouter>
   );
 
-  it('renders the name of the current channel', () => {
+  it('renders the name and description of the current channel', () => {
     render(<TestComponent />);
 
     expect(screen.getByText('# general')).toBeInTheDocument();
+    expect(screen.getByText('test description')).toBeInTheDocument();
   });
 
   it('renders the username for the current direct message', () => {
