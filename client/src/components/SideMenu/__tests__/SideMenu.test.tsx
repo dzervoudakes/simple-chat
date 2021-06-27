@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import {
   AuthContext,
   ChatProvider,
@@ -13,9 +14,13 @@ const mockPush = jest.fn();
 
 jest.mock('@src/services/ChatService');
 jest.mock('react-router-dom', () => ({
+  ...(jest.requireActual('react-router-dom') as jest.Mock),
   useHistory: jest.fn().mockImplementation(() => ({
     push: mockPush
-  }))
+  })),
+  useParams: jest
+    .fn()
+    .mockImplementation(() => ({ conversationId: '11221', conversationType: 'channels' }))
 }));
 
 describe('SideMenu', () => {
@@ -30,20 +35,22 @@ describe('SideMenu', () => {
   };
 
   const TestComponent: React.FC = () => (
-    <WithStylesProvider>
-      <AuthContext.Provider
-        value={{
-          user: { username: 'AuthUser', id: '12345', jwt: 'jwt' },
-          setUser: jest.fn()
-        }}
-      >
-        <ChatProvider>
-          <SideMenuProvider>
-            <SideMenu />
-          </SideMenuProvider>
-        </ChatProvider>
-      </AuthContext.Provider>
-    </WithStylesProvider>
+    <MemoryRouter initialEntries={['/channels/11221']}>
+      <WithStylesProvider>
+        <AuthContext.Provider
+          value={{
+            user: { username: 'AuthUser', id: '12345', jwt: 'jwt' },
+            setUser: jest.fn()
+          }}
+        >
+          <ChatProvider>
+            <SideMenuProvider>
+              <SideMenu />
+            </SideMenuProvider>
+          </ChatProvider>
+        </AuthContext.Provider>
+      </WithStylesProvider>
+    </MemoryRouter>
   );
 
   beforeEach(() => {
@@ -63,7 +70,7 @@ describe('SideMenu', () => {
       expect(screen.getByText('Current user')).toBeInTheDocument();
       expect(screen.getByText('Channels')).toBeInTheDocument();
       expect(screen.getByText('Direct messages')).toBeInTheDocument();
-      expect(screen.getByText('general')).toBeInTheDocument();
+      expect(screen.getByText('# general »')).toBeInTheDocument();
       expect(screen.getByText('username1')).toBeInTheDocument();
       expect(screen.getByText('username2')).toBeInTheDocument();
     });
@@ -74,7 +81,7 @@ describe('SideMenu', () => {
 
     await screen.findByText('Current user');
 
-    fireEvent.click(screen.getByText('general'));
+    fireEvent.click(screen.getByText('# general »'));
     fireEvent.click(screen.getByText('username1'));
 
     expect(mockPush).toHaveBeenNthCalledWith(1, '/channels/11221');

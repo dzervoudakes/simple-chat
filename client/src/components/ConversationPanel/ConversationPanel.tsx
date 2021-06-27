@@ -7,6 +7,7 @@ import Layout from '@src/components/Layout';
 import Spacer from '@src/components/Spacer';
 import Skeleton from '@src/components/Skeleton';
 import Typography from '@src/components/Typography';
+import ConversationHeader from '@src/components/ConversationHeader';
 import { useChat } from '@src/hooks';
 import { RouteParams } from '@src/types';
 
@@ -34,39 +35,42 @@ const ConversationPanel: React.FC = () => {
   }, [messages]);
 
   return (
-    <Layout ref={layoutRef}>
-      <div {...css(styles.conversationPanel)}>
-        {!messages?.length && (
-          <>
-            <Spacer pb="tiny">
-              <Skeleton height={16} />
-            </Spacer>
-            <Skeleton height={24}>
-              <Typography variant="body">
-                Nothing here, yet! Send a message to get things started.
-              </Typography>
-            </Skeleton>
-          </>
-        )}
-        {messages?.map((message, index) => {
-          const previousMessage = messages[index - 1];
+    <>
+      <ConversationHeader />
+      <Layout ref={layoutRef}>
+        <div {...css(styles.conversationPanel)}>
+          {!messages?.length && (
+            <>
+              <Spacer pb="tiny">
+                <Skeleton height={16} />
+              </Spacer>
+              <Skeleton height={24}>
+                <Typography variant="body">
+                  Nothing here, yet! Send a message to get things started.
+                </Typography>
+              </Skeleton>
+            </>
+          )}
+          {messages?.map((message, index) => {
+            const previousMessage = messages[index - 1];
 
-          return (
-            <Spacer pb="xsmall" key={message._id}>
-              {previousMessage?.username !== message.username && (
-                <Spacer pt={index !== 0 ? 'xsmall' : undefined} pb="xsmall">
-                  <Typography variant="disclaimer">
-                    {message.username} |{' '}
-                    {format(new Date(message.createdAt), 'h:mm a EEEE, MMMM do')}
-                  </Typography>
-                </Spacer>
-              )}
-              <Typography variant="body">{message.text}</Typography>
-            </Spacer>
-          );
-        })}
-      </div>
-    </Layout>
+            return (
+              <Spacer pb="xsmall" key={message._id}>
+                {previousMessage?.username !== message.username && (
+                  <Spacer pt={index !== 0 ? 'xsmall' : undefined} pb="xsmall">
+                    <Typography variant="disclaimer">
+                      {message.username} |{' '}
+                      {format(new Date(message.createdAt), 'h:mm a EEEE, MMMM do')}
+                    </Typography>
+                  </Spacer>
+                )}
+                <Typography variant="body">{message.text}</Typography>
+              </Spacer>
+            );
+          })}
+        </div>
+      </Layout>
+    </>
   );
 };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import useStyles from 'react-with-styles/lib/hooks/useStyles';
 import { Styles } from 'react-with-styles';
@@ -10,6 +10,7 @@ import Typography from '@src/components/Typography';
 import Skeleton from '@src/components/Skeleton';
 import { useAuth, useChat, useSideMenu } from '@src/hooks';
 import { MOBILE_QUERY } from '@src/constants';
+import { RouteParams } from '@src/types';
 import { Theme } from '@src/theme';
 
 const stylesFn = ({ color }: Theme): Styles => ({
@@ -44,6 +45,7 @@ const stylesFn = ({ color }: Theme): Styles => ({
 });
 
 const SideMenu: React.FC = () => {
+  const { conversationId } = useParams<RouteParams>();
   const history = useHistory();
   const { user } = useAuth();
   const { channels, users } = useChat();
@@ -51,7 +53,7 @@ const SideMenu: React.FC = () => {
   const isMobile = useMediaQuery(MOBILE_QUERY);
   const { css, styles } = useStyles({ stylesFn });
 
-  const renderLinkButton = (url: string, text: string): JSX.Element => (
+  const renderLinkButton = (url: string, text: string, id: string): JSX.Element => (
     <Button
       variant="link"
       onClick={() => {
@@ -63,13 +65,13 @@ const SideMenu: React.FC = () => {
         {...css(styles.sideMenuListItem, isMobile && styles.sideMenuListItemMobile)}
         title={text}
       >
-        {text}
+        {text} {id === conversationId && <>&raquo;</>}
       </div>
     </Button>
   );
 
   return (
-    <div
+    <aside
       {...css(
         styles.sideMenu,
         isMobile && styles.sideMenuMobile,
@@ -93,7 +95,11 @@ const SideMenu: React.FC = () => {
           </Skeleton>
           {sortBy(channels, 'name').map((channel) => (
             <Spacer pt="xsmall" key={channel._id}>
-              {renderLinkButton(`/channels/${channel._id}`, channel.name)}
+              {renderLinkButton(
+                `/channels/${channel._id}`,
+                `# ${channel.name}`,
+                channel._id
+              )}
             </Spacer>
           ))}
         </Spacer>
@@ -105,12 +111,16 @@ const SideMenu: React.FC = () => {
             ?.filter((listUser) => listUser.username !== user?.username)
             .map((listUser) => (
               <Spacer pt="xsmall" key={listUser._id}>
-                {renderLinkButton(`/direct/${listUser._id}`, listUser.username)}
+                {renderLinkButton(
+                  `/direct/${listUser._id}`,
+                  listUser.username,
+                  listUser._id
+                )}
               </Spacer>
             ))}
         </Spacer>
       </Spacer>
-    </div>
+    </aside>
   );
 };
 
