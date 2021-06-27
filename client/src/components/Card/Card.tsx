@@ -8,7 +8,7 @@ const stylesFn = ({ border, color, spacing }: Theme): Styles => ({
     background: color.white,
     border: border.thinTertiary,
     borderRadius: spacing.tiny,
-    boxShadow: '0 0.625rem 1.25rem 0 rgba(89, 89, 89, 0.1)',
+    boxShadow: '0.125rem 0.125rem 0.125rem 0 rgba(89, 89, 89, 0.1)',
     margin: `${spacing.medium} auto 0`,
     maxWidth: '30rem', // 480px
     padding: `${spacing.xlarge} ${spacing.small}`,

@@ -23,7 +23,7 @@ const stylesFn = ({ color }: Theme): Styles => ({
     width: '15rem' // 240px
   },
   sideMenuListItem: {
-    maxWidth: '8rem',
+    maxWidth: '13rem', // 208px
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap'
