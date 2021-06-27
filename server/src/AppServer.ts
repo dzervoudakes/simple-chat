@@ -14,6 +14,8 @@ import {
 } from './controllers';
 import { MessageType, UserType } from './models';
 
+// @todo testing pipeline, remove me
+
 export class AppServer extends Server {
   constructor() {
     super();
