@@ -57,6 +57,9 @@ export const defaultTheme: Theme = {
   spacing,
 
   border: {
+    error: `0.0625rem solid ${color.error}`,
+    thinGray: `0.0625rem solid ${color.grayLightest}`,
+    thinSecondary: `0.0625rem solid ${color.secondary}`,
     thinTertiary: `0.0625rem solid ${color.tertiary}`
   },
 

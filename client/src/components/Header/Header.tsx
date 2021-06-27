@@ -17,7 +17,9 @@ const stylesFn = ({ color, spacing }: Theme): Styles => ({
     display: 'flex',
     height: '3.125rem',
     paddingLeft: spacing.small,
-    paddingRight: spacing.small
+    paddingRight: spacing.small,
+    position: 'relative',
+    zIndex: 1
   },
   headerMobile: {
     justifyContent: 'center'

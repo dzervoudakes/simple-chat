@@ -12,7 +12,7 @@ interface ButtonProps {
   variant?: Variant;
 }
 
-const stylesFn = ({ color, fonts, spacing }: Theme): Styles => ({
+const stylesFn = ({ border, color, fonts, spacing }: Theme): Styles => ({
   button: {
     borderRadius: spacing.tiny,
     cursor: 'pointer',
@@ -43,7 +43,7 @@ const stylesFn = ({ color, fonts, spacing }: Theme): Styles => ({
   },
   secondary: {
     background: color.secondary,
-    border: `0.0625rem solid ${color.secondary}`,
+    border: border.thinSecondary,
     color: color.secondary,
     ':hover': {
       background: color.tealAccent
@@ -63,6 +63,7 @@ const stylesFn = ({ color, fonts, spacing }: Theme): Styles => ({
       color: color.tealAccent
     },
     ':focus': {
+      color: color.tealAccent,
       textDecoration: 'underline'
     }
   },
@@ -75,7 +76,7 @@ const stylesFn = ({ color, fonts, spacing }: Theme): Styles => ({
     }
   },
   secondaryDisabled: {
-    border: `0.0625rem solid ${color.grayLightest}`,
+    border: border.thinGray,
     color: color.grayLightest,
     ':hover': {
       background: 'none'

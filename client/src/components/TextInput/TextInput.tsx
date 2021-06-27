@@ -15,9 +15,9 @@ interface TextInputProps {
   type?: 'text' | 'password';
 }
 
-const stylesFn = ({ color, fonts, spacing }: Theme): Styles => ({
+const stylesFn = ({ border, color, fonts, spacing }: Theme): Styles => ({
   textInput: {
-    border: `0.0625rem solid ${color.grayLightest}`,
+    border: border.thinGray,
     borderRadius: spacing.medium,
     boxShadow: 'inset 0 0 0.0625rem rgba(0, 0, 0, 0.2)',
     boxSizing: 'border-box',
@@ -36,9 +36,9 @@ const stylesFn = ({ color, fonts, spacing }: Theme): Styles => ({
     }
   },
   error: {
-    border: `0.0625rem solid ${color.error}`,
+    border: border.error,
     ':focus': {
-      border: `0.0625rem solid ${color.error}`
+      border: border.error
     }
   }
 });

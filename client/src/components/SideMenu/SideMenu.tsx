@@ -19,7 +19,6 @@ const stylesFn = ({ color }: Theme): Styles => ({
     flexShrink: 0,
     height: 'calc(100vh - 3.125rem)', // 3.125rem === header height
     overflowY: 'scroll',
-    transition: 'all 0.2s ease',
     width: '15rem' // 240px
   },
   sideMenuListItem: {
@@ -35,6 +34,7 @@ const stylesFn = ({ color }: Theme): Styles => ({
     boxShadow: 'none',
     marginLeft: '-100vw',
     position: 'absolute',
+    transition: 'all 0.2s ease',
     width: '100vw',
     zIndex: 1
   },
