@@ -2,10 +2,10 @@
 
 > No frills chat app built with React and Socket.io.
 
-<!-- [![build](https://github.com/dzervoudakes/simple-chat/workflows/Client/badge.svg)](https://github.com/dzervoudakes/simple-chat/actions)
-[![build](https://github.com/dzervoudakes/simple-chat/workflows/Server/badge.svg)](https://github.com/dzervoudakes/simple-chat/actions)
+[![client](https://github.com/dzervoudakes/simple-chat/workflows/Client/badge.svg)](https://github.com/dzervoudakes/simple-chat/actions)
+[![server](https://github.com/dzervoudakes/simple-chat/workflows/Server/badge.svg)](https://github.com/dzervoudakes/simple-chat/actions)
 [![codecov](https://codecov.io/gh/dzervoudakes/simple-chat/branch/main/graph/badge.svg)](https://codecov.io/gh/dzervoudakes/simple-chat)
-[![quality](https://app.codacy.com/project/badge/Grade/373b659cba7b4b8cb0f275db57c3ef38)](https://www.codacy.com/gh/dzervoudakes/simple-chat/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dzervoudakes/simple-chat&amp;utm_campaign=Badge_Grade) -->
+<!-- [![quality](https://app.codacy.com/project/badge/Grade/373b659cba7b4b8cb0f275db57c3ef38)](https://www.codacy.com/gh/dzervoudakes/simple-chat/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dzervoudakes/simple-chat&amp;utm_campaign=Badge_Grade) -->
 [![prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://prettier.io/)
 
 ## Premise
