@@ -3,6 +3,9 @@
  * @packageDocumentation
  */
 
+/**
+ * Mock user data.
+ */
 export const mockUserOne = {
   username: 'username1',
   _id: 'userid1'
@@ -13,6 +16,9 @@ export const mockUserTwo = {
   _id: 'userid2'
 };
 
+/**
+ * Mock message data, with and without metadata from the database.
+ */
 export const publicMessage = {
   username: 'test',
   senderId: '12345',
@@ -45,16 +51,27 @@ export const privateMessageWithoutMeta = {
   createdAt: undefined
 };
 
+/**
+ * Mock channel data.
+ */
 export const mockChannel = {
   name: 'general',
   description: 'test description',
   _id: '11221'
 };
 
+/**
+ * Mock chat orchestration.
+ */
+export const mockChat = { 11221: [publicMessage], 67890: [privateMessage] };
+
+/**
+ * Mock api responses.
+ */
 export const mockGetChatSuccess = {
   data: {
     channels: [mockChannel],
-    chat: { '11221': [publicMessage], '67890': [privateMessage] },
+    chat: mockChat,
     users: [mockUserOne, mockUserTwo]
   }
 };
@@ -65,4 +82,21 @@ export const mockGetChatSuccessEmpty = {
     chat: {},
     users: []
   }
+};
+
+/**
+ * Mock context.
+ */
+export const mockAuthContext = {
+  user: { username: 'test', id: '12345', jwt: 'jwt' },
+  setUser: jest.fn()
+};
+
+export const mockChatContext = {
+  channels: [mockChannel],
+  chat: mockChat,
+  chatDispatch: jest.fn(),
+  loading: false,
+  error: false,
+  users: [mockUserOne]
 };

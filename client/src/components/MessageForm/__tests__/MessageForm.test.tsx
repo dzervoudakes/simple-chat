@@ -9,6 +9,7 @@ import {
 } from '@src/context';
 import { ChatService } from '@src/services';
 import {
+  mockAuthContext,
   mockGetChatSuccess,
   publicMessageWithoutMeta,
   privateMessageWithoutMeta
@@ -47,12 +48,7 @@ describe('MessageForm', () => {
   }) => (
     <MemoryRouter initialEntries={[initialEntry]}>
       <Route path="/:conversationType/:conversationId">
-        <AuthContext.Provider
-          value={{
-            user: { username: 'test', id: '12345', jwt: 'jwt' },
-            setUser: jest.fn()
-          }}
-        >
+        <AuthContext.Provider value={mockAuthContext}>
           <WithStylesProvider>
             <ChatProvider>
               <SocketProvider>

@@ -1,47 +1,23 @@
 import React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
 import { ChatContext } from '@src/context';
+import { mockChatContext } from '@src/test';
 import { useChat } from '..';
 
 describe('useChat', () => {
-  const message = {
-    username: 'test',
-    senderId: '12345',
-    recipientId: null,
-    channel: 'general',
-    text: 'i am a message',
-    _id: '67890',
-    createdAt: '2021-02-28T22:31:02.589Z'
-  };
-
-  const user = {
-    username: 'test',
-    _id: '12345'
-  };
-
   const TestComponent: React.FC = ({ children }) => (
-    <ChatContext.Provider
-      value={{
-        channels: [{ name: 'general', description: 'test description', _id: '12345' }],
-        chat: { general: [message] },
-        chatDispatch: jest.fn(),
-        loading: false,
-        error: false,
-        users: [user]
-      }}
-    >
-      {children}
-    </ChatContext.Provider>
+    <ChatContext.Provider value={mockChatContext}>{children}</ChatContext.Provider>
   );
 
   it('returns the current username', () => {
-    const { result } = renderHook(() => useChat('general'), { wrapper: TestComponent });
+    const { result } = renderHook(() => useChat('11221'), { wrapper: TestComponent });
     const { channels, loading, error, messages, users } = result.current;
 
     expect(channels?.[0].name).toBe('general');
+    expect(channels?.[0].description).toBe('test description');
     expect(loading).toBe(false);
     expect(error).toBe(false);
     expect(messages[0].text).toBe('i am a message');
-    expect(users?.[0].username).toBe('test');
+    expect(users?.[0].username).toBe('username1');
   });
 });

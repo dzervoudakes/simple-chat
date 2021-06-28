@@ -3,6 +3,7 @@ import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import { AuthContext, ChatContext, ChatProvider } from '@src/context';
 import { ChatService } from '@src/services';
 import {
+  mockAuthContext,
   mockGetChatSuccess,
   mockGetChatSuccessEmpty,
   publicMessage,
@@ -62,9 +63,7 @@ describe('ChatContext', () => {
   );
 
   const Wrapper: React.FC = () => (
-    <AuthContext.Provider
-      value={{ user: { username: 'test', id: '12345', jwt: 'jwt' }, setUser: jest.fn() }}
-    >
+    <AuthContext.Provider value={mockAuthContext}>
       <ChatProvider>
         <TestComponent />
       </ChatProvider>

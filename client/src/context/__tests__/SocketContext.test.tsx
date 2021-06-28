@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
+import { mockAuthContext, mockChatContext } from '@src/test';
 import { AuthContext, ChatContext, SocketContext, SocketProvider } from '..';
 
 describe('SocketContext', () => {
@@ -10,22 +11,8 @@ describe('SocketContext', () => {
   );
 
   const Wrapper: React.FC = () => (
-    <AuthContext.Provider
-      value={{
-        user: { username: 'test', id: '12345', jwt: 'jwt' },
-        setUser: jest.fn()
-      }}
-    >
-      <ChatContext.Provider
-        value={{
-          channels: [],
-          chat: {},
-          chatDispatch: jest.fn(),
-          error: false,
-          loading: false,
-          users: []
-        }}
-      >
+    <AuthContext.Provider value={mockAuthContext}>
+      <ChatContext.Provider value={mockChatContext}>
         <SocketProvider>
           <TestComponent />
         </SocketProvider>

@@ -6,7 +6,8 @@ module.exports = {
     'src/polyfills.ts',
     'src/theme',
     'src/constants',
-    'src/socket'
+    'src/socket',
+    'src/test'
   ],
   setupFilesAfterEnv: ['<rootDir>/setupTests.js']
 };

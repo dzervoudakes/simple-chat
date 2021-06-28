@@ -8,21 +8,14 @@ import {
   WithStylesProvider
 } from '@src/context';
 import { ChatService } from '@src/services';
-import { mockGetChatSuccess } from '@src/test';
+import { mockAuthContext, mockGetChatSuccess } from '@src/test';
 import Chat from '..';
 
 jest.mock('@src/services/ChatService');
 
 describe('Chat', () => {
   const MockAuthProvider: React.FC = ({ children }) => (
-    <AuthContext.Provider
-      value={{
-        user: { username: 'test', id: '12345', jwt: 'jwt' },
-        setUser: jest.fn()
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={mockAuthContext}>{children}</AuthContext.Provider>
   );
 
   interface TestComponentProps {

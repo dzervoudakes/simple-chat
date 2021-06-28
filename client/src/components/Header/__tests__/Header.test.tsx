@@ -2,6 +2,7 @@ import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import { useMediaQuery } from 'react-responsive';
 import { AuthContext, SideMenuProvider, WithStylesProvider } from '@src/context';
+import { mockAuthContext } from '@src/test';
 import Header from '..';
 
 const mockSetIsSideMenuOpen = jest.fn();
@@ -23,12 +24,7 @@ jest.mock('react-responsive', () => ({
 describe('Header', () => {
   const TestComponent: React.FC = () => (
     <WithStylesProvider>
-      <AuthContext.Provider
-        value={{
-          user: { username: 'test', id: '12345', jwt: 'jwt' },
-          setUser: jest.fn()
-        }}
-      >
+      <AuthContext.Provider value={mockAuthContext}>
         <SideMenuProvider>
           <Header />
         </SideMenuProvider>

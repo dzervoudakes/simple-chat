@@ -2,6 +2,7 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { render, fireEvent, screen } from '@testing-library/react';
 import { AuthContext, WithStylesProvider } from '@src/context';
+import { mockAuthContext } from '@src/test';
 import Missing from '..';
 
 const mockPush = jest.fn();
@@ -39,12 +40,7 @@ describe('Missing', () => {
 
   it('redirects to the chat panel', () => {
     render(
-      <AuthContext.Provider
-        value={{
-          user: { username: 'test', id: '12345', jwt: 'jwt' },
-          setUser: jest.fn()
-        }}
-      >
+      <AuthContext.Provider value={mockAuthContext}>
         <TestComponent />
       </AuthContext.Provider>
     );

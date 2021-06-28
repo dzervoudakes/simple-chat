@@ -1,15 +1,12 @@
 import React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
 import { AuthContext } from '@src/context';
+import { mockAuthContext } from '@src/test';
 import { useAuth } from '..';
 
 describe('useAuth', () => {
   const TestComponent: React.FC = ({ children }) => (
-    <AuthContext.Provider
-      value={{ user: { username: 'test', id: '12345', jwt: 'jwt' }, setUser: jest.fn() }}
-    >
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={mockAuthContext}>{children}</AuthContext.Provider>
   );
 
   it('returns the current username', () => {

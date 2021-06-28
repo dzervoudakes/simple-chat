@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Route } from 'react-router-dom';
-import noop from 'lodash/noop';
 import { ChatContext, WithStylesProvider } from '@src/context';
+import { mockChatContext } from '@src/test';
 import ConversationHeader from '..';
 
 describe('ConversationHeader', () => {
@@ -16,18 +16,7 @@ describe('ConversationHeader', () => {
     <MemoryRouter initialEntries={[initialEntry]}>
       <Route path="/:conversationType/:conversationId">
         <WithStylesProvider>
-          <ChatContext.Provider
-            value={{
-              channels: [
-                { name: 'general', description: 'test description', _id: '11221' }
-              ],
-              chat: {},
-              chatDispatch: noop,
-              error: false,
-              loading: false,
-              users: [{ username: 'TestUser123', _id: '67890' }]
-            }}
-          >
+          <ChatContext.Provider value={mockChatContext}>
             <ConversationHeader />
           </ChatContext.Provider>
         </WithStylesProvider>
@@ -43,8 +32,8 @@ describe('ConversationHeader', () => {
   });
 
   it('renders the username for the current direct message', () => {
-    render(<TestComponent initialEntry="/direct/67890" />);
+    render(<TestComponent initialEntry="/direct/userid1" />);
 
-    expect(screen.getByText('TestUser123')).toBeInTheDocument();
+    expect(screen.getByText('username1')).toBeInTheDocument();
   });
 });

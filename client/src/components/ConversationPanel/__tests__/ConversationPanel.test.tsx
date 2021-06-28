@@ -3,7 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route } from 'react-router-dom';
 import { AuthContext, ChatProvider, WithStylesProvider } from '@src/context';
 import { ChatService } from '@src/services';
-import { mockGetChatSuccess } from '@src/test';
+import { mockAuthContext, mockGetChatSuccess } from '@src/test';
 import ConversationPanel from '..';
 
 jest.mock('@src/services/ChatService');
@@ -14,12 +14,7 @@ describe('ConversationPanel', () => {
   }) => (
     <MemoryRouter initialEntries={[initialEntry]}>
       <Route path="/:conversationId">
-        <AuthContext.Provider
-          value={{
-            user: { username: 'test', id: '12345', jwt: 'jwt' },
-            setUser: jest.fn()
-          }}
-        >
+        <AuthContext.Provider value={mockAuthContext}>
           <WithStylesProvider>
             <ChatProvider>
               <ConversationPanel />

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import noop from 'lodash/noop';
 import { ChatContext } from '@src/context';
+import { mockChatContext } from '@src/test';
 import Skeleton from '..';
 
 describe('Skeleton', () => {
@@ -10,16 +10,7 @@ describe('Skeleton', () => {
     const [loading, setLoading] = useState(true);
 
     return (
-      <ChatContext.Provider
-        value={{
-          channels: [],
-          chat: {},
-          chatDispatch: noop,
-          error: false,
-          users: [],
-          loading
-        }}
-      >
+      <ChatContext.Provider value={{ ...mockChatContext, loading }}>
         <Skeleton>{text}</Skeleton>
         <button
           type="button"

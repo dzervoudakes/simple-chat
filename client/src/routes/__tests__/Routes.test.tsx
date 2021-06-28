@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { AuthContext, WithStylesProvider } from '@src/context';
+import { mockAuthContext } from '@src/test';
 import Routes from '..';
 
 describe('Routes', () => {
@@ -21,12 +22,7 @@ describe('Routes', () => {
 
   it('renders the chat page', async () => {
     render(
-      <AuthContext.Provider
-        value={{
-          user: { username: 'test', id: '12345', jwt: 'jwt' },
-          setUser: jest.fn()
-        }}
-      >
+      <AuthContext.Provider value={mockAuthContext}>
         <TestComponent initialEntry="/channels/11221" />
       </AuthContext.Provider>
     );

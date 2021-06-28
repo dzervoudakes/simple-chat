@@ -8,7 +8,7 @@ import {
   WithStylesProvider
 } from '@src/context';
 import { ChatService } from '@src/services';
-import { mockGetChatSuccess } from '@src/test';
+import { mockAuthContext, mockGetChatSuccess } from '@src/test';
 import SideMenu from '..';
 
 const mockPush = jest.fn();
@@ -28,12 +28,7 @@ describe('SideMenu', () => {
   const TestComponent: React.FC = () => (
     <MemoryRouter initialEntries={['/channels/11221']}>
       <WithStylesProvider>
-        <AuthContext.Provider
-          value={{
-            user: { username: 'AuthUser', id: '12345', jwt: 'jwt' },
-            setUser: jest.fn()
-          }}
-        >
+        <AuthContext.Provider value={mockAuthContext}>
           <ChatProvider>
             <SideMenuProvider>
               <SideMenu />
