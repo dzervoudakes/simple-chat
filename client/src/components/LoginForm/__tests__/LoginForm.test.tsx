@@ -29,7 +29,11 @@ describe('LoginForm', () => {
   const user = { username: 'TestUser', _id: '12345' };
   const token = 'jwt';
 
-  const TestComponent: React.FC<{ isSignUp?: boolean }> = ({ isSignUp = false }) => (
+  interface TestComponentProps {
+    isSignUp?: boolean;
+  }
+
+  const TestComponent: React.FC<TestComponentProps> = ({ isSignUp = false }) => (
     <MemoryRouter initialEntries={['/']}>
       <WithStylesProvider>
         <AuthProvider>

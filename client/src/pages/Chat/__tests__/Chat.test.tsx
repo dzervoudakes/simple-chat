@@ -8,21 +8,12 @@ import {
   WithStylesProvider
 } from '@src/context';
 import { ChatService } from '@src/services';
+import { mockGetChatSuccess } from '@src/test';
 import Chat from '..';
 
 jest.mock('@src/services/ChatService');
 
 describe('Chat', () => {
-  const publicMessage = {
-    username: 'test',
-    senderId: '12345',
-    recipientId: null,
-    channel: 'general',
-    text: 'i am a message',
-    _id: '19283',
-    createdAt: '2021-02-28T22:31:02.589Z'
-  };
-
   const MockAuthProvider: React.FC = ({ children }) => (
     <AuthContext.Provider
       value={{
@@ -58,13 +49,7 @@ describe('Chat', () => {
   );
 
   beforeEach(() => {
-    ChatService.getChat = jest.fn().mockResolvedValueOnce({
-      data: {
-        channels: [{ name: 'general', description: 'test description', _id: '11221' }],
-        chat: { '11221': [publicMessage] },
-        users: []
-      }
-    });
+    ChatService.getChat = jest.fn().mockResolvedValueOnce(mockGetChatSuccess);
   });
 
   it('renders', async () => {

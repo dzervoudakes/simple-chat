@@ -2,30 +2,16 @@ import React from 'react';
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import { AuthContext, ChatContext, ChatProvider } from '@src/context';
 import { ChatService } from '@src/services';
+import {
+  mockGetChatSuccess,
+  mockGetChatSuccessEmpty,
+  publicMessage,
+  privateMessage
+} from '@src/test';
 
 jest.mock('@src/services/ChatService');
 
 describe('ChatContext', () => {
-  const publicMessage = {
-    username: 'test',
-    senderId: '12345',
-    recipientId: null,
-    channel: 'general',
-    text: 'i am a message',
-    _id: '11221',
-    createdAt: '2021-02-28T22:31:02.589Z'
-  };
-
-  const privateMessage = {
-    username: 'test',
-    senderId: '12345',
-    recipientId: '67890',
-    channel: null,
-    text: 'i am a private message',
-    _id: '22112',
-    createdAt: '2021-02-28T22:31:02.589Z'
-  };
-
   const newUser = {
     username: 'NewUser123',
     _id: '66778'
@@ -86,13 +72,7 @@ describe('ChatContext', () => {
   );
 
   beforeEach(() => {
-    ChatService.getChat = jest.fn().mockResolvedValueOnce({
-      data: {
-        channels: [{ name: 'general', description: 'test description', _id: '11221' }],
-        messages: [],
-        users: []
-      }
-    });
+    ChatService.getChat = jest.fn().mockResolvedValueOnce(mockGetChatSuccessEmpty);
   });
 
   it('updates the current message list for a public channel', async () => {
@@ -133,13 +113,7 @@ describe('ChatContext', () => {
   });
 
   it('populates the default chat object', async () => {
-    ChatService.getChat = jest.fn().mockResolvedValueOnce({
-      data: {
-        channels: [],
-        chat: { '11221': [publicMessage], '67890': [privateMessage] },
-        users: []
-      }
-    });
+    ChatService.getChat = jest.fn().mockResolvedValueOnce(mockGetChatSuccess);
     render(<Wrapper />);
 
     await waitFor(() => {

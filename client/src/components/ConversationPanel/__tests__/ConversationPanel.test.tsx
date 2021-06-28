@@ -3,41 +3,12 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route } from 'react-router-dom';
 import { AuthContext, ChatProvider, WithStylesProvider } from '@src/context';
 import { ChatService } from '@src/services';
+import { mockGetChatSuccess } from '@src/test';
 import ConversationPanel from '..';
 
 jest.mock('@src/services/ChatService');
 
 describe('ConversationPanel', () => {
-  const mockUserOne = {
-    username: 'username1',
-    _id: 'userid1'
-  };
-
-  const mockUserTwo = {
-    username: 'username2',
-    _id: 'userid2'
-  };
-
-  const publicMessage = {
-    username: 'test',
-    senderId: '12345',
-    recipientId: null,
-    channel: 'general',
-    text: 'i am a message',
-    _id: '19283',
-    createdAt: '2021-02-28T22:31:02.589Z'
-  };
-
-  const privateMessage = {
-    username: 'test',
-    senderId: '12345',
-    recipientId: '67890',
-    channel: null,
-    text: 'i am a private message',
-    _id: '31892',
-    createdAt: '2021-02-28T22:31:02.589Z'
-  };
-
   const TestComponent: React.FC<{ initialEntry?: string }> = ({
     initialEntry = '/11221'
   }) => (
@@ -60,13 +31,7 @@ describe('ConversationPanel', () => {
   );
 
   beforeEach(() => {
-    ChatService.getChat = jest.fn().mockResolvedValueOnce({
-      data: {
-        channels: [{ name: 'general', description: 'test description', _id: '11221' }],
-        chat: { '11221': [publicMessage], '67890': [privateMessage] },
-        users: [mockUserOne, mockUserTwo]
-      }
-    });
+    ChatService.getChat = jest.fn().mockResolvedValueOnce(mockGetChatSuccess);
   });
 
   it('renders public channels', async () => {
@@ -86,13 +51,9 @@ describe('ConversationPanel', () => {
   });
 
   it('renders the empty state', async () => {
-    ChatService.getChat = jest.fn().mockResolvedValueOnce({
-      data: {
-        channels: [{ name: 'general', description: 'test', _id: '11221' }],
-        chat: { '11221': [publicMessage], '67890': [] },
-        users: [mockUserOne, mockUserTwo]
-      }
-    });
+    const mockData = { ...mockGetChatSuccess };
+    mockData.data.chat['67890'] = [];
+    ChatService.getChat = jest.fn().mockResolvedValueOnce(mockData);
     render(<TestComponent initialEntry="/67890" />);
 
     await waitFor(() => {

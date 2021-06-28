@@ -8,6 +8,11 @@ import {
   WithStylesProvider
 } from '@src/context';
 import { ChatService } from '@src/services';
+import {
+  mockGetChatSuccess,
+  publicMessageWithoutMeta,
+  privateMessageWithoutMeta
+} from '@src/test';
 import MessageForm from '..';
 
 const mockCreateMessage = jest.fn();
@@ -37,22 +42,6 @@ jest.mock('axios', () => ({
 describe('MessageForm', () => {
   const placeholderText = "Type your message here, then press 'Enter' to send.";
 
-  const publicMessage = {
-    username: 'test',
-    senderId: '12345',
-    text: 'i am a message',
-    recipientId: null,
-    channel: 'general'
-  };
-
-  const privateMessage = {
-    username: 'test',
-    senderId: '12345',
-    text: 'i am a private message',
-    recipientId: '67890',
-    channel: null
-  };
-
   const TestComponent: React.FC<{ initialEntry?: string }> = ({
     initialEntry = '/channels/11221'
   }) => (
@@ -81,13 +70,7 @@ describe('MessageForm', () => {
   });
 
   beforeEach(() => {
-    ChatService.getChat = jest.fn().mockResolvedValueOnce({
-      data: {
-        channels: [{ name: 'general', description: 'test description', _id: '11221' }],
-        chat: {},
-        users: []
-      }
-    });
+    ChatService.getChat = jest.fn().mockResolvedValueOnce(mockGetChatSuccess);
   });
 
   it('renders', () => {
@@ -97,40 +80,44 @@ describe('MessageForm', () => {
   });
 
   it('submits a public message', async () => {
-    mockCreateMessage.mockResolvedValueOnce({ data: { message: publicMessage } });
+    const message = { ...publicMessageWithoutMeta };
+    message.text = 'i am a new public message';
+    mockCreateMessage.mockResolvedValueOnce({ data: { message } });
     render(<TestComponent />);
 
     const input = screen.getByPlaceholderText(placeholderText);
-    fireEvent.change(input, { target: { value: 'i am a message' } });
+    fireEvent.change(input, { target: { value: 'i am a new public message' } });
     fireEvent.submit(input);
 
     await waitFor(() => {
       expect(mockCreateMessage).toHaveBeenCalledWith(
         expect.objectContaining({
-          data: publicMessage,
+          data: message,
           jwt: 'jwt'
         })
       );
-      expect(mockSendChatMessage).toHaveBeenCalledWith('public', publicMessage);
+      expect(mockSendChatMessage).toHaveBeenCalledWith('public', message);
     });
   });
 
   it('submits a private message', async () => {
-    mockCreateMessage.mockResolvedValueOnce({ data: { message: privateMessage } });
+    const message = { ...privateMessageWithoutMeta };
+    message.text = 'i am a new private message';
+    mockCreateMessage.mockResolvedValueOnce({ data: { message } });
     render(<TestComponent initialEntry="/direct/67890" />);
 
     const input = screen.getByPlaceholderText(placeholderText);
-    fireEvent.change(input, { target: { value: 'i am a private message' } });
+    fireEvent.change(input, { target: { value: 'i am a new private message' } });
     fireEvent.submit(input);
 
     await waitFor(() => {
       expect(mockCreateMessage).toHaveBeenCalledWith(
         expect.objectContaining({
-          data: privateMessage,
+          data: message,
           jwt: 'jwt'
         })
       );
-      expect(mockSendChatMessage).toHaveBeenCalledWith('private', privateMessage);
+      expect(mockSendChatMessage).toHaveBeenCalledWith('private', message);
     });
   });
 
@@ -139,7 +126,7 @@ describe('MessageForm', () => {
     render(<TestComponent />);
 
     const input = screen.getByPlaceholderText(placeholderText);
-    fireEvent.change(input, { target: { value: 'i am a message' } });
+    fireEvent.change(input, { target: { value: 'i am a new message' } });
     fireEvent.submit(input);
 
     await waitFor(() => {

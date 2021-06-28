@@ -8,6 +8,7 @@ import {
   WithStylesProvider
 } from '@src/context';
 import { ChatService } from '@src/services';
+import { mockGetChatSuccess } from '@src/test';
 import SideMenu from '..';
 
 const mockPush = jest.fn();
@@ -24,16 +25,6 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('SideMenu', () => {
-  const mockUserOne = {
-    username: 'username1',
-    _id: 'userid1'
-  };
-
-  const mockUserTwo = {
-    username: 'username2',
-    _id: 'userid2'
-  };
-
   const TestComponent: React.FC = () => (
     <MemoryRouter initialEntries={['/channels/11221']}>
       <WithStylesProvider>
@@ -54,13 +45,7 @@ describe('SideMenu', () => {
   );
 
   beforeEach(() => {
-    ChatService.getChat = jest.fn().mockResolvedValueOnce({
-      data: {
-        channels: [{ name: 'general', description: 'test description', _id: '11221' }],
-        chat: {},
-        users: [mockUserOne, mockUserTwo]
-      }
-    });
+    ChatService.getChat = jest.fn().mockResolvedValueOnce(mockGetChatSuccess);
   });
 
   it('renders', async () => {

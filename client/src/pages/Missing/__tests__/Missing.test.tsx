@@ -4,12 +4,12 @@ import { render, fireEvent, screen } from '@testing-library/react';
 import { AuthContext, WithStylesProvider } from '@src/context';
 import Missing from '..';
 
-const mockHistoryPush = jest.fn();
+const mockPush = jest.fn();
 
 jest.mock('react-router-dom', () => ({
   ...(jest.requireActual('react-router-dom') as jest.Mock),
   useHistory: () => ({
-    push: mockHistoryPush
+    push: mockPush
   })
 }));
 
@@ -34,7 +34,7 @@ describe('Missing', () => {
 
     fireEvent.click(screen.getByText('Return to login'));
 
-    expect(mockHistoryPush).toHaveBeenCalledWith('/');
+    expect(mockPush).toHaveBeenCalledWith('/');
   });
 
   it('redirects to the chat panel', () => {
@@ -51,6 +51,6 @@ describe('Missing', () => {
 
     fireEvent.click(screen.getByText('Return to chat'));
 
-    expect(mockHistoryPush).toHaveBeenCalledWith('/channels');
+    expect(mockPush).toHaveBeenCalledWith('/channels');
   });
 });
