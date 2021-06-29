@@ -2,4 +2,9 @@
   bottom: 4.25rem;
   position: absolute;
   right: 1rem;
+
+  .emoji-mart-anchor-icon,
+  .emoji-mart-category .emoji-mart-emoji span {
+    cursor: pointer;
+  }
 }

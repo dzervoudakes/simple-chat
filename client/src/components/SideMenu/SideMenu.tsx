@@ -1,16 +1,14 @@
 import React from 'react';
-import { useHistory, useParams } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import useStyles from 'react-with-styles/lib/hooks/useStyles';
 import { Styles } from 'react-with-styles';
 import sortBy from 'lodash/sortBy';
-import Button from '@src/components/Button';
+import SideMenuButton from '@src/components/SideMenuButton';
 import Spacer from '@src/components/Spacer';
 import Typography from '@src/components/Typography';
 import Skeleton from '@src/components/Skeleton';
 import { useAuth, useChat, useSideMenu } from '@src/hooks';
 import { MOBILE_QUERY } from '@src/constants';
-import { RouteParams } from '@src/types';
 import { Theme } from '@src/theme';
 
 const stylesFn = ({ color }: Theme): Styles => ({
@@ -21,15 +19,6 @@ const stylesFn = ({ color }: Theme): Styles => ({
     height: 'calc(100vh - 3.125rem)', // 3.125rem === header height
     overflowY: 'scroll',
     width: '15rem' // 240px
-  },
-  sideMenuListItem: {
-    maxWidth: '13rem', // 208px
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap'
-  },
-  sideMenuListItemMobile: {
-    maxWidth: '100%'
   },
   sideMenuMobile: {
     boxShadow: 'none',
@@ -45,30 +34,11 @@ const stylesFn = ({ color }: Theme): Styles => ({
 });
 
 const SideMenu: React.FC = () => {
-  const { conversationId } = useParams<RouteParams>();
-  const history = useHistory();
   const { user } = useAuth();
   const { channels, users } = useChat();
-  const { isSideMenuOpen, setIsSideMenuOpen } = useSideMenu();
+  const { isSideMenuOpen } = useSideMenu();
   const isMobile = useMediaQuery(MOBILE_QUERY);
   const { css, styles } = useStyles({ stylesFn });
-
-  const renderLinkButton = (url: string, text: string, id: string): JSX.Element => (
-    <Button
-      variant="link"
-      onClick={() => {
-        history.push(url);
-        setIsSideMenuOpen(false);
-      }}
-    >
-      <div
-        {...css(styles.sideMenuListItem, isMobile && styles.sideMenuListItemMobile)}
-        title={text}
-      >
-        {text} {id === conversationId && <>&raquo;</>}
-      </div>
-    </Button>
-  );
 
   return (
     <aside
@@ -95,11 +65,11 @@ const SideMenu: React.FC = () => {
           </Skeleton>
           {sortBy(channels, 'name').map((channel) => (
             <Spacer pt="xsmall" key={channel._id}>
-              {renderLinkButton(
-                `/channels/${channel._id}`,
-                `# ${channel.name}`,
-                channel._id
-              )}
+              <SideMenuButton
+                id={channel._id}
+                path="/channels"
+                text={`# ${channel.name}`}
+              />
             </Spacer>
           ))}
         </Spacer>
@@ -111,11 +81,11 @@ const SideMenu: React.FC = () => {
             ?.filter((listUser) => listUser.username !== user?.username)
             .map((listUser) => (
               <Spacer pt="xsmall" key={listUser._id}>
-                {renderLinkButton(
-                  `/direct/${listUser._id}`,
-                  listUser.username,
-                  listUser._id
-                )}
+                <SideMenuButton
+                  id={listUser._id}
+                  path="/direct"
+                  text={listUser.username}
+                />
               </Spacer>
             ))}
         </Spacer>
