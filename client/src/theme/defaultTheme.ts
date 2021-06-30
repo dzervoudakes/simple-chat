@@ -3,6 +3,24 @@
  * @packageDocumentation
  */
 
+export type FontWeight =
+  | 'initial'
+  | 'inherit'
+  | 'unset'
+  | 'normal'
+  | 'bold'
+  | 'bolder'
+  | 'lighter'
+  | 100
+  | 200
+  | 300
+  | 400
+  | 500
+  | 600
+  | 700
+  | 800
+  | 900;
+
 export type Spacing =
   | 'nudge'
   | 'tiny'
@@ -11,14 +29,6 @@ export type Spacing =
   | 'medium'
   | 'large'
   | 'xlarge';
-
-export interface Theme {
-  color: Record<string, string>;
-  fonts: Record<string, string>;
-  spacing: Record<Spacing, string>;
-  border: Record<string, string>;
-  typography: Record<string, Record<string, string | number>>;
-}
 
 const color = {
   primary: '#119da4',
@@ -51,7 +61,7 @@ const spacing = {
   xlarge: '2.5rem'
 };
 
-export const defaultTheme: Theme = {
+export const defaultTheme = {
   color,
   fonts,
   spacing,
@@ -68,7 +78,7 @@ export const defaultTheme: Theme = {
       color: color.grayDark,
       fontFamily: fonts.header,
       fontSize: '1.5rem',
-      fontWeight: 600,
+      fontWeight: 600 as FontWeight,
       lineHeight: 1.25,
       WebkitFontSmoothing: 'antialiased'
     },
@@ -76,7 +86,7 @@ export const defaultTheme: Theme = {
       color: color.grayDark,
       fontFamily: fonts.header,
       fontSize: '1.5rem',
-      fontWeight: 600,
+      fontWeight: 600 as FontWeight,
       lineHeight: 1.25,
       WebkitFontSmoothing: 'antialiased'
     },
@@ -84,7 +94,7 @@ export const defaultTheme: Theme = {
       color: color.grayLightest,
       fontFamily: fonts.header,
       fontSize: '1rem',
-      fontWeight: 600,
+      fontWeight: 600 as FontWeight,
       lineHeight: 1.25,
       WebkitFontSmoothing: 'antialiased'
     },
@@ -92,7 +102,7 @@ export const defaultTheme: Theme = {
       color: color.gray,
       fontFamily: fonts.body,
       fontSize: '1rem',
-      fontWeight: 400,
+      fontWeight: 400 as FontWeight,
       lineHeight: 1.25,
       WebkitFontSmoothing: 'antialiased'
     },
@@ -100,7 +110,7 @@ export const defaultTheme: Theme = {
       color: color.grayLight,
       fontFamily: fonts.body,
       fontSize: '0.875rem',
-      fontWeight: 400,
+      fontWeight: 400 as FontWeight,
       lineHeight: 1.2,
       WebkitFontSmoothing: 'antialiased'
     },
@@ -108,11 +118,13 @@ export const defaultTheme: Theme = {
       color: color.error,
       fontFamily: fonts.body,
       fontSize: '1rem',
-      fontWeight: 400,
+      fontWeight: 400 as FontWeight,
       lineHeight: 1.25,
       WebkitFontSmoothing: 'antialiased'
     }
   }
 };
+
+export type Theme = typeof defaultTheme;
 
 export default defaultTheme;
