@@ -1,5 +1,11 @@
 /**
  * Default theme for 'react-with-styles'.
+ *
+ * @remarks
+ *
+ * Aside from defining default styles, this file also exports the overall 'Theme' type
+ * to control the shape of any alternative themes that may be introduced later.
+ *
  * @packageDocumentation
  */
 
@@ -51,28 +57,24 @@ const fonts = {
   header: '"Poppins", sans-serif'
 };
 
-const spacing = {
-  nudge: '0.125rem',
-  tiny: '0.25rem',
-  xsmall: '0.5rem',
-  small: '1rem',
-  medium: '1.5rem',
-  large: '2rem',
-  xlarge: '2.5rem'
-};
-
 export const defaultTheme = {
   color,
   fonts,
-  spacing,
-
   border: {
     error: `0.0625rem solid ${color.error}`,
     thinGray: `0.0625rem solid ${color.grayLightest}`,
     thinSecondary: `0.0625rem solid ${color.secondary}`,
     thinTertiary: `0.0625rem solid ${color.tertiary}`
   },
-
+  spacing: {
+    nudge: '0.125rem',
+    tiny: '0.25rem',
+    xsmall: '0.5rem',
+    small: '1rem',
+    medium: '1.5rem',
+    large: '2rem',
+    xlarge: '2.5rem'
+  },
   typography: {
     h1: {
       color: color.grayDark,
