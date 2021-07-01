@@ -48,6 +48,7 @@ const color = {
   grayLight: '#989898',
   grayLightest: '#e1e1e1',
   error: '#dc143c',
+  alert: '#dc143c',
   blueFocus: 'rgba(0, 140, 210, 0.6)',
   grayFocus: 'rgba(90, 90, 90, 0.6)'
 };

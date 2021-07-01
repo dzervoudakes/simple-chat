@@ -48,7 +48,7 @@ const SideMenu: React.FC = () => {
         isMobile && isSideMenuOpen && styles.sideMenuMobileOpen
       )}
     >
-      <Spacer padding="small">
+      <Spacer pl="small" pt="small" pb="small">
         <Spacer pb="medium">
           <Skeleton height={20}>
             <Typography variant="h3">Current user</Typography>

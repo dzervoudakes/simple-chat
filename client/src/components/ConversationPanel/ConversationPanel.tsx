@@ -29,7 +29,7 @@ const ConversationPanel: React.FC = () => {
   const { css, styles } = useStyles({ stylesFn });
 
   useEffect(() => {
-    const height = (layoutRef.current?.offsetHeight ?? 0) + 100;
+    const height = (layoutRef.current?.offsetHeight ?? 0) + 2000;
     layoutRef.current?.scrollTo(0, height);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages]);
