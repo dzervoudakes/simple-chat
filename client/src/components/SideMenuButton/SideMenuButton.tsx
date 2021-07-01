@@ -23,11 +23,10 @@ const stylesFn = ({ color, fonts }: Theme): Styles => ({
     display: 'inline-block',
     fontFamily: fonts.body,
     fontSize: '75%',
-    marginLeft: '0.25rem',
+    marginLeft: '0.5rem',
     padding: '0.125rem 0.5rem',
-    position: 'relative',
     textAlign: 'center',
-    top: '-0.125rem'
+    verticalAlign: 'top'
   },
   sideMenuButton: {
     maxWidth: '11.5rem', // 184px
