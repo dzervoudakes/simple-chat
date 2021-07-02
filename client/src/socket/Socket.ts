@@ -3,7 +3,7 @@
  * @packageDocumentation
  */
 import { SERVER_BASE_URL } from '@src/constants';
-import { ChatUser, Message } from '@src/types';
+import { ActiveSocket, ChatUser, Message } from '@src/types';
 
 interface Query {
   userId: string;
@@ -18,7 +18,8 @@ export class Socket {
 
   public subscribeToChat = (
     updateChat: (message: Message) => void,
-    updateUsers: (user: ChatUser) => void
+    updateUsers: (user: ChatUser) => void,
+    updateSockets: (sockets: ActiveSocket[]) => void
   ): void => {
     const messageHandler = (message: Message): void => {
       updateChat(message);
@@ -28,6 +29,9 @@ export class Socket {
     this.socket.on('receive-message-private', messageHandler);
     this.socket.on('receive-new-user', (user: ChatUser) => {
       updateUsers(user);
+    });
+    this.socket.on('update-sockets', (sockets: ActiveSocket[]) => {
+      updateSockets(sockets);
     });
   };
 

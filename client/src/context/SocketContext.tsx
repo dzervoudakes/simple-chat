@@ -5,16 +5,18 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { useAuth, useChat } from '@src/hooks';
 import { Socket } from '@src/socket';
-import { ChatUser, Message } from '@src/types';
+import { ActiveSocket, ChatUser, Message } from '@src/types';
 
 export interface SocketContextProps {
+  activeSockets: ActiveSocket[];
   socket?: Socket;
 }
 
-export const SocketContext = createContext<SocketContextProps>({});
+export const SocketContext = createContext<SocketContextProps>({ activeSockets: [] });
 
 export const SocketProvider: React.FC = ({ children }) => {
   const [socket, setSocket] = useState<Socket | undefined>();
+  const [activeSockets, setActiveSockets] = useState<ActiveSocket[]>([]);
   const { user } = useAuth();
   const { chatDispatch } = useChat();
 
@@ -32,7 +34,11 @@ export const SocketProvider: React.FC = ({ children }) => {
         chatDispatch({ type: 'UPDATE_USERS', payload: newUser });
       };
 
-      newSocket.subscribeToChat(messageDispatch, userDispatch);
+      const updateSockets = (sockets: ActiveSocket[]): void => {
+        setActiveSockets(sockets);
+      };
+
+      newSocket.subscribeToChat(messageDispatch, userDispatch, updateSockets);
 
       if (isNewUser) {
         newSocket.sendNewUser(chatUser);
@@ -48,7 +54,11 @@ export const SocketProvider: React.FC = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  return <SocketContext.Provider value={{ socket }}>{children}</SocketContext.Provider>;
+  return (
+    <SocketContext.Provider value={{ activeSockets, socket }}>
+      {children}
+    </SocketContext.Provider>
+  );
 };
 
 export default SocketProvider;

@@ -8,6 +8,7 @@ describe('useSocket', () => {
   const TestComponent: React.FC = ({ children }) => (
     <SocketContext.Provider
       value={{
+        activeSockets: [{ userId: '12345', socketId: '67890' }],
         socket: new Socket({ userId: '12345' })
       }}
     >
@@ -17,8 +18,10 @@ describe('useSocket', () => {
 
   it('returns the current socket instance', () => {
     const { result } = renderHook(() => useSocket(), { wrapper: TestComponent });
-    const { socket } = result.current;
+    const { activeSockets, socket } = result.current;
 
+    expect(activeSockets[0].userId).toEqual('12345');
+    expect(activeSockets[0].socketId).toEqual('67890');
     expect(socket).toBeTruthy();
   });
 });

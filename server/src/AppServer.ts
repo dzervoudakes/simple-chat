@@ -73,6 +73,7 @@ export class AppServer extends Server {
       const { userId } = socket.handshake.query;
 
       this.sockets.push({ userId: userId as string, socketId: socket.id });
+      this.io.sockets.emit('update-sockets', this.sockets);
 
       // send and receive public messages
       socket.on('send-message-public', (message: MessageType) => {
@@ -103,6 +104,7 @@ export class AppServer extends Server {
         if (closedSocket) {
           const index = this.sockets.indexOf(closedSocket);
           this.sockets.splice(index, 1);
+          this.io.sockets.emit('update-sockets', this.sockets);
         }
       });
     });

@@ -4,6 +4,11 @@
  */
 import { CancelTokenSource, AxiosResponse } from 'axios';
 
+export interface ActiveSocket {
+  socketId: string;
+  userId: string;
+}
+
 export interface ApiRequest<T> {
   data?: T;
   source: CancelTokenSource;

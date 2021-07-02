@@ -78,7 +78,7 @@ const SideMenu: React.FC = () => {
             <Typography variant="h3">Direct messages</Typography>
           </Skeleton>
           {sortBy(users, 'username')
-            ?.filter((listUser) => listUser.username !== user?.username)
+            ?.filter(({ username }) => username !== user?.username)
             .map((listUser) => (
               <Spacer pt="xsmall" key={listUser._id}>
                 <SideMenuButton
