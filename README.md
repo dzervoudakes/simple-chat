@@ -19,7 +19,7 @@ A simple, real-time chat UI with a preconfigured list of chatrooms which users c
 - The UI is loosely inspired by Slack
 - WebSockets are awesome
 
-<!-- ![demo](demo.gif) -->
+![demo](demo.gif)
 
 ## Technologies Used
 
