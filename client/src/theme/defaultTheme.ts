@@ -54,7 +54,8 @@ const color = {
 };
 
 const fonts = {
-  primary: '"Montserrat", sans-serif'
+  primary: '"Montserrat", sans-serif',
+  secondary: '"Open Sans", sans-serif'
 };
 
 export const defaultTheme = {
@@ -102,7 +103,7 @@ export const defaultTheme = {
     },
     body: {
       color: color.gray,
-      fontFamily: fonts.primary,
+      fontFamily: fonts.secondary,
       fontSize: '1rem',
       fontWeight: 400 as FontWeight,
       lineHeight: 1.25,
@@ -110,7 +111,7 @@ export const defaultTheme = {
     },
     disclaimer: {
       color: color.grayLight,
-      fontFamily: fonts.primary,
+      fontFamily: fonts.secondary,
       fontSize: '0.875rem',
       fontWeight: 400 as FontWeight,
       lineHeight: 1.2,
@@ -118,7 +119,7 @@ export const defaultTheme = {
     },
     error: {
       color: color.error,
-      fontFamily: fonts.primary,
+      fontFamily: fonts.secondary,
       fontSize: '1rem',
       fontWeight: 400 as FontWeight,
       lineHeight: 1.25,

@@ -53,7 +53,7 @@ describe('Chat', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText('Current user')).toBeInTheDocument();
+      expect(screen.getByText('Current User')).toBeInTheDocument();
       expect(
         screen.getByPlaceholderText("Type your message here, then press 'Enter' to send.")
       ).toBeInTheDocument();

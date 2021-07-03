@@ -51,7 +51,7 @@ const SideMenu: React.FC = () => {
       <Spacer pl="small" pt="small" pb="small">
         <Spacer pb="medium">
           <Skeleton height={20}>
-            <Typography variant="h3">Current user</Typography>
+            <Typography variant="h3">Current User</Typography>
           </Skeleton>
           {user?.username && (
             <Spacer pt="xsmall">
@@ -75,7 +75,7 @@ const SideMenu: React.FC = () => {
         </Spacer>
         <Spacer pb="medium">
           <Skeleton height={20}>
-            <Typography variant="h3">Direct messages</Typography>
+            <Typography variant="h3">Direct Messages</Typography>
           </Skeleton>
           {sortBy(users, 'username')
             ?.filter(({ username }) => username !== user?.username)

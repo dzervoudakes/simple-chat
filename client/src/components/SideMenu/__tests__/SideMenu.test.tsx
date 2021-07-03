@@ -47,9 +47,9 @@ describe('SideMenu', () => {
     render(<TestComponent />);
 
     await waitFor(() => {
-      expect(screen.getByText('Current user')).toBeInTheDocument();
+      expect(screen.getByText('Current User')).toBeInTheDocument();
       expect(screen.getByText('Channels')).toBeInTheDocument();
-      expect(screen.getByText('Direct messages')).toBeInTheDocument();
+      expect(screen.getByText('Direct Messages')).toBeInTheDocument();
       expect(screen.getByText('# general »')).toBeInTheDocument();
       expect(screen.getByText('username1')).toBeInTheDocument();
       expect(screen.getByText('username2')).toBeInTheDocument();
@@ -59,7 +59,7 @@ describe('SideMenu', () => {
   it('navigates to public and private conversations', async () => {
     render(<TestComponent />);
 
-    await screen.findByText('Current user');
+    await screen.findByText('Current User');
 
     fireEvent.click(screen.getByText('# general »'));
     fireEvent.click(screen.getByText('username1'));

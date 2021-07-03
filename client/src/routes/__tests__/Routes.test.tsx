@@ -28,7 +28,7 @@ describe('Routes', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText('Current user')).toBeInTheDocument();
+      expect(screen.getByText('Current User')).toBeInTheDocument();
     });
   });
 
