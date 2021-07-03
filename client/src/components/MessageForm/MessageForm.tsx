@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Formik, Form, FormikHelpers } from 'formik';
@@ -34,7 +34,7 @@ const MessageForm: React.FC = () => {
   const { socket } = useSocket();
   const { channels, chatDispatch, loading } = useChat();
   const [isFormSubmitError, setIsFormSubmitError] = useState(false);
-  const inputRef = createRef<HTMLInputElement>();
+  const inputRef = useRef<HTMLInputElement>();
   const { css, styles } = useStyles({ stylesFn });
 
   const source = axios.CancelToken.source();

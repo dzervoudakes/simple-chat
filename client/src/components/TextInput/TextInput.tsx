@@ -6,6 +6,7 @@ import { Styles } from 'react-with-styles';
 import EmojiButton from '@src/components/EmojiButton';
 import Spacer from '@src/components/Spacer';
 import { Theme } from '@src/theme';
+import { RefElement } from '@src/types';
 
 interface TextInputProps {
   disabled?: boolean;
@@ -43,7 +44,7 @@ const stylesFn = ({ border, color, fonts, spacing }: Theme): Styles => ({
   }
 });
 
-const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>((props, ref) => {
+const TextInput = React.forwardRef<RefElement, TextInputProps>((props, ref) => {
   const [field, meta] = useField(props.name);
   const { setFieldValue } = useFormikContext();
   const { css, styles } = useStyles({ stylesFn });

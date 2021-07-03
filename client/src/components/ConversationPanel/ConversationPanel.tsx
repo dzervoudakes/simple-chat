@@ -1,4 +1,4 @@
-import React, { createRef, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import useStyles from 'react-with-styles/lib/hooks/useStyles';
@@ -25,7 +25,7 @@ const stylesFn = (): Styles => ({
 const ConversationPanel: React.FC = () => {
   const { conversationId } = useParams<RouteParams>();
   const { messages } = useChat(conversationId);
-  const layoutRef = createRef<HTMLElement>();
+  const layoutRef = useRef<HTMLElement>();
   const { css, styles } = useStyles({ stylesFn });
 
   useEffect(() => {

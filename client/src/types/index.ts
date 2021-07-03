@@ -54,6 +54,8 @@ export interface Message {
   createdAt: string;
 }
 
+export type RefElement = HTMLElement | undefined;
+
 export interface RouteParams {
   conversationId: string;
   conversationType: string;

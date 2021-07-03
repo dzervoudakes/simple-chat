@@ -2,6 +2,11 @@ import React from 'react';
 import useStyles from 'react-with-styles/lib/hooks/useStyles';
 import { Styles } from 'react-with-styles';
 import { Theme } from '@src/theme';
+import { RefElement } from '@src/types';
+
+interface LayoutProps {
+  children: React.ReactNode;
+}
 
 const stylesFn = ({ spacing }: Theme): Styles => ({
   layout: {
@@ -12,11 +17,7 @@ const stylesFn = ({ spacing }: Theme): Styles => ({
   }
 });
 
-interface LayoutProps {
-  children: React.ReactNode;
-}
-
-const Layout = React.forwardRef<HTMLElement, LayoutProps>((props, ref) => {
+const Layout = React.forwardRef<RefElement, LayoutProps>((props, ref) => {
   const { css, styles } = useStyles({ stylesFn });
 
   return (
