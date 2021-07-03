@@ -35,7 +35,7 @@ const stylesFn = ({ color, spacing }: Theme): Styles => ({
     left: spacing.small,
     transition: 'background 0.2s ease',
     ':hover': {
-      background: color.tealAccent
+      background: color.blueAccent
     },
     ':focus': {
       boxShadow: `0 0 0 0.2rem ${color.grayFocus}`,

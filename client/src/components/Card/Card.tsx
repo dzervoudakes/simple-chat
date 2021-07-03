@@ -6,7 +6,7 @@ import { Theme } from '@src/theme';
 const stylesFn = ({ border, color, spacing }: Theme): Styles => ({
   card: {
     background: color.white,
-    border: border.thinTertiary,
+    border: border.thinGray,
     borderRadius: spacing.tiny,
     boxShadow: '0.125rem 0.125rem 0.125rem 0 rgba(89, 89, 89, 0.1)',
     margin: `${spacing.medium} auto 0`,

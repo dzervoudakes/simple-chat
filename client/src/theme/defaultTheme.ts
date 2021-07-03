@@ -37,10 +37,9 @@ export type Spacing =
   | 'xlarge';
 
 const color = {
-  primary: '#119da4',
-  secondary: '#063347',
-  tertiary: '#fec601',
-  tealAccent: '#c2e4f3',
+  primary: '#00b9fe',
+  secondary: '#04003f',
+  blueAccent: '#9ae3ff',
   black: '#000',
   white: '#fff',
   grayDark: '#303030',
@@ -50,13 +49,12 @@ const color = {
   green: '#32cd32',
   error: '#dc143c',
   alert: '#dc143c',
-  blueFocus: 'rgba(0, 140, 210, 0.6)',
+  blueFocus: 'rgba(32, 181, 255, 0.6)',
   grayFocus: 'rgba(90, 90, 90, 0.6)'
 };
 
 const fonts = {
-  body: '"Nunito sans", sans-serif',
-  header: '"Poppins", sans-serif'
+  primary: '"Montserrat", sans-serif'
 };
 
 export const defaultTheme = {
@@ -65,8 +63,8 @@ export const defaultTheme = {
   border: {
     error: `0.0625rem solid ${color.error}`,
     thinGray: `0.0625rem solid ${color.grayLightest}`,
-    thinSecondary: `0.0625rem solid ${color.secondary}`,
-    thinTertiary: `0.0625rem solid ${color.tertiary}`
+    thinPrimary: `0.0625rem solid ${color.primary}`,
+    thinSecondary: `0.0625rem solid ${color.secondary}`
   },
   spacing: {
     nudge: '0.125rem',
@@ -80,7 +78,7 @@ export const defaultTheme = {
   typography: {
     h1: {
       color: color.grayDark,
-      fontFamily: fonts.header,
+      fontFamily: fonts.primary,
       fontSize: '1.5rem',
       fontWeight: 600 as FontWeight,
       lineHeight: 1.25,
@@ -88,7 +86,7 @@ export const defaultTheme = {
     },
     h2: {
       color: color.grayDark,
-      fontFamily: fonts.header,
+      fontFamily: fonts.primary,
       fontSize: '1.5rem',
       fontWeight: 600 as FontWeight,
       lineHeight: 1.25,
@@ -96,7 +94,7 @@ export const defaultTheme = {
     },
     h3: {
       color: color.grayLightest,
-      fontFamily: fonts.header,
+      fontFamily: fonts.primary,
       fontSize: '1rem',
       fontWeight: 600 as FontWeight,
       lineHeight: 1.25,
@@ -104,7 +102,7 @@ export const defaultTheme = {
     },
     body: {
       color: color.gray,
-      fontFamily: fonts.body,
+      fontFamily: fonts.primary,
       fontSize: '1rem',
       fontWeight: 400 as FontWeight,
       lineHeight: 1.25,
@@ -112,7 +110,7 @@ export const defaultTheme = {
     },
     disclaimer: {
       color: color.grayLight,
-      fontFamily: fonts.body,
+      fontFamily: fonts.primary,
       fontSize: '0.875rem',
       fontWeight: 400 as FontWeight,
       lineHeight: 1.2,
@@ -120,7 +118,7 @@ export const defaultTheme = {
     },
     error: {
       color: color.error,
-      fontFamily: fonts.body,
+      fontFamily: fonts.primary,
       fontSize: '1rem',
       fontWeight: 400 as FontWeight,
       lineHeight: 1.25,

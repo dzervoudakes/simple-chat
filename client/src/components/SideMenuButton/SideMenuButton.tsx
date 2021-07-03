@@ -21,7 +21,7 @@ const stylesFn = ({ color, fonts }: Theme): Styles => ({
     borderRadius: '4rem',
     color: color.white,
     display: 'inline-block',
-    fontFamily: fonts.body,
+    fontFamily: fonts.primary,
     fontSize: '75%',
     marginLeft: '0.5rem',
     padding: '0.125rem 0.5rem',

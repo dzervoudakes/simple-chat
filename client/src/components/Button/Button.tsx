@@ -16,7 +16,7 @@ const stylesFn = ({ border, color, fonts, spacing }: Theme): Styles => ({
   button: {
     borderRadius: spacing.tiny,
     cursor: 'pointer',
-    fontFamily: fonts.body,
+    fontFamily: fonts.primary,
     fontSize: '1rem',
     fontWeight: 600,
     outline: 'none',
@@ -33,6 +33,7 @@ const stylesFn = ({ border, color, fonts, spacing }: Theme): Styles => ({
   primary: {
     background: color.primary,
     border: 'none',
+
     color: color.white,
     ':hover': {
       background: color.secondary
@@ -43,10 +44,10 @@ const stylesFn = ({ border, color, fonts, spacing }: Theme): Styles => ({
   },
   secondary: {
     background: color.secondary,
-    border: border.thinSecondary,
-    color: color.secondary,
+    border: 'none',
+    color: color.primary,
     ':hover': {
-      background: color.tealAccent
+      background: color.blueAccent
     },
     ':focus': {
       boxShadow: `0 0 0 0.2rem ${color.blueFocus}`
@@ -60,10 +61,10 @@ const stylesFn = ({ border, color, fonts, spacing }: Theme): Styles => ({
     textAlign: 'left',
     whiteSpace: 'nowrap',
     ':hover': {
-      color: color.tealAccent
+      color: color.blueAccent
     },
     ':focus': {
-      color: color.tealAccent,
+      color: color.blueAccent,
       textDecoration: 'underline'
     }
   },

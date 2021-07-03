@@ -44,7 +44,8 @@ const EmojiButton: React.FC<EmojiButtonProps> = ({ onSelect = noop }) => {
           }}
           emoji="smirk"
           title="Select an emoji"
-          color="#119da4" // primary
+          color="#00b9fe" // primary
+          theme="dark"
           autoFocus
         />
       )}

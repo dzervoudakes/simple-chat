@@ -53,14 +53,13 @@ const ConversationPanel: React.FC = () => {
           )}
           {messages?.map((message, index) => {
             const previousMessage = messages[index - 1];
-
             return (
               <Spacer pb="xsmall" key={message._id}>
                 {previousMessage?.username !== message.username && (
                   <Spacer pt={index !== 0 ? 'xsmall' : undefined} pb="xsmall">
                     <Typography variant="disclaimer">
                       {message.username} |{' '}
-                      {format(new Date(message.createdAt), 'h:mm a EEEE, MMMM do')}
+                      {format(new Date(message.createdAt), 'h:mm a EEEE')}
                     </Typography>
                   </Spacer>
                 )}

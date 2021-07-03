@@ -22,7 +22,7 @@ const stylesFn = ({ border, color, fonts, spacing }: Theme): Styles => ({
     boxShadow: 'inset 0 0 0.0625rem rgba(0, 0, 0, 0.2)',
     boxSizing: 'border-box',
     color: color.grayDark,
-    fontFamily: fonts.body,
+    fontFamily: fonts.primary,
     fontSize: '0.75rem',
     outline: 'none',
     padding: spacing.xsmall,
@@ -32,7 +32,7 @@ const stylesFn = ({ border, color, fonts, spacing }: Theme): Styles => ({
       color: color.grayLight
     },
     ':focus': {
-      borderColor: color.tertiary
+      borderColor: color.primary
     }
   },
   error: {
