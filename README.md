@@ -32,7 +32,7 @@ A simple, real-time chat UI with a preconfigured list of chatrooms which users c
 
 ### Database and Server Setup
 
-- Ensure `Docker` is installed and running
+- Ensure that `Docker` is installed and running
 - In your terminal, `cd` into the `server` directory and run `npm install`
 - From the project root, open your terminal and run `docker compose up`
   - Seed data will be populated in the database automatically
