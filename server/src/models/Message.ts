@@ -1,4 +1,4 @@
-import { Document, Schema, model } from 'mongoose';
+import { Schema, model } from 'mongoose';
 
 export interface MessageType {
   username: string;
@@ -8,9 +8,7 @@ export interface MessageType {
   text: string;
 }
 
-export interface MessageDocument extends MessageType, Document {}
-
-export const MessageSchema = new Schema<MessageDocument>(
+export const MessageSchema = new Schema<MessageType>(
   {
     username: { type: String, required: true },
     senderId: { type: String, required: true },
