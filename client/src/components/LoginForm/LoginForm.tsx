@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import useStyles from 'react-with-styles/lib/hooks/useStyles';
 import { Styles } from 'react-with-styles';
 import Button from '@src/components/Button';
@@ -48,6 +48,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
   const { css, styles } = useStyles({ stylesFn });
 
   const source = axios.CancelToken.source();
+  const previousUser = sessionStorage.getItem('user');
 
   useEffect(() => {
     return () => {
@@ -55,6 +56,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (previousUser) {
+    return <Redirect to="/channels" />;
+  }
 
   const onSubmit = async (
     values: AuthPayload,

@@ -18,4 +18,9 @@ Object.defineProperty(window, 'location', {
   value: { assign: jest.fn(), reload: jest.fn() }
 });
 
+Object.defineProperty(window, 'sessionStorage', {
+  configurable: true,
+  value: { setItem: jest.fn(), getItem: jest.fn() }
+});
+
 Element.prototype.scrollTo = jest.fn();
