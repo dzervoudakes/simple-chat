@@ -70,7 +70,7 @@ const TextInput = React.forwardRef<RefElement, TextInputProps>((props, ref) => {
         {...css(styles.textInput, meta.error && styles.error)}
       />
       {emojis && (
-        <Spacer as="span" pl="xsmall" pt="nudge">
+        <Spacer as="span" pl="xsmall" pt="xtiny">
           <EmojiButton onSelect={onEmojiClick} />
         </Spacer>
       )}

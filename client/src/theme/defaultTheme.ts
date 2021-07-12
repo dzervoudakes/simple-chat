@@ -28,7 +28,7 @@ export type FontWeight =
   | 900;
 
 export type Spacing =
-  | 'nudge'
+  | 'xtiny'
   | 'tiny'
   | 'xsmall'
   | 'small'
@@ -68,7 +68,7 @@ export const defaultTheme = {
     thinSecondary: `0.0625rem solid ${color.secondary}`
   },
   spacing: {
-    nudge: '0.125rem',
+    xtiny: '0.125rem',
     tiny: '0.25rem',
     xsmall: '0.5rem',
     small: '1rem',
