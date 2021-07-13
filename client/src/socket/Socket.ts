@@ -9,6 +9,12 @@ interface Query {
   userId: string;
 }
 
+interface Subscription {
+  updateChat: (message: Message) => void;
+  updateUsers: (user: ChatUser) => void;
+  updateSockets: (sockets: ActiveSocket[]) => void;
+}
+
 export class Socket {
   constructor(query: Query) {
     this.socket = require('socket.io-client')(SERVER_BASE_URL, { query });
@@ -16,11 +22,11 @@ export class Socket {
 
   private socket;
 
-  public subscribeToChat = (
-    updateChat: (message: Message) => void,
-    updateUsers: (user: ChatUser) => void,
-    updateSockets: (sockets: ActiveSocket[]) => void
-  ): void => {
+  public subscribeToChat = ({
+    updateChat,
+    updateUsers,
+    updateSockets
+  }: Subscription): void => {
     const messageHandler = (message: Message): void => {
       updateChat(message);
     };

@@ -26,11 +26,11 @@ export const SocketProvider: React.FC = ({ children }) => {
       const chatUser = { username: user.username, _id: user.id };
       const isNewUser = sessionStorage.getItem('new-user') === 'true';
 
-      const messageDispatch = (message: Message): void => {
+      const updateChat = (message: Message): void => {
         chatDispatch({ type: 'UPDATE_CHAT', payload: message });
       };
 
-      const userDispatch = (newUser: ChatUser): void => {
+      const updateUsers = (newUser: ChatUser): void => {
         chatDispatch({ type: 'UPDATE_USERS', payload: newUser });
       };
 
@@ -38,7 +38,7 @@ export const SocketProvider: React.FC = ({ children }) => {
         setActiveSockets(sockets);
       };
 
-      newSocket.subscribeToChat(messageDispatch, userDispatch, updateSockets);
+      newSocket.subscribeToChat({ updateChat, updateUsers, updateSockets });
 
       if (isNewUser) {
         newSocket.sendNewUser(chatUser);
