@@ -44,12 +44,13 @@ const EmojiButton: React.FC<EmojiButtonProps> = ({ onSelect = noop }) => {
           }}
           emoji="smirk"
           title="Select an emoji"
-          color="#00b9fe" // primary
+          color="#0065fe" // primary
           theme="dark"
           autoFocus
         />
       )}
       <button
+        aria-label="emoji button"
         type="button"
         onClick={togglePicker}
         data-testid="emojiButton"

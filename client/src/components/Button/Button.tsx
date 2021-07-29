@@ -4,7 +4,7 @@ import useStyles from 'react-with-styles/lib/hooks/useStyles';
 import { Styles } from 'react-with-styles';
 import { Theme } from '@src/theme';
 
-type Variant = 'primary' | 'secondary' | 'link';
+type Variant = 'primary' | 'secondary' | 'link' | 'linkLight';
 
 interface ButtonProps {
   disabled?: boolean;
@@ -47,7 +47,7 @@ const stylesFn = ({ border, color, fonts, spacing }: Theme): Styles => ({
     border: 'none',
     color: color.primary,
     ':hover': {
-      background: color.blueAccent
+      background: color.tertiary
     },
     ':focus': {
       boxShadow: `0 0 0 0.2rem ${color.blueFocus}`
@@ -57,6 +57,21 @@ const stylesFn = ({ border, color, fonts, spacing }: Theme): Styles => ({
     background: 'none',
     border: 'none',
     color: color.primary,
+    padding: '0',
+    textAlign: 'left',
+    whiteSpace: 'nowrap',
+    ':hover': {
+      color: color.tertiary
+    },
+    ':focus': {
+      color: color.tertiary,
+      textDecoration: 'underline'
+    }
+  },
+  linkLight: {
+    background: 'none',
+    border: 'none',
+    color: color.tertiary,
     padding: '0',
     textAlign: 'left',
     whiteSpace: 'nowrap',
@@ -112,6 +127,7 @@ const Button: React.FC<ButtonProps> = ({
         variant === 'primary' && styles.primary,
         variant === 'secondary' && styles.secondary,
         variant === 'link' && styles.link,
+        variant === 'linkLight' && styles.linkLight,
         disabled && styles.disabled,
         disabled && variant === 'primary' && styles.primaryDisabled,
         disabled && variant === 'secondary' && styles.secondaryDisabled,

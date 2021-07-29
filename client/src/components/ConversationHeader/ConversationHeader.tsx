@@ -56,7 +56,7 @@ const ConversationHeader: React.FC = () => {
   }, [channels, conversationId, conversationType, users]);
 
   return (
-    <div {...css(styles.conversationHeader)}>
+    <div {...css(styles.conversationHeader)} role="contentinfo">
       <Skeleton height={30}>
         <div {...css(styles.flexContainer)}>
           {!isChannel && (

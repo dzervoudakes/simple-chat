@@ -34,6 +34,16 @@ describe('Typography', () => {
     expect(screen.getByText('hello world')).toBeInTheDocument();
   });
 
+  it('renders the blockHeader variant', () => {
+    render(
+      <WithStylesProvider>
+        <Typography variant="blockHeader">hello world</Typography>
+      </WithStylesProvider>
+    );
+
+    expect(screen.getByText('hello world')).toBeInTheDocument();
+  });
+
   it('renders the default body variant', () => {
     render(
       <WithStylesProvider>
@@ -48,6 +58,16 @@ describe('Typography', () => {
     render(
       <WithStylesProvider>
         <Typography variant="disclaimer">hello world</Typography>
+      </WithStylesProvider>
+    );
+
+    expect(screen.getByText('hello world')).toBeInTheDocument();
+  });
+
+  it('renders the disclaimerLight variant', () => {
+    render(
+      <WithStylesProvider>
+        <Typography variant="disclaimerLight">hello world</Typography>
       </WithStylesProvider>
     );
 

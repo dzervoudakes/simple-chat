@@ -60,7 +60,7 @@ const SideMenuButton: React.FC<SideMenuProps> = ({ id, path, text }) => {
   return (
     <>
       <Button
-        variant="link"
+        variant="linkLight"
         onClick={() => {
           history.push(`${path}/${id}`);
           setIsSideMenuOpen(false);

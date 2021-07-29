@@ -4,7 +4,15 @@ import { Styles } from 'react-with-styles';
 import { Theme } from '@src/theme';
 
 interface TypographyProps {
-  variant?: 'h1' | 'h2' | 'h3' | 'body' | 'disclaimer' | 'error';
+  variant?:
+    | 'h1'
+    | 'h2'
+    | 'h3'
+    | 'blockHeader'
+    | 'body'
+    | 'disclaimer'
+    | 'disclaimerLight'
+    | 'error';
 }
 
 const stylesFn = ({ typography }: Theme): Styles => ({ ...typography });
@@ -16,8 +24,10 @@ const Typography: React.FC<TypographyProps> = ({ children, variant = 'body' }) =
     h1: 'h1',
     h2: 'h2',
     h3: 'h3',
+    blockHeader: 'p',
     body: 'p',
     disclaimer: 'p',
+    disclaimerLight: 'p',
     error: 'p'
   };
 

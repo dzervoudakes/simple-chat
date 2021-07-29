@@ -93,7 +93,7 @@ const MessageForm: React.FC = () => {
     <Formik initialValues={{ message: '' }} onSubmit={onSubmit}>
       {() => (
         <Form>
-          <div {...css(styles.formContainer)}>
+          <div {...css(styles.formContainer)} role="form">
             {isFormSubmitError ? (
               <GeneralError />
             ) : (

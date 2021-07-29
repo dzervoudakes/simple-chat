@@ -37,14 +37,15 @@ export type Spacing =
   | 'xlarge';
 
 const color = {
-  primary: '#00b9fe',
+  primary: '#0065fe',
   secondary: '#04003f',
+  tertiary: '#00b9fe',
   blueAccent: '#9ae3ff',
   black: '#000',
   white: '#fff',
   grayDark: '#303030',
   gray: '#5a5a5a',
-  grayLight: '#989898',
+  grayLight: '#707070',
   grayLightest: '#e1e1e1',
   green: '#32cd32',
   error: '#dc143c',
@@ -101,6 +102,14 @@ export const defaultTheme = {
       lineHeight: 1.25,
       WebkitFontSmoothing: 'antialiased'
     },
+    blockHeader: {
+      color: color.grayLightest,
+      fontFamily: fonts.primary,
+      fontSize: '1rem',
+      fontWeight: 600 as FontWeight,
+      lineHeight: 1.25,
+      WebkitFontSmoothing: 'antialiased'
+    },
     body: {
       color: color.gray,
       fontFamily: fonts.secondary,
@@ -111,6 +120,14 @@ export const defaultTheme = {
     },
     disclaimer: {
       color: color.grayLight,
+      fontFamily: fonts.secondary,
+      fontSize: '0.875rem',
+      fontWeight: 400 as FontWeight,
+      lineHeight: 1.2,
+      WebkitFontSmoothing: 'antialiased'
+    },
+    disclaimerLight: {
+      color: color.grayLightest,
       fontFamily: fonts.secondary,
       fontSize: '0.875rem',
       fontWeight: 400 as FontWeight,

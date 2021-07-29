@@ -51,17 +51,17 @@ const SideMenu: React.FC = () => {
       <Spacer pl="small" pt="small" pb="small">
         <Spacer pb="medium">
           <Skeleton height={20}>
-            <Typography variant="h3">Current User</Typography>
+            <Typography variant="blockHeader">Current User</Typography>
           </Skeleton>
           {user?.username && (
             <Spacer pt="xsmall">
-              <Typography variant="disclaimer">{user.username}</Typography>
+              <Typography variant="disclaimerLight">{user.username}</Typography>
             </Spacer>
           )}
         </Spacer>
         <Spacer pb="medium">
           <Skeleton height={20}>
-            <Typography variant="h3">Channels</Typography>
+            <Typography variant="blockHeader">Channels</Typography>
           </Skeleton>
           {sortBy(channels, 'name').map((channel) => (
             <Spacer pt="xsmall" key={channel._id}>
@@ -75,7 +75,7 @@ const SideMenu: React.FC = () => {
         </Spacer>
         <Spacer pb="medium">
           <Skeleton height={20}>
-            <Typography variant="h3">Direct Messages</Typography>
+            <Typography variant="blockHeader">Direct Messages</Typography>
           </Skeleton>
           {sortBy(users, 'username')
             ?.filter(({ username }) => username !== user?.username)

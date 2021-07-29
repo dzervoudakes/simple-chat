@@ -34,6 +34,16 @@ describe('Button', () => {
 
       expect(screen.getByText('link')).toBeInTheDocument();
     });
+
+    it('renders linkLight variant', () => {
+      render(
+        <WithStylesProvider>
+          <Button variant="linkLight">link</Button>
+        </WithStylesProvider>
+      );
+
+      expect(screen.getByText('link')).toBeInTheDocument();
+    });
   });
 
   describe('disabled', () => {
