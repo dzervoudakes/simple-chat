@@ -28,6 +28,10 @@ A simple, real-time chat UI with a preconfigured list of chatrooms which users c
 - **Database:** Docker, MongoDB
 - **CI/CD:** GitHub Actions
 
+## Accessibility
+
+This application has been tested for accessibility via the [axe DevTools - Web Accessibility Testing](https://chrome.google.com/webstore/detail/axe-devtools-web-accessib/lhdoppojpmngadmnindnejefpokejbdd) Chrome extension.
+
 ## Local Development
 
 ### Database and Server Setup
