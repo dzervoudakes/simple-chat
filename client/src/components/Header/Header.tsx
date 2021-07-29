@@ -54,8 +54,9 @@ const Header: React.FC = () => {
     <header {...css(styles.header, isMobile && styles.headerMobile)}>
       {isMobile && user && (
         <button
-          type="button"
+          aria-label="toggle side menu"
           data-testid="mobileMenuIcon"
+          type="button"
           onClick={() => setIsSideMenuOpen(!isSideMenuOpen)}
           {...css(styles.mobileMenuButton)}
         >
