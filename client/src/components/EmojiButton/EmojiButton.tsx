@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Picker, BaseEmoji } from 'emoji-mart';
 import noop from 'lodash/noop';
 import useStyles from 'react-with-styles/lib/hooks/useStyles';

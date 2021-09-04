@@ -1,4 +1,3 @@
-import React from 'react';
 import noop from 'lodash/noop';
 import useStyles from 'react-with-styles/lib/hooks/useStyles';
 import { Styles } from 'react-with-styles';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Styles } from 'react-with-styles';
 import useStyles from 'react-with-styles/lib/hooks/useStyles';
 import { useMediaQuery } from 'react-responsive';

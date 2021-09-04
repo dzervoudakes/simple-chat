@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ChatContext } from '@src/context';
 import { mockChatContext } from '@src/test';

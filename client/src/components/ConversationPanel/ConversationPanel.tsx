@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import useStyles from 'react-with-styles/lib/hooks/useStyles';

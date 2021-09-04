@@ -1,4 +1,4 @@
-import React from 'react';
+import { forwardRef } from 'react';
 import useStyles from 'react-with-styles/lib/hooks/useStyles';
 import { Styles } from 'react-with-styles';
 import { Theme } from '@src/theme';
@@ -17,7 +17,7 @@ const stylesFn = ({ spacing }: Theme): Styles => ({
   }
 });
 
-const Layout = React.forwardRef<RefElement, LayoutProps>((props, ref) => {
+const Layout = forwardRef<RefElement, LayoutProps>((props, ref) => {
   const { css, styles } = useStyles({ stylesFn });
 
   return (

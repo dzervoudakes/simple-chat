@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -88,7 +88,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ isSignUp }) => {
         /* istanbul ignore else */
         if (!axios.isCancel(err)) {
           setLoading(false);
-          const { error: message } = err.response.data;
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const { error: message } = (err as any).response.data;
 
           // unique error handling for anti-duplicate constraint
           if (message.includes('E11000') && message.includes('username')) {

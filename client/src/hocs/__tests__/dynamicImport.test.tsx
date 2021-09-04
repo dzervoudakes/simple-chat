@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen, waitForElementToBeRemoved } from '@testing-library/react';
 import { WithStylesProvider } from '@src/context';
 import { dynamicImport } from '..';

@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactLoadingSkeleton, { SkeletonProps } from 'react-loading-skeleton';
 import { useChat } from '@src/hooks';
 

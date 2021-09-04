@@ -9,7 +9,7 @@
  *
  * @packageDocumentation
  */
-import React, { createContext, useEffect, useReducer, Reducer, Dispatch } from 'react';
+import { createContext, useEffect, useReducer, Reducer, Dispatch } from 'react';
 import axios from 'axios';
 import noop from 'lodash/noop';
 import { ChatService } from '@src/services';

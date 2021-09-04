@@ -1,4 +1,3 @@
-import React from 'react';
 import Typography from '@src/components/Typography';
 import Button from '@src/components/Button';
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Layout from '@src/components/Layout';
 import Typography from '@src/components/Typography';

@@ -1,4 +1,4 @@
-import React from 'react';
+import { forwardRef } from 'react';
 import { useField, useFormikContext } from 'formik';
 import { BaseEmoji } from 'emoji-mart';
 import useStyles from 'react-with-styles/lib/hooks/useStyles';
@@ -44,7 +44,7 @@ const stylesFn = ({ border, color, fonts, spacing }: Theme): Styles => ({
   }
 });
 
-const TextInput = React.forwardRef<RefElement, TextInputProps>((props, ref) => {
+const TextInput = forwardRef<RefElement, TextInputProps>((props, ref) => {
   const [field, meta] = useField(props.name);
   const { setFieldValue } = useFormikContext();
   const { css, styles } = useStyles({ stylesFn });

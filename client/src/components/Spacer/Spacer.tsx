@@ -1,4 +1,3 @@
-import React from 'react';
 import useStyles from 'react-with-styles/lib/hooks/useStyles';
 import { Styles } from 'react-with-styles';
 import { Spacing, Theme } from '@src/theme';

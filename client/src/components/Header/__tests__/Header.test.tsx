@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import { useMediaQuery } from 'react-responsive';
 import { AuthContext, SideMenuProvider, WithStylesProvider } from '@src/context';

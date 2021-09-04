@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useHistory, useParams, Redirect } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import useStyles from 'react-with-styles/lib/hooks/useStyles';
