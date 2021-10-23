@@ -13,10 +13,6 @@ module.exports = {
       }
     ],
 
-    // socket.io apparently doesn't work with import statements
-    '@typescript-eslint/no-var-requires': OFF,
-    'global-require': OFF,
-
     // MongoDB utilizes '_id' with a dangling underscore
     'no-underscore-dangle': OFF
   },

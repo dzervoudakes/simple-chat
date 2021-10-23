@@ -2,11 +2,12 @@
  * Class that enables socket connection and controls sending/receiving messages.
  * @packageDocumentation
  */
+import { io } from 'socket.io-client';
 import { SERVER_BASE_URL } from '@src/constants';
 import { ActiveSocket, ChatUser, Message } from '@src/types';
 
 interface Query {
-  userId: string;
+  [key: string]: string;
 }
 
 interface Subscription {
@@ -17,7 +18,7 @@ interface Subscription {
 
 export class Socket {
   constructor(query: Query) {
-    this.socket = require('socket.io-client')(SERVER_BASE_URL, { query });
+    this.socket = io(SERVER_BASE_URL, { query });
   }
 
   private socket;

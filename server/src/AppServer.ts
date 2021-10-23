@@ -4,7 +4,7 @@ import cors from 'cors';
 import { Server } from '@overnightjs/core';
 import mongoose from 'mongoose';
 import chalk from 'chalk';
-import { Socket } from 'socket.io';
+import { Server as IoServer, Socket } from 'socket.io';
 import {
   AuthController,
   ChannelController,
@@ -33,8 +33,7 @@ export class AppServer extends Server {
 
   private http = http.createServer(this.app);
 
-  // apparently 'io()' doesn't work with import syntax
-  private io = require('socket.io')(this.http, {
+  private io = new IoServer(this.http, {
     cors: {
       origin: process.env.CLIENT_ORIGIN || '',
       methods: ['GET', 'POST']
