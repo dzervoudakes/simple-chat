@@ -1,7 +1,9 @@
-import { MemoryRouter } from 'react-router-dom';
 import { render, fireEvent, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+
 import { AuthContext, WithStylesProvider } from '@src/context';
 import { mockAuthContext } from '@src/test';
+
 import Missing from '..';
 
 const mockPush = jest.fn();

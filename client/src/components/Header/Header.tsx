@@ -1,12 +1,13 @@
+import { useMediaQuery } from 'react-responsive';
 import { Styles } from 'react-with-styles';
 import useStyles from 'react-with-styles/lib/hooks/useStyles';
-import { useMediaQuery } from 'react-responsive';
+
 import Spacer from '@src/components/Spacer';
 import Typography from '@src/components/Typography';
-import { ChatIcon, MobileMenuIcon } from '@src/icons';
-import { useAuth, useSideMenu } from '@src/hooks';
-import { Theme } from '@src/theme';
 import { MOBILE_QUERY } from '@src/constants';
+import { useAuth, useSideMenu } from '@src/hooks';
+import { ChatIcon, MobileMenuIcon } from '@src/icons';
+import { Theme } from '@src/theme';
 
 const stylesFn = ({ color, spacing }: Theme): Styles => ({
   header: {

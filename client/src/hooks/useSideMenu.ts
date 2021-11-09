@@ -3,6 +3,7 @@
  * @packageDocumentation
  */
 import { useContext } from 'react';
+
 import { SideMenuContext, SideMenuContextProps } from '@src/context';
 
 export const useSideMenu = (): SideMenuContextProps => {

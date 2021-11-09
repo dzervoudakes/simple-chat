@@ -3,6 +3,7 @@
  * @packageDocumentation
  */
 import { useContext } from 'react';
+
 import { SocketContext, SocketContextProps } from '@src/context';
 
 export const useSocket = (): SocketContextProps => {

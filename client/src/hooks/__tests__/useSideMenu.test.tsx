@@ -1,5 +1,7 @@
 import { renderHook } from '@testing-library/react-hooks';
+
 import { SideMenuContext } from '@src/context';
+
 import { useSideMenu } from '..';
 
 describe('useSideMenu', () => {

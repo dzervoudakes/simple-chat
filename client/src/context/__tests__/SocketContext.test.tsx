@@ -1,5 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
+
 import { mockAuthContext, mockChatContext } from '@src/test';
+
 import { AuthContext, ChatContext, SocketContext, SocketProvider } from '..';
 
 describe('SocketContext', () => {

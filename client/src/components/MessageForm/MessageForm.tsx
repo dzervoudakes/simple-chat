@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
+
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 import { Formik, Form, FormikHelpers } from 'formik';
+import { useParams } from 'react-router-dom';
 import { Styles } from 'react-with-styles';
 import useStyles from 'react-with-styles/lib/hooks/useStyles';
-import TextInput from '@src/components/TextInput';
+
 import GeneralError from '@src/components/GeneralError';
-import { Theme } from '@src/theme';
-import { ChatService } from '@src/services';
+import TextInput from '@src/components/TextInput';
 import { useAuth, useChat, useSocket } from '@src/hooks';
+import { ChatService } from '@src/services';
+import { Theme } from '@src/theme';
 import { RouteParams } from '@src/types';
 
 interface Values {

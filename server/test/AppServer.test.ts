@@ -1,4 +1,5 @@
 import { io } from 'socket.io-client';
+
 import AppServer from '@src/AppServer';
 import { MessageType, UserType } from '@src/models';
 

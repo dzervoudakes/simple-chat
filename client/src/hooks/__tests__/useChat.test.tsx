@@ -1,6 +1,8 @@
 import { renderHook } from '@testing-library/react-hooks';
+
 import { ChatContext } from '@src/context';
 import { mockChatContext } from '@src/test';
+
 import { useChat } from '..';
 
 describe('useChat', () => {

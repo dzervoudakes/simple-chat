@@ -1,6 +1,8 @@
 import { renderHook } from '@testing-library/react-hooks';
+
 import { AuthContext } from '@src/context';
 import { mockAuthContext } from '@src/test';
+
 import { useAuth } from '..';
 
 describe('useAuth', () => {

@@ -1,10 +1,12 @@
 import { useState } from 'react';
+
 import { Picker, BaseEmoji } from 'emoji-mart';
 import noop from 'lodash/noop';
-import useStyles from 'react-with-styles/lib/hooks/useStyles';
 import { Styles } from 'react-with-styles';
-import { Theme } from '@src/theme';
+import useStyles from 'react-with-styles/lib/hooks/useStyles';
+
 import { EmojiIcon } from '@src/icons';
+import { Theme } from '@src/theme';
 import './EmojiButton.scss';
 
 interface EmojiButtonProps {

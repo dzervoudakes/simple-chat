@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import Card from '@src/components/Card';
+
 import Button from '@src/components/Button';
+import Card from '@src/components/Card';
 import Layout from '@src/components/Layout';
+import LoginForm from '@src/components/LoginForm';
 import Spacer from '@src/components/Spacer';
 import Typography from '@src/components/Typography';
-import LoginForm from '@src/components/LoginForm';
 
 const Home: React.FC = () => {
   const [isSignUp, setIsSignUp] = useState(false);

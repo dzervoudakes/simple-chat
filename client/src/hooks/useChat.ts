@@ -11,6 +11,7 @@
  * @packageDocumentation
  */
 import { useContext } from 'react';
+
 import { ChatContext, ChatContextProps } from '@src/context';
 import { Message } from '@src/types';
 

@@ -1,5 +1,7 @@
 import { render, screen } from '@testing-library/react';
+
 import { WithStylesProvider } from '@src/context';
+
 import { EmojiIcon } from '..';
 
 describe('EmojiIcon', () => {

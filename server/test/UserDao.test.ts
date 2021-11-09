@@ -1,4 +1,5 @@
 import mongoose, { Mongoose } from 'mongoose';
+
 import { UserDao } from '@src/daos';
 import { User } from '@src/models';
 

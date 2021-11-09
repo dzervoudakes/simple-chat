@@ -3,7 +3,9 @@
  * @packageDocumentation
  */
 import { createContext, SetStateAction, useState, Dispatch } from 'react';
+
 import noop from 'lodash/noop';
+
 import { AuthUser } from '@src/types';
 
 export interface AuthContextProps {

@@ -1,7 +1,9 @@
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+
 import { AuthProvider, WithStylesProvider } from '@src/context';
 import { AuthService, UserService } from '@src/services';
+
 import LoginForm from '..';
 
 const mockHistoryPush = jest.fn();

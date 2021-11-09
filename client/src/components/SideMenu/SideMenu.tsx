@@ -1,13 +1,14 @@
-import { useMediaQuery } from 'react-responsive';
-import useStyles from 'react-with-styles/lib/hooks/useStyles';
-import { Styles } from 'react-with-styles';
 import sortBy from 'lodash/sortBy';
+import { useMediaQuery } from 'react-responsive';
+import { Styles } from 'react-with-styles';
+import useStyles from 'react-with-styles/lib/hooks/useStyles';
+
 import SideMenuButton from '@src/components/SideMenuButton';
+import Skeleton from '@src/components/Skeleton';
 import Spacer from '@src/components/Spacer';
 import Typography from '@src/components/Typography';
-import Skeleton from '@src/components/Skeleton';
-import { useAuth, useChat, useSideMenu } from '@src/hooks';
 import { MOBILE_QUERY } from '@src/constants';
+import { useAuth, useChat, useSideMenu } from '@src/hooks';
 import { Theme } from '@src/theme';
 
 const stylesFn = ({ color }: Theme): Styles => ({

@@ -1,4 +1,5 @@
 import { render, fireEvent, screen } from '@testing-library/react';
+
 import { AuthContext, AuthProvider } from '..';
 
 describe('AuthContext', () => {

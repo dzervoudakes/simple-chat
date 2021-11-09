@@ -1,8 +1,10 @@
 import { forwardRef } from 'react';
-import { useField, useFormikContext } from 'formik';
+
 import { BaseEmoji } from 'emoji-mart';
-import useStyles from 'react-with-styles/lib/hooks/useStyles';
+import { useField, useFormikContext } from 'formik';
 import { Styles } from 'react-with-styles';
+import useStyles from 'react-with-styles/lib/hooks/useStyles';
+
 import EmojiButton from '@src/components/EmojiButton';
 import Spacer from '@src/components/Spacer';
 import { Theme } from '@src/theme';

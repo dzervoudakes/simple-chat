@@ -1,6 +1,8 @@
 import { renderHook } from '@testing-library/react-hooks';
+
 import { SocketContext } from '@src/context';
 import { Socket } from '@src/socket';
+
 import { useSocket } from '..';
 
 describe('useSocket', () => {

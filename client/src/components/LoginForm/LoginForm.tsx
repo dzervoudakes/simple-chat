@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
+
 import axios from 'axios';
 import { Formik, Form, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
 import { Redirect, useHistory } from 'react-router-dom';
-import useStyles from 'react-with-styles/lib/hooks/useStyles';
 import { Styles } from 'react-with-styles';
+import useStyles from 'react-with-styles/lib/hooks/useStyles';
+import * as Yup from 'yup';
+
 import Button from '@src/components/Button';
 import Spacer from '@src/components/Spacer';
 import TextInput from '@src/components/TextInput';
-import { AuthService, UserService } from '@src/services';
 import { useAuth } from '@src/hooks';
+import { AuthService, UserService } from '@src/services';
 import { Theme } from '@src/theme';
 import { AuthPayload } from '@src/types';
+
 import Typography from '../Typography';
 
 interface LoginFormProps {

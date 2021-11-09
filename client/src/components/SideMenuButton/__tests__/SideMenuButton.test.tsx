@@ -1,6 +1,8 @@
 import { render, fireEvent, screen } from '@testing-library/react';
 import { MemoryRouter, Route } from 'react-router-dom';
+
 import { SideMenuProvider, WithStylesProvider } from '@src/context';
+
 import SideMenuButton from '..';
 
 const mockPush = jest.fn();

@@ -1,5 +1,5 @@
-import Typography from '@src/components/Typography';
 import Button from '@src/components/Button';
+import Typography from '@src/components/Typography';
 
 interface GeneralErrorProps {
   testid?: string;

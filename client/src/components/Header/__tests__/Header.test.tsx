@@ -1,7 +1,9 @@
 import { render, fireEvent, screen } from '@testing-library/react';
 import { useMediaQuery } from 'react-responsive';
+
 import { AuthContext, SideMenuProvider, WithStylesProvider } from '@src/context';
 import { mockAuthContext } from '@src/test';
+
 import Header from '..';
 
 const mockSetIsSideMenuOpen = jest.fn();

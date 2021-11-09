@@ -1,4 +1,5 @@
 import mongoose, { Mongoose } from 'mongoose';
+
 import { ChannelDao } from '@src/daos';
 import { Channel, ChannelType } from '@src/models';
 

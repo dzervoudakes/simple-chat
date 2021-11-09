@@ -1,10 +1,12 @@
 import http from 'http';
-import express from 'express';
-import cors from 'cors';
+
 import { Server } from '@overnightjs/core';
-import mongoose from 'mongoose';
 import chalk from 'chalk';
+import cors from 'cors';
+import express from 'express';
+import mongoose from 'mongoose';
 import { Server as IoServer, Socket } from 'socket.io';
+
 import {
   AuthController,
   ChannelController,

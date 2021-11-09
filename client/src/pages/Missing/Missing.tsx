@@ -1,9 +1,10 @@
 import { useHistory } from 'react-router-dom';
-import Layout from '@src/components/Layout';
-import Typography from '@src/components/Typography';
-import Spacer from '@src/components/Spacer';
+
 import Button from '@src/components/Button';
 import Card from '@src/components/Card';
+import Layout from '@src/components/Layout';
+import Spacer from '@src/components/Spacer';
+import Typography from '@src/components/Typography';
 import { useAuth } from '@src/hooks';
 
 const Missing: React.FC = () => {

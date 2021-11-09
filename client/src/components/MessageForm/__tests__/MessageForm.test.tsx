@@ -1,5 +1,6 @@
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route } from 'react-router-dom';
+
 import {
   AuthContext,
   ChatProvider,
@@ -13,6 +14,7 @@ import {
   publicMessageWithoutMeta,
   privateMessageWithoutMeta
 } from '@src/test';
+
 import MessageForm from '..';
 
 const mockCreateMessage = jest.fn();

@@ -3,6 +3,7 @@
  * @packageDocumentation
  */
 import { io } from 'socket.io-client';
+
 import { SERVER_BASE_URL } from '@src/constants';
 import { ActiveSocket, ChatUser, Message } from '@src/types';
 

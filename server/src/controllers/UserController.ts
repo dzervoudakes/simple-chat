@@ -1,7 +1,8 @@
-import { Response, Request } from 'express';
-import StatusCodes from 'http-status-codes';
 import { Controller, Get, Middleware, Post } from '@overnightjs/core';
 import { ISecureRequest, JwtManager } from '@overnightjs/jwt';
+import { Response, Request } from 'express';
+import StatusCodes from 'http-status-codes';
+
 import { UserDao } from '@src/daos';
 
 @Controller('api/users')

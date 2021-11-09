@@ -1,6 +1,8 @@
 import { render, fireEvent, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+
 import { WithStylesProvider } from '@src/context';
+
 import Home from '..';
 
 describe('Home', () => {

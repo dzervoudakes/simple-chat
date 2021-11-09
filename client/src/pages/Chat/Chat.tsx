@@ -1,14 +1,16 @@
 import { useEffect } from 'react';
-import { useHistory, useParams, Redirect } from 'react-router-dom';
+
 import { useMediaQuery } from 'react-responsive';
-import useStyles from 'react-with-styles/lib/hooks/useStyles';
+import { useHistory, useParams, Redirect } from 'react-router-dom';
 import { Styles } from 'react-with-styles';
-import SideMenu from '@src/components/SideMenu';
+import useStyles from 'react-with-styles/lib/hooks/useStyles';
+
 import ConversationPanel from '@src/components/ConversationPanel';
 import MessageForm from '@src/components/MessageForm';
+import SideMenu from '@src/components/SideMenu';
+import { MOBILE_QUERY } from '@src/constants';
 import { useAuth, useChat } from '@src/hooks';
 import { RouteParams } from '@src/types';
-import { MOBILE_QUERY } from '@src/constants';
 
 const stylesFn = (): Styles => ({
   chatContainer: {

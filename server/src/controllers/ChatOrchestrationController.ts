@@ -2,10 +2,11 @@
  * This controller acts as an orchestration layer which returns a single response including multiple resources.
  * @packageDocumentation
  */
-import { Response } from 'express';
-import StatusCodes from 'http-status-codes';
 import { Controller, Get, Middleware } from '@overnightjs/core';
 import { ISecureRequest, JwtManager } from '@overnightjs/jwt';
+import { Response } from 'express';
+import StatusCodes from 'http-status-codes';
+
 import { ChannelDao, MessageDao, UserDao } from '@src/daos';
 import { ChannelType, MessageType } from '@src/models';
 

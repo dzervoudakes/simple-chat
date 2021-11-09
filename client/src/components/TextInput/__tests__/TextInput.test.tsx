@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { Formik } from 'formik';
+
 import { WithStylesProvider } from '@src/context';
+
 import TextInput from '..';
 
 describe('TextInput', () => {

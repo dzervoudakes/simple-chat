@@ -10,11 +10,14 @@
  * @packageDocumentation
  */
 import { createContext, useEffect, useReducer, Reducer, Dispatch } from 'react';
+
 import axios from 'axios';
 import noop from 'lodash/noop';
-import { ChatService } from '@src/services';
+
 import { useAuth } from '@src/hooks';
+import { ChatService } from '@src/services';
 import { Chat, Channel, ChatUser, Message } from '@src/types';
+
 import { updateChat, updateUsers } from './utils';
 
 type ActionType =

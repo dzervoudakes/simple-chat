@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+
 import { useMediaQuery } from 'react-responsive';
-import useStyles from 'react-with-styles/lib/hooks/useStyles';
+import { useHistory, useParams } from 'react-router-dom';
 import { Styles } from 'react-with-styles';
+import useStyles from 'react-with-styles/lib/hooks/useStyles';
+
 import Button from '@src/components/Button';
-import { useChat, useSideMenu } from '@src/hooks';
 import { MOBILE_QUERY } from '@src/constants';
-import { RouteParams } from '@src/types';
+import { useChat, useSideMenu } from '@src/hooks';
 import { Theme } from '@src/theme';
+import { RouteParams } from '@src/types';
 
 interface SideMenuProps {
   id: string;

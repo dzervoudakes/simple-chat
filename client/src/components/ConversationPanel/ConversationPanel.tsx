@@ -1,13 +1,15 @@
 import { useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+
 import { format } from 'date-fns';
-import useStyles from 'react-with-styles/lib/hooks/useStyles';
+import { useParams } from 'react-router-dom';
 import { Styles } from 'react-with-styles';
-import Layout from '@src/components/Layout';
-import Spacer from '@src/components/Spacer';
-import Skeleton from '@src/components/Skeleton';
-import Typography from '@src/components/Typography';
+import useStyles from 'react-with-styles/lib/hooks/useStyles';
+
 import ConversationHeader from '@src/components/ConversationHeader';
+import Layout from '@src/components/Layout';
+import Skeleton from '@src/components/Skeleton';
+import Spacer from '@src/components/Spacer';
+import Typography from '@src/components/Typography';
 import { useChat } from '@src/hooks';
 import { RouteParams } from '@src/types';
 

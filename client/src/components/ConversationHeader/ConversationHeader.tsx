@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+
 import { useParams } from 'react-router-dom';
-import useStyles from 'react-with-styles/lib/hooks/useStyles';
 import { Styles } from 'react-with-styles';
-import Typography from '@src/components/Typography';
-import Spacer from '@src/components/Spacer';
+import useStyles from 'react-with-styles/lib/hooks/useStyles';
+
 import Skeleton from '@src/components/Skeleton';
+import Spacer from '@src/components/Spacer';
+import Typography from '@src/components/Typography';
 import { useChat, useSocket } from '@src/hooks';
 import { Theme } from '@src/theme';
 import { RouteParams } from '@src/types';

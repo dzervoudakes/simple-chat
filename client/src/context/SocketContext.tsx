@@ -3,6 +3,7 @@
  * @packageDocumentation
  */
 import { createContext, useEffect, useState } from 'react';
+
 import { useAuth, useChat } from '@src/hooks';
 import { Socket } from '@src/socket';
 import { ActiveSocket, ChatUser, Message } from '@src/types';

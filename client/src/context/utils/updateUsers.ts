@@ -3,7 +3,9 @@
  * @packageDocumentation
  */
 import cloneDeep from 'lodash/cloneDeep';
+
 import { ChatUser } from '@src/types';
+
 import { ChatContextProps } from '..';
 
 interface UpdateUsersProps {

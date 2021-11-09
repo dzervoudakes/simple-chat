@@ -1,6 +1,8 @@
 import axios from 'axios';
+
 import { API_BASE_URL } from '@src/constants';
 import { Message } from '@src/types';
+
 import { ChatService } from '..';
 
 jest.mock('axios', () => ({

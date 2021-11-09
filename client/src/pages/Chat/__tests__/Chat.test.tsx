@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route } from 'react-router-dom';
+
 import {
   AuthContext,
   ChatProvider,
@@ -8,6 +9,7 @@ import {
 } from '@src/context';
 import { ChatService } from '@src/services';
 import { mockAuthContext, mockGetChatSuccess } from '@src/test';
+
 import Chat from '..';
 
 jest.mock('@src/services/ChatService');

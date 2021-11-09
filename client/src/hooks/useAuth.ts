@@ -3,6 +3,7 @@
  * @packageDocumentation
  */
 import { useContext } from 'react';
+
 import { AuthContext, AuthContextProps } from '@src/context';
 
 export const useAuth = (): AuthContextProps => {

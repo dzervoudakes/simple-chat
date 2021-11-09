@@ -1,7 +1,8 @@
-import { Response } from 'express';
-import StatusCodes from 'http-status-codes';
 import { Controller, Get, Middleware } from '@overnightjs/core';
 import { ISecureRequest, JwtManager } from '@overnightjs/jwt';
+import { Response } from 'express';
+import StatusCodes from 'http-status-codes';
+
 import { ChannelDao } from '@src/daos';
 
 @Controller('api/channels')

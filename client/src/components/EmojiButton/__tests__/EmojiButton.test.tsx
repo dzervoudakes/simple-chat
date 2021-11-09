@@ -1,5 +1,7 @@
 import { render, fireEvent, screen } from '@testing-library/react';
+
 import { WithStylesProvider } from '@src/context';
+
 import EmojiButton from '..';
 
 describe('EmojiButton', () => {
